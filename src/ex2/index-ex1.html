@@ -12,6 +12,7 @@
     ></script>
   </head>
   <body>
+  
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.4/lottie.min.js"
       integrity="sha512-ilxj730331yM7NbrJAICVJcRmPFErDqQhXJcn+PLbkXdE031JJbcK87Wt4VbAK+YY6/67L+N8p7KdzGoaRjsTg=="
@@ -19,20 +20,28 @@
       referrerpolicy="no-referrer"
     ></script>
 
-    <div class="wrapper">
+    <div class="wrapper" >
+  
+      
       <header>Ori's Todo list 📝</header>
-
-      <div class="inputField">
-        <input id="input-txt" type="text" placeholder="Add your task here" />
-        <button id="add-btn" class="btn"><i class="fas fa-plus"></i></button>
+     
+      <div class="inputField" >
+        <input
+          id="input-txt"
+          type="text"
+          placeholder="Add your task here"
+        />
+        <button id="add-btn" class="btn"><i class="fas fa-plus"></i>  
+        </button>
+       
       </div>
-
+   
       <ul id="list-element" class="todoList ascending">
         <!-- elements are created in the script  -->
       </ul>
 
       <div class="footer">
-        <span>You have <span class="pendingTasksCount"></span> tasks </span>
+        <span>You have <span class="pendingTasksCount"></span > tasks </span >
 
         <button id="sort-btn" class="sortBtn">Sort</button>
       </div>
@@ -40,12 +49,11 @@
         <button id="clearAll-btn" class="clearAllBtn">Clear All</button>
       </div>
     </div>
-    <div class="svg hide" id="svg"></div>
+    <div class="svg hide" id="svg"> </div>
   </body>
-  <div id="toast">
-    <div id="img">!</div>
-    <div id="desc">Task was not entered</div>
-  </div>
+  <div id="toast"><div id="img">!</div><div id="desc">Task was not entered</div></div>
   <div id="alertListElement"><div id="listElementImg">🏆</div></div>
-  <script src="main.js"></script>
+  <script src="script.js"></script>
 </html>
+
+
