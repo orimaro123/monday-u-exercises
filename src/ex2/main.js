@@ -6,25 +6,19 @@ const ACTION_TYPE = {
   ADD_TODO = "AddToDo"
 }
 
+const ENTER_KEY = 13;
 
 // Implement the `Main` class here
 class Main {
   constructor() {
     this.itemManager = new ItemManager();
-    this.currentInputValue = null;
-    this.action = ACTION_TYPE.NONE;
-    this.ENTER_KEY = 13;
+    this.todoButton = document.getElementById("add-btn");
+    this.todoInput = document.getElementById("input-txt");
   }
 
   init() {
-    const todoButton = document.getElementById("add-btn");
-    const todoInput = document.getElementById("input-txt");
-
     setValidateText = () => {
-      this.currentInputValue = todoInput.value;
-      let text = this.currentInputValue;
-      let action = this.validateData(text);
-      this.action = action;
+      this.validateData(this.todoInput.value);
     };
 
     todoButton.addEventListener("click", () => {
@@ -34,12 +28,15 @@ class Main {
     todoInput.addEventListener("keyup", () => {
       if (event.keyCode == this.ENTER_KEY) {
         setValidateText();
-        //console.log(this.validateData(text));
-        // console.log(`You are inside this.action with ${this.action}`);
       }
     });
   }
 
+  /**
+   * 
+   * @param {string} text 
+   * @returns 
+   */
   validateData(text) {
     const todoInput = (document.getElementById("input-txt").value = "");
     //  console.log(`this.currentInputValue is ${this.currentInputValue}`);
@@ -48,13 +45,15 @@ class Main {
       return alert("Error, the Todo input is empty");
     }
 
-    if (/^\d+$/.test(text)) {
-      // console.log(`You are trying to add the number ${text}`);
-      return ACTION_TYPE.FETCH;
+    for (const textItem of text.split(/\s*,\s*/)) {
+      if (/^\d+$/.test(textItem)) {
+        const pokemonNumber = Number(textItem)
+        this.itemManager.fetchPokemonAndAddToList(pokemonNumber)
+        continue;
+      }
+      
+      this.itemManager.addTodo(textItem)
     }
-
-    // console.log(`Your task to enter is ${text}`);
-    return ACTION_TYPE.ADD_TODO;
   }
 }
 

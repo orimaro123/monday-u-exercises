@@ -17,7 +17,11 @@
     console.log( this.todos)
     }
    
-    
+    fetchPokemonAndAddToList(pokemonNumber){
+
+        //todo
+
+    }
 
 }
 
