@@ -44,7 +44,7 @@ class Main {
        return "Fetch"
       } else {
        // console.log(`Your task to enter is ${text}`);
-        return 1;
+        return "AddTodo";
       }
     }
   }
