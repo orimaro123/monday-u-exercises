@@ -17,19 +17,22 @@ class Main {
   }
 
   init() {
-    setValidateText = () => {
+    const handleInputText = () => {
       this.validateData(this.todoInput.value);
+      this.clearInput()
     };
 
-    todoButton.addEventListener("click", () => {
-      setValidateText();
-    });
-
+    todoButton.addEventListener("click", handleInputText) 
+      
     todoInput.addEventListener("keyup", () => {
       if (event.keyCode == this.ENTER_KEY) {
-        setValidateText();
+        handleInputText();
       }
     });
+  }
+
+  clearInput() {
+    this.todoInput.value = ''
   }
 
   /**
@@ -38,8 +41,6 @@ class Main {
    * @returns 
    */
   validateData(text) {
-    const todoInput = (document.getElementById("input-txt").value = "");
-    //  console.log(`this.currentInputValue is ${this.currentInputValue}`);
     text = text.trim();
     if (!text) {
       return alert("Error, the Todo input is empty");
