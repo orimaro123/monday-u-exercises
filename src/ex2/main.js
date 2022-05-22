@@ -1,11 +1,5 @@
 import ItemManager from "./ItemManager.js";
 
-const ACTION_TYPE = {
-  NONE: "None", 
-  FETCH: "Fetch",
-  ADD_TODO = "AddToDo"
-}
-
 const ENTER_KEY = 13;
 
 // Implement the `Main` class here
@@ -25,7 +19,7 @@ class Main {
     todoButton.addEventListener("click", handleInputText) 
       
     todoInput.addEventListener("keyup", () => {
-      if (event.keyCode == this.ENTER_KEY) {
+      if (event.keyCode == ENTER_KEY) {
         handleInputText();
       }
     });

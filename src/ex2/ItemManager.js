@@ -1,20 +1,14 @@
  class ItemManager {
  
    constructor(){
-    
-     //this.todoList = list
-     this.todos = []
-  
+    this.pokemonClient = new PokemonClient()
    }
 
-  start() {
-    console.log("you are in start method");
-  }
 
-   addTodo(text) {
+   addTodo(textItem) {
 
-    this.todos.push(text)
-    console.log( this.todos)
+  
+  
     }
    
     fetchPokemonAndAddToList(pokemonNumber){
