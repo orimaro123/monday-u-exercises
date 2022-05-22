@@ -1,8 +1,8 @@
-class ItemManager {
+ class ItemManager {
  
-   constructor(list){
+   constructor(){
     
-     this.todoList = list
+     //this.todoList = list
      this.todos = []
   
    }
@@ -11,12 +11,14 @@ class ItemManager {
     console.log("you are in start method");
   }
 
-   addTodo(event) {
-  console.log("hi")
-  console.log(this.todos)
+   addTodo(text) {
 
+    this.todos.push(text)
+    console.log( this.todos)
     }
    
     
 
 }
+
+export default ItemManager

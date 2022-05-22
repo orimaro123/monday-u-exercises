@@ -1,26 +1,54 @@
-
+import ItemManager from "./ItemManager.js";
 
 // Implement the `Main` class here
 class Main {
-  
- 
-
-  init() {
-
-   
-    const itemManager = new ItemManager()
-    console.log(itemManager.inputValue)
-
-    const todoInput = document.getElementById("input-txt"); 
-    const todoButton = document.getElementById("add-btn");
-    todoButton.addEventListener("click", itemManager.addTodo);
-  
-
+  constructor() {
+    this.itemManager = new ItemManager();
+    this.currentInputValue = null;
+    this.action = "None";
+    this.ENTER_KEY = 13;
   }
 
+  init() {
+    const todoButton = document.getElementById("add-btn");
+    const todoInput = document.getElementById("input-txt");
+
+    todoButton.addEventListener("click", () => {
+      this.currentInputValue = todoInput.value;
+      let text = this.currentInputValue;
+      let action = this.validateData(text);
+      this.action = action;
+    });
+
+    todoInput.addEventListener("keyup", () => {
+      if (event.keyCode == this.ENTER_KEY) {
+        this.currentInputValue = todoInput.value;
+        let text = this.currentInputValue;
+        let action = this.validateData(text);
+        this.action = action;
+        console.log(this.validateData(text));
+        console.log(`You are inside this.action with ${this.action}`);
+      }
+    });
+  }
+
+  validateData(text) {
+    const todoInput = (document.getElementById("input-txt").value = "");
+  //  console.log(`this.currentInputValue is ${this.currentInputValue}`);
+    text = text.trim();
+    if (!text) {
+      return alert("Error, the Todo input is empty");
+    } else {
+      if (Number(text)) {
+       // console.log(`You are trying to add the number ${text}`);
+       return "Fetch"
+      } else {
+       // console.log(`Your task to enter is ${text}`);
+        return 1;
+      }
+    }
+  }
 }
-
-
 
 const main = new Main();
 
@@ -29,8 +57,3 @@ document.addEventListener("DOMContentLoaded", function () {
   // the method should add the event listener to your "add" button
   main.init();
 });
-
-
-
-
-
