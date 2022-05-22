@@ -13,12 +13,12 @@ class Main {
   init() {
     const handleInputText = () => {
       this.validateData(this.todoInput.value);
-      this.clearInput()
+      this.clearInput();
     };
 
-    todoButton.addEventListener("click", handleInputText) 
-      
-    todoInput.addEventListener("keyup", () => {
+    this.todoButton.addEventListener("click", handleInputText);
+
+    this.todoInput.addEventListener("keyup", () => {
       if (event.keyCode == ENTER_KEY) {
         handleInputText();
       }
@@ -26,13 +26,13 @@ class Main {
   }
 
   clearInput() {
-    this.todoInput.value = ''
+    this.todoInput.value = "";
   }
 
   /**
-   * 
-   * @param {string} text 
-   * @returns 
+   *
+   * @param {string} text
+   * @returns
    */
   validateData(text) {
     text = text.trim();
@@ -40,15 +40,22 @@ class Main {
       return alert("Error, the Todo input is empty");
     }
 
+    let promises = [];
+
     for (const textItem of text.split(/\s*,\s*/)) {
       if (/^\d+$/.test(textItem)) {
-        const pokemonNumber = Number(textItem)
-        this.itemManager.fetchPokemonAndAddToList(pokemonNumber)
+        const pokemonNumber = Number(textItem);
+        const p = this.itemManager.fetchPokemonAndAddToList(pokemonNumber);
+        promises.push(p);
         continue;
       }
-      
-      this.itemManager.addTodo(textItem)
+
+      this.itemManager.addTodo(textItem);
     }
+
+    Promise.all(promises).then(() => {
+      // active the ui
+    });
   }
 }
 
@@ -59,3 +66,5 @@ document.addEventListener("DOMContentLoaded", function () {
   // the method should add the event listener to your "add" button
   main.init();
 });
+
+window.main = main; //todo delete this!
