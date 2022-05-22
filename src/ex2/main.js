@@ -1,11 +1,18 @@
 import ItemManager from "./ItemManager.js";
 
+const ACTION_TYPE = {
+  NONE: "None", 
+  FETCH: "Fetch",
+  ADD_TODO = "AddToDo"
+}
+
+
 // Implement the `Main` class here
 class Main {
   constructor() {
     this.itemManager = new ItemManager();
     this.currentInputValue = null;
-    this.action = "None";
+    this.action = ACTION_TYPE.NONE;
     this.ENTER_KEY = 13;
   }
 
@@ -13,40 +20,41 @@ class Main {
     const todoButton = document.getElementById("add-btn");
     const todoInput = document.getElementById("input-txt");
 
-    todoButton.addEventListener("click", () => {
+    setValidateText = () => {
       this.currentInputValue = todoInput.value;
       let text = this.currentInputValue;
       let action = this.validateData(text);
       this.action = action;
+    };
+
+    todoButton.addEventListener("click", () => {
+      setValidateText();
     });
 
     todoInput.addEventListener("keyup", () => {
       if (event.keyCode == this.ENTER_KEY) {
-        this.currentInputValue = todoInput.value;
-        let text = this.currentInputValue;
-        let action = this.validateData(text);
-        this.action = action;
-        console.log(this.validateData(text));
-        console.log(`You are inside this.action with ${this.action}`);
+        setValidateText();
+        //console.log(this.validateData(text));
+        // console.log(`You are inside this.action with ${this.action}`);
       }
     });
   }
 
   validateData(text) {
     const todoInput = (document.getElementById("input-txt").value = "");
-  //  console.log(`this.currentInputValue is ${this.currentInputValue}`);
+    //  console.log(`this.currentInputValue is ${this.currentInputValue}`);
     text = text.trim();
     if (!text) {
       return alert("Error, the Todo input is empty");
-    } else {
-      if (Number(text)) {
-       // console.log(`You are trying to add the number ${text}`);
-       return "Fetch"
-      } else {
-       // console.log(`Your task to enter is ${text}`);
-        return "AddTodo";
-      }
     }
+
+    if (/^\d+$/.test(text)) {
+      // console.log(`You are trying to add the number ${text}`);
+      return ACTION_TYPE.FETCH;
+    }
+
+    // console.log(`Your task to enter is ${text}`);
+    return ACTION_TYPE.ADD_TODO;
   }
 }
 
