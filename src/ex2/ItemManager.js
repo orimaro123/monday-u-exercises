@@ -11,7 +11,7 @@ class ItemManager {
       this.addTodo(textItem)
       //save to local storage
       if (this.itemList.length == 1){
-      UIManager.showButtons()
+      UIManager.showButtonsAndFooter()
       UIManager.UIHandleAddItem(textItem)
       return
       }

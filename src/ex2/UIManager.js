@@ -1,5 +1,5 @@
 class UIManager {
-  static showButtons() {
+  static showButtonsAndFooter() {
     this.showSortBtn();
     this.showFooter();
   }
@@ -17,7 +17,7 @@ class UIManager {
   }
 
   static UIHandleAddItem(textItem){
-      
+
   }
 }
 export default UIManager;
