@@ -6,7 +6,6 @@ const clearAllBtn = document.getElementById("clearAll-btn");
 const sortBtn = document.getElementById("sort-btn");
 const inputBox = document.getElementById("input-txt");
 const svgContainer = document.getElementById("svg");
-const todoElement = document.getElementById("list-element");
 const footerSpan = document.querySelector(" .footer span ");
 
 const animItem = bodymovin.loadAnimation({
@@ -26,9 +25,10 @@ document.addEventListener("DOMContentLoaded", getTodos);
 todoButton.addEventListener("click", addTodo);
 todoInput.addEventListener("keyup", todoEnter);
 todoList.addEventListener("click", deleteTask);
+todoList.addEventListener("click", alertTask);
 sortBtn.addEventListener("click", sortTasks);
 clearAllBtn.addEventListener("click", clearAll);
-todoElement.addEventListener("click", alertTask);
+
 
 //Functions
 
