@@ -26,7 +26,17 @@ class UIManager {
   }
 
   static UIHandleAddItem(textItem, itemListLength) {
-    this.pendingTasksCount.innerText = itemListLength
+    this.pendingTasksCount.innerText = itemListLength;
+    const todoLi = document.createElement("li");
+    todoLi.classList.add("todo");
+    todoLi.innerText = textItem
+    const trashButton = document.createElement("button");
+    trashButton.innerHTML = '<i  class="fas fa-trash"></i>';
+    trashButton.classList.add("trash-btn");
+    todoLi.appendChild(trashButton);
+    //append to list
+    const todoList = document.getElementById("listElement");
+    todoList.appendChild(todoLi);
   }
 }
 export default UIManager;
