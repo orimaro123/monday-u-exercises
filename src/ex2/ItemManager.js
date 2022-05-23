@@ -6,6 +6,12 @@ class ItemManager {
     this.itemList = [];
   }
 
+  handleAddTodo(textItem){
+      this.addTodo(textItem)
+      //save to local storage
+  }
+  
+  
   addTodo(textItem) {
     this.itemList.push(textItem);
   }
@@ -14,7 +20,7 @@ class ItemManager {
     const pokemon = await this.pokemonClient.fetchPokemon(pokemonNumber);
 
     if (pokemon != null) {
-      this.addTodo(`Catch ${pokemon}`);
+      this.handleAddTodo(`Catch ${pokemon}`);
     }
   }
 }

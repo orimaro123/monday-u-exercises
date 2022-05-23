@@ -12,7 +12,7 @@ class Main {
 
   init() {
     const handleInputText = () => {
-      this.validateData(this.todoInput.value);
+      this.checkValue(this.todoInput.value);
       this.clearInput();
     };
 
@@ -31,30 +31,30 @@ class Main {
 
   /**
    *
-   * @param {string} text
+   * @param {string} inputValue
    * @returns
    */
-  validateData(text) {
-    text = text.trim();
-    if (!text) {
+  checkValue(inputValue) {
+    inputValue = inputValue.trim();
+    if (!inputValue) {
       return alert("Error, the Todo input is empty");
     }
 
     let promises = [];
 
-    for (const textItem of text.split(/\s*,\s*/)) {
-      if (/^\d+$/.test(textItem)) {
-        const pokemonNumber = Number(textItem);
+    for (const item of inputValue.split(/\s*,\s*/)) {
+      if (/^\d+$/.test(item)) {
+        const pokemonNumber = Number(item);
         const p = this.itemManager.fetchPokemonAndAddToList(pokemonNumber);
         promises.push(p);
         continue;
       }
 
-      this.itemManager.addTodo(textItem);
+      this.itemManager.handleAddTodo(item);
     }
 
     Promise.all(promises).then(() => {
-      // active the ui
+      // add the ui
     });
   }
 }
