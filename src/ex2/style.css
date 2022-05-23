@@ -192,7 +192,7 @@ header {
   pointer-events: auto;
 } */
 
-.wrapper .footer {
+.wrapper .footer.inactive {
   display: flex;
   width: 100%;
   margin-top: 25px;
@@ -200,8 +200,16 @@ header {
   align-items: center;
   display: none;
 }
+.wrapper .footer.active{
+  display: flex;
+  width: 100%;
+  margin-top: 25px;
+  justify-content: space-between;
+  align-items: center;
+  display:normal;
+}
 
-.footer .sortBtn {
+.footer .sortBtn.inactive {
   border: none;
   color: #fff;
   margin-right: -3px;
@@ -217,10 +225,20 @@ header {
 }
 
 .footer .sortBtn.active {
-  /*   display: none; */
+  border: none;
+  color: #fff;
+  margin-right: -3px;
+  font-size: 15px;
+  outline: none;
+  background: #e29624;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 6px 10px;
+  opacity: 0.6;
+  display: normal; 
 }
  .footer span.active {
-   /*  display: none; */
+    display: normal; 
 } 
 
 

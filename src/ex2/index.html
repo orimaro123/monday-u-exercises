@@ -31,14 +31,14 @@
         <!-- elements are created in the script  -->
       </ul>
 
-      <div class="footer">
+      <footer class="footer inactive" id="footId">
         <span>You have <span class="pendingTasksCount"></span> tasks </span>
 
-        <button id="sort-btn" class="sortBtn">Sort</button>
-      </div>
-      <div class="footer2">
+        <button id="sortBtn" class="sortBtn inactive">Sort</button>
+      </footer>
+      <section class="footer2">
         <button id="clearAll-btn" class="clearAllBtn">Clear All</button>
-      </div>
+      </section>
     </div>
     <div class="svg hide" id="svg"></div>
   </body>
@@ -50,4 +50,6 @@
   <script type="module" src="main.js"></script>
   <script type="module" src="./ItemManager.js"></script>
   <script type="module" src="./PokemonClient.js"></script>
+  <script type="module" src="./UIManager.js"></script>
+
 </html>

@@ -1,4 +1,5 @@
 import ItemManager from "./ItemManager.js";
+import UIManager from "./UIManager.js";
 
 const ENTER_KEY = 13;
 
@@ -6,8 +7,10 @@ const ENTER_KEY = 13;
 class Main {
   constructor() {
     this.itemManager = new ItemManager();
+    //this.uiManager = new UIManager();
     this.todoButton = document.getElementById("add-btn");
     this.todoInput = document.getElementById("input-txt");
+    this.clearAllBtn = document.getElementById("clearAll-btn");
   }
 
   init() {
@@ -54,7 +57,10 @@ class Main {
     }
 
     Promise.all(promises).then(() => {
-      
+      // add Sort, clearAll buttons, footers
+      //add todos to list
+     
+
     });
   }
 }

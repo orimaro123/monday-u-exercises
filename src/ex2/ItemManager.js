@@ -1,4 +1,5 @@
 import PokemonClient from "./PokemonClient.js";
+import UIManager from "./UIManager.js";
 
 class ItemManager {
   constructor() {
@@ -9,6 +10,13 @@ class ItemManager {
   handleAddTodo(textItem){
       this.addTodo(textItem)
       //save to local storage
+      if (this.itemList.length == 1){
+      UIManager.showButtons()
+      UIManager.UIHandleAddItem(textItem)
+      return
+      }
+      UIManager.UIHandleAddItem(textItem)
+
   }
   
   
