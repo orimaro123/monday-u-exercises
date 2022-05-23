@@ -17,7 +17,7 @@ const animItem = bodymovin.loadAnimation({
   path: "https://assets4.lottiefiles.com/private_files/lf30_5aubt2fy.json",
 });
 
-const pendingTasksCount = document.querySelector(".pendingTasksCount");
+const pendingTasksCount = document.getElementById("pendingTasksCount");
 const ENTER_KEY = 13;
 const TRASH_ANIMATION_TIMEOUT = 500;
 
@@ -141,7 +141,7 @@ function clearAll(e) {
       todoList.classList.remove("fall");
       listStyling(0);
     }, TRASH_ANIMATION_TIMEOUT);
-    pendingTasksCount.textContent = 0;
+    pendingTasksCount.innerText = 0;
     if (!todoInput.value.length) {
       inputBox.classList.remove("inactive");
       todoButton.classList.remove("inactive");
@@ -167,7 +167,7 @@ function saveLocalTodos(todo) {
   todos.push(todo);
   localStorage.setItem("todos", JSON.stringify(todos));
 
-  pendingTasksCount.textContent = todos.length;
+  pendingTasksCount.innerText = todos.length;
 }
 
 //get and show the data from local storage after refreshing the page
@@ -190,7 +190,7 @@ function getTodos() {
     //Clear Todo Input value
     todoInput.value = "";
   });
-  pendingTasksCount.textContent = todos.length;
+  pendingTasksCount.innerText = todos.length;
   let todosCount = todoList.childElementCount;
   listStyling(todosCount);
 
@@ -206,7 +206,7 @@ function removeLocalTodos(todo) {
   const todoIndex = todo.innerText;
   todos.splice(todos.indexOf(todoIndex), 1);
   localStorage.setItem("todos", JSON.stringify(todos));
-  pendingTasksCount.textContent = todos.length;
+  pendingTasksCount.innerText = todos.length;
   listStyling(todos.length);
   if (!todos.length) {
     inputBox.classList.remove("inactive");
