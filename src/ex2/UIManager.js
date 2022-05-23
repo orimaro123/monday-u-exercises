@@ -2,6 +2,7 @@ class UIManager {
   static showButtonsAndFooter() {
     this.showSortBtn();
     this.showFooter();
+    this.showClearAllBtn()
   }
 
   static showSortBtn() {
@@ -14,6 +15,12 @@ class UIManager {
     const footerElement = document.getElementById("footId");
     footerElement.classList.remove("inactive");
     footerElement.classList.add("active");
+  }
+
+  static showClearAllBtn() {
+    const clearAllBtn = document.getElementById("clearAllBtnId");
+    clearAllBtn.classList.remove("inactive");
+    clearAllBtn.classList.add("active");
   }
 
   static UIHandleAddItem(textItem){

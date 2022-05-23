@@ -247,7 +247,7 @@ header {
   transition: all 0.3s ease;
 }
 
-.footer2 .clearAllBtn {
+.footer2 .clearAllBtn.inactive {
   border: none;
   color: #fff;
   margin-left: 5px;
@@ -258,20 +258,35 @@ header {
   border-radius: 3px;
   padding: 6px 10px;
   opacity: 0.6;
-  display: none; 
+  display: none;
  
 }
 
+
 .footer2 .clearAllBtn.active {
-    /* display: none; */
-   } 
+  border: none;
+  color: #fff;
+  margin-left: 5px;
+  font-size: 16px;
+  outline: none;
+  background: #e74c3c;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 6px 10px;
+  opacity: 0.6;
+  display: normal;
+ 
+}
+
+
+
 
 .footer2 .clearAllBtn:hover {
   opacity: 1;
   transition: all 0.3s ease;
 }
 
-.footer2 {
+.footer2{
   display: flex;
   justify-content: center;
 
@@ -279,7 +294,7 @@ header {
   margin-top: 25px;
   
   align-items: center;
-  display:none;
+ 
 }
 
 
