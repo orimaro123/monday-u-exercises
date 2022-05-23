@@ -1,30 +1,32 @@
 class UIManager {
+  static sortBtn = document.getElementById("sortBtn");
+  static footerElement = document.getElementById("footId");
+  static clearAllBtn = document.getElementById("clearAllBtnId");
+  static pendingTasksCount = document.getElementById("pendingTasksCountId");
+
   static showButtonsAndFooter() {
     this.showSortBtn();
     this.showFooter();
-    this.showClearAllBtn()
+    this.showClearAllBtn();
   }
 
   static showSortBtn() {
-    const sortBtn = document.getElementById("sortBtn");
-    sortBtn.classList.remove("inactive");
-    sortBtn.classList.add("active");
+    this.sortBtn.classList.remove("inactive");
+    this.sortBtn.classList.add("active");
   }
 
   static showFooter() {
-    const footerElement = document.getElementById("footId");
-    footerElement.classList.remove("inactive");
-    footerElement.classList.add("active");
+    this.footerElement.classList.remove("inactive");
+    this.footerElement.classList.add("active");
   }
 
   static showClearAllBtn() {
-    const clearAllBtn = document.getElementById("clearAllBtnId");
-    clearAllBtn.classList.remove("inactive");
-    clearAllBtn.classList.add("active");
+    this.clearAllBtn.classList.remove("inactive");
+    this.clearAllBtn.classList.add("active");
   }
 
-  static UIHandleAddItem(textItem){
-
+  static UIHandleAddItem(textItem, itemListLength) {
+    this.pendingTasksCount.innerText = itemListLength
   }
 }
 export default UIManager;

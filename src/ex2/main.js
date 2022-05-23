@@ -10,7 +10,6 @@ class Main {
     //this.uiManager = new UIManager();
     this.todoButton = document.getElementById("add-btn");
     this.todoInput = document.getElementById("input-txt");
-    this.clearAllBtn = document.getElementById("clearAll-btn");
   }
 
   init() {
@@ -57,7 +56,7 @@ class Main {
     }
 
     Promise.all(promises).then(() => {
-      // add Sort, clearAll buttons, footers
+      //add Sort, clearAll buttons, footers
       //add todos to list
      
 

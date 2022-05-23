@@ -12,10 +12,10 @@ class ItemManager {
       //save to local storage
       if (this.itemList.length == 1){
       UIManager.showButtonsAndFooter()
-      UIManager.UIHandleAddItem(textItem)
+      UIManager.UIHandleAddItem(textItem, this.itemList.length)
       return
       }
-      UIManager.UIHandleAddItem(textItem)
+      UIManager.UIHandleAddItem(textItem, this.itemList.length)
 
   }
   
