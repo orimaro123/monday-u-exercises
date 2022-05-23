@@ -54,7 +54,7 @@ class Main {
     }
 
     Promise.all(promises).then(() => {
-      // add the ui
+      
     });
   }
 }

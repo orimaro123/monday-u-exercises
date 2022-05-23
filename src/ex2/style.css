@@ -198,6 +198,7 @@ header {
   margin-top: 25px;
   justify-content: space-between;
   align-items: center;
+  display: none;
 }
 
 .footer .sortBtn {
@@ -211,15 +212,15 @@ header {
   border-radius: 3px;
   padding: 6px 10px;
   opacity: 0.6;
- /*  display: none; */
-  /*  pointer-events: none; */
+  display: none; 
+ 
 }
 
-.footer .sortBtn.deactive {
-    display: none;
+.footer .sortBtn.active {
+  /*   display: none; */
 }
- .footer span.deactive {
-    display: none;
+ .footer span.active {
+   /*  display: none; */
 } 
 
 
@@ -239,12 +240,12 @@ header {
   border-radius: 3px;
   padding: 6px 10px;
   opacity: 0.6;
- /*  display: none; */
-  /* pointer-events: none; */
+  display: none; 
+ 
 }
 
-.footer2 .clearAllBtn.deactive {
-    display: none;
+.footer2 .clearAllBtn.active {
+    /* display: none; */
    } 
 
 .footer2 .clearAllBtn:hover {
@@ -260,6 +261,7 @@ header {
   margin-top: 25px;
   
   align-items: center;
+  display:none;
 }
 
 
