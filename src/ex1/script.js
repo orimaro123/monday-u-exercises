@@ -89,7 +89,7 @@ function addTodo(event) {
 
   //trash button
   const trashButton = document.createElement("button");
-  trashButton.innerHTML = '<i  class="fas fa-trash"></i>';
+  trashButton.innerHTML = '<i class="fas fa-trash"></i>';
   trashButton.classList.add("trash-btn");
   todoLi.appendChild(trashButton);
   //append to list
@@ -235,7 +235,6 @@ function sortTasks() {
     todoList.classList.add("ascending");
     sortBtn.textContent = "Sort 🡳";
   }
-  console.log(todoList.classList);
   todoList.innerHTML = "";
   localStorage.setItem("todos", JSON.stringify(todos));
   todos.forEach(function (todo) {
