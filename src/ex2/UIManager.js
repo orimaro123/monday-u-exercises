@@ -32,8 +32,14 @@ class UIManager {
     todoLi.classList.add("todo");
     todoLi.innerText = textItem;
     const trashButton = document.createElement("button");
-    trashButton.innerHTML = '<p class="fas fa-trash"></p>';
+    trashButton.innerHTML = "🗑️";
     trashButton.classList.add("trashBtn");
+    trashButton.setAttribute('id',`${textItem}TrashID` )
+    //remove item - onclick event handler
+    trashButton.onclick = (source) => {
+   //  this.todoList.removeChild(todoLi);
+    };
+
     todoLi.appendChild(trashButton);
     this.todoList.appendChild(todoLi);
   }

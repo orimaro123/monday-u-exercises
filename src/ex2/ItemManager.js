@@ -9,13 +9,10 @@ class ItemManager {
     this.itemList = [];
     this.allPokemonsJson = null;
     this.clearAllBtn = document.getElementById("clearAllBtnId");
+    this.trashButton = null;
     this.clearAllBtn.addEventListener("click", () => {
       this.handleClearAllTodos();
     });
-    this.trashButton = null/* document.querySelector(".trashBtn")
-    this.trashButton.addEventListener("click", () => {
-      this.handleRemoveTodo();
-    }); */
   }
 
   /**
@@ -35,55 +32,51 @@ class ItemManager {
       if (/^\d+$/.test(item)) {
         const pokemonNumber = Number(item);
         const promise = this.fetchPokemonAndAddToList(pokemonNumber);
+
         promises.push(promise);
+
         continue;
       }
 
       this.handleAddTodo(item);
     }
 
-    Promise.all(promises).then(() => {
-      
-    });
+    Promise.all(promises).then({});
   }
 
   handleAddTodo(itemTextValue) {
     this.addTodo(itemTextValue);
+
     //need to add also save to local storage
     if (this.itemList.length == 1) {
       UIManager.showButtonsAndFooter();
       UIManager.UIHandleAddRenderItem(itemTextValue, this.itemList.length);
+      this.trashButton = document.getElementById(`${itemTextValue}TrashID`);
+      this.trashButton.onclick = (source) => {
+        const itemToRemove = document.getElementById(`${itemTextValue}TrashID`)
+        .parentElement.firstChild.textContent;
+      this.removeTodoFromItemList(itemToRemove)
+      };
+
       return;
     }
     UIManager.UIHandleAddRenderItem(itemTextValue, this.itemList.length);
+    this.trashButton = document.getElementById(`${itemTextValue}TrashID`);
+    this.trashButton.onclick = (source) => {
+      const itemToRemove = document.getElementById(`${itemTextValue}TrashID`)
+        .parentElement.firstChild.textContent;
+      this.removeTodoFromItemList(itemToRemove)
+    };
   }
 
   addTodo(itemTextValue) {
     this.item = new Item(itemTextValue);
     this.itemList.push(this.item);
-   // this.trashButton = document.querySelector(".trashBtn")
-  //  this.trashButton = document.addEventListener("click", this.handleRemoveTodo)
   }
 
-  handleRemoveTodo(e){
-    
-      const elementToremove = e.target.parentElement;
-      if (elementToremove || elementToremove.parentElement == li){
-        console.log(elementToremove)
-      }
-     
-    
-    /*   if (item.classList[0] === "trash-btn") {
-        const todo = item.parentElement;
-        todo.classList.add("fall");
-        removeLocalTodos(todo);
-        //delay the remove for animation
-        setTimeout(function () {
-          todo.remove();
-        }, TRASH_ANIMATION_TIMEOUT);
-      } */
-    }
-  
+  removeTodoFromItemList(itemToRemove){
+    console.log(itemToRemove);
+  }
 
   handleClearAllTodos() {
     this.itemList = [];
@@ -98,16 +91,16 @@ class ItemManager {
     if (pokemon != `Pokemon with ID ${pokemonNumber} was not found`) {
       this.handleAddTodo(`Catch ${pokemon.name}`);
       this.fethcedPokemons.push(pokemon);
-    
-      return;
+
+      return `Catch ${pokemon.name}`;
     }
     this.handleAddTodo(`Pokemon with ID ${pokemonNumber} was not found`);
+    return `Pokemon with ID ${pokemonNumber} was not found`;
   }
 
   async fetchAllPokemons() {
     const allPokemonJson = await this.pokemonClient.fetchAllPokemons();
     this.allPokemonsJson = allPokemonJson;
-    
   }
 }
 

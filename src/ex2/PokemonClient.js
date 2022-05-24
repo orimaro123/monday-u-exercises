@@ -2,7 +2,7 @@ class PokemonClient {
   async fetchPokemon(pokemonNumber) {
     const url = "https://pokeapi.co/api/v2/pokemon/" + pokemonNumber;
     try {
-      const response = await fetch(url);
+      const response =  await fetch(url);
       if (!response.ok) {
         return `Pokemon with ID ${pokemonNumber} was not found`;
       }
