@@ -7,7 +7,10 @@ class PokemonClient {
         return `Pokemon with ID ${pokemonNumber} was not found`;
       }
       const json = await response.json();
-      return json?.name ?? null;
+      if (json.name) {
+        return json;
+      }
+      return null; //json?.name ?? null;
     } catch (error) {
       alert("error, fail to fetch pokemon"); // todo: ui toaster fail
       return null;

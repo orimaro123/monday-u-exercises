@@ -5,6 +5,7 @@ import Item from "./ItemClass.js";
 class ItemManager {
   constructor() {
     this.pokemonClient = new PokemonClient();
+    this.fethcedPokemons = [];
     this.itemList = [];
     this.allPokemonsJson = null;
     this.clearAllBtn = document.getElementById("clearAllBtnId");
@@ -37,10 +38,7 @@ class ItemManager {
       this.handleAddTodo(item);
     }
 
-    Promise.all(promises).then(() => {
-      //add Sort, clearAll buttons, footers
-      //add todos to list
-    });
+    Promise.all(promises).then(() => {});
   }
 
   handleAddTodo(itemTextValue) {
@@ -55,22 +53,24 @@ class ItemManager {
   }
 
   addTodo(itemTextValue) {
-    //Item objects are pushed to the list (not just strings)
-    //Extendable in case we would like to save more data in the future
     this.item = new Item(itemTextValue);
     this.itemList.push(this.item);
   }
 
   handleClearAllTodos() {
     this.itemList = [];
+    this.fethcedPokemons = [];
     UIManager.UIclearAllTodos();
     UIManager.hideButtonsAndFooter();
   }
 
   async fetchPokemonAndAddToList(pokemonNumber) {
     const pokemon = await this.pokemonClient.fetchPokemon(pokemonNumber);
+
     if (pokemon != `Pokemon with ID ${pokemonNumber} was not found`) {
-      this.handleAddTodo(`Catch ${pokemon}`);
+      this.handleAddTodo(`Catch ${pokemon.name}`);
+      this.fethcedPokemons.push(pokemon);
+      console.log(this.fethcedPokemons);
       return;
     }
     this.handleAddTodo(`Pokemon with ID ${pokemonNumber} was not found`);
