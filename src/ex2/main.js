@@ -7,7 +7,6 @@ const ENTER_KEY = 13;
 class Main {
   constructor() {
     this.itemManager = new ItemManager();
-    //this.uiManager = new UIManager();
     this.todoButton = document.getElementById("add-btn");
     this.todoInput = document.getElementById("input-txt");
   }
@@ -19,7 +18,6 @@ class Main {
     };
 
     this.todoButton.addEventListener("click", handleInputText);
-
     this.todoInput.addEventListener("keyup", () => {
       if (event.keyCode == ENTER_KEY) {
         handleInputText();

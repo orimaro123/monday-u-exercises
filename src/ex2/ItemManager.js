@@ -59,9 +59,11 @@ class ItemManager {
 
   async fetchPokemonAndAddToList(pokemonNumber) {
     const pokemon = await this.pokemonClient.fetchPokemon(pokemonNumber);
-    if (pokemon != null) {
-      this.handleAddTodo(`Catch ${pokemon}`);
+    if (pokemon != `Pokemon with ID ${pokemonNumber} was not found`) {
+       this.handleAddTodo(`Catch ${pokemon}`);
+       return
     }
+    this.handleAddTodo(`Pokemon with ID ${pokemonNumber} was not found`);
   }
 
   async fetchAllPokemons() {
