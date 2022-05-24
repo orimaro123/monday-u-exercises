@@ -4,13 +4,12 @@ class PokemonClient {
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        console.error(`Pokemon with ID ${pokemonNumber} was not found`);
         return `Pokemon with ID ${pokemonNumber} was not found`;
       }
       const json = await response.json();
       return json?.name ?? null;
     } catch (error) {
-      console.error(error); // todo: ui toaster fail
+      alert("error, fail to fetch pokemon"); // todo: ui toaster fail
       return null;
     }
   }

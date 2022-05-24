@@ -7,6 +7,11 @@ class ItemManager {
     this.pokemonClient = new PokemonClient();
     this.itemList = [];
     this.allPokemonsJson = null;
+    this.clearAllBtn = document.getElementById("clearAllBtnId")
+    this.clearAllBtn.addEventListener("click", () => {
+     this.handleClearAllTodos()
+    } )
+   
   }
 
   /**
@@ -44,10 +49,10 @@ class ItemManager {
     //need to add also save to local storage
     if (this.itemList.length == 1) {
       UIManager.showButtonsAndFooter();
-      UIManager.UIHandleAddItem(itemTextValue, this.itemList.length);
+      UIManager.UIHandleAddRenderItem(itemTextValue, this.itemList.length);
       return;
     }
-    UIManager.UIHandleAddItem(itemTextValue, this.itemList.length);
+    UIManager.UIHandleAddRenderItem(itemTextValue, this.itemList.length);
   }
 
   addTodo(itemTextValue) {
@@ -55,7 +60,17 @@ class ItemManager {
     //Extendable in case we would like to save more data in the future
     this.item = new Item(itemTextValue);
     this.itemList.push(this.item);
+ 
   }
+
+  handleClearAllTodos(){
+    this.itemList = []
+    UIManager.UIclearAllTodos()
+    UIManager.hideButtonsAndFooter()
+
+  }
+
+  
 
   async fetchPokemonAndAddToList(pokemonNumber) {
     const pokemon = await this.pokemonClient.fetchPokemon(pokemonNumber);

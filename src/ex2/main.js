@@ -7,8 +7,10 @@ const ENTER_KEY = 13;
 class Main {
   constructor() {
     this.itemManager = new ItemManager();
-    this.todoButton = document.getElementById("add-btn");
-    this.todoInput = document.getElementById("input-txt");
+    this.todoButton = document.getElementById("addBtn");
+    this.todoInput = document.getElementById("inputTxt");
+  
+   
   }
 
   init() {
@@ -23,6 +25,8 @@ class Main {
         handleInputText();
       }
     });
+
+  
   }
 
   clearInput() {
