@@ -156,7 +156,7 @@ header {
   cursor: pointer;
 }
 
-.todoList li .trash-btn {
+.todoList li .trashBtn {
   position: absolute;
   /* right: -45px; */
   height: 45px;
@@ -170,8 +170,9 @@ header {
   transition: all 0.3s ease;
   opacity: 0.6;
   border-style: none;
+ 
 }
-.todoList li .trash-btn:hover {
+.todoList li .trashBtn:hover {
   opacity: 1;
   transition: all 0.3s ease;
 }
@@ -310,9 +311,6 @@ header {
   transition: all 1s ease;
 }
 
-.fa-trash {
-  pointer-events: none;
-}
 
 .inputField button {
   width: 50px;

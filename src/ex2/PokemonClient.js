@@ -17,6 +17,11 @@ class PokemonClient {
     }
   }
 
+
+
+
+
+  
   async fetchAllPokemons() {
     const url = "https://pokeapi.co/api/v2/pokemon?limit=1126&offset=0";
     try {
