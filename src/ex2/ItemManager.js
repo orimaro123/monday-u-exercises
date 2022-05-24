@@ -7,11 +7,10 @@ class ItemManager {
     this.pokemonClient = new PokemonClient();
     this.itemList = [];
     this.allPokemonsJson = null;
-    this.clearAllBtn = document.getElementById("clearAllBtnId")
+    this.clearAllBtn = document.getElementById("clearAllBtnId");
     this.clearAllBtn.addEventListener("click", () => {
-     this.handleClearAllTodos()
-    } )
-   
+      this.handleClearAllTodos();
+    });
   }
 
   /**
@@ -60,23 +59,19 @@ class ItemManager {
     //Extendable in case we would like to save more data in the future
     this.item = new Item(itemTextValue);
     this.itemList.push(this.item);
- 
   }
 
-  handleClearAllTodos(){
-    this.itemList = []
-    UIManager.UIclearAllTodos()
-    UIManager.hideButtonsAndFooter()
-
+  handleClearAllTodos() {
+    this.itemList = [];
+    UIManager.UIclearAllTodos();
+    UIManager.hideButtonsAndFooter();
   }
-
-  
 
   async fetchPokemonAndAddToList(pokemonNumber) {
     const pokemon = await this.pokemonClient.fetchPokemon(pokemonNumber);
     if (pokemon != `Pokemon with ID ${pokemonNumber} was not found`) {
-       this.handleAddTodo(`Catch ${pokemon}`);
-       return
+      this.handleAddTodo(`Catch ${pokemon}`);
+      return;
     }
     this.handleAddTodo(`Pokemon with ID ${pokemonNumber} was not found`);
   }

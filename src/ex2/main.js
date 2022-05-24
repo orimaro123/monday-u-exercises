@@ -9,8 +9,6 @@ class Main {
     this.itemManager = new ItemManager();
     this.todoButton = document.getElementById("addBtn");
     this.todoInput = document.getElementById("inputTxt");
-  
-   
   }
 
   init() {
@@ -25,8 +23,6 @@ class Main {
         handleInputText();
       }
     });
-
-  
   }
 
   clearInput() {
