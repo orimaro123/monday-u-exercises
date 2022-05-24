@@ -32,7 +32,7 @@ class UIManager {
     todoLi.classList.add("todo");
     todoLi.innerText = textItem;
     const trashButton = document.createElement("button");
-    trashButton.innerHTML = '<i class="fas fa-trash"></i>';
+    trashButton.innerHTML = '<p class="fas fa-trash"></p>';
     trashButton.classList.add("trash-btn");
     todoLi.appendChild(trashButton);
     this.todoList.appendChild(todoLi);
