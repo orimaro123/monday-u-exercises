@@ -1,20 +1,11 @@
-# Exercise 2 - In depth JS, Async, & MVC
 
-Time for task #2!
-Here we'll get your code to look a little more professional + modern, _and_ you'll get to access data from an external API which opens up a lot of doors for you.
+### Welcom to Ori's Pokemon catching Todo!
 
-## In this section you will practice
 
-**JS** - More in depth, using classes, methods, iterators  
-**Async JS** - Working with async code to retrieve data from a public API
-**MVC** - Basic design pattern for separating concerns
+https://user-images.githubusercontent.com/66553796/170369077-b55e6c0f-5ac3-4d62-9f28-4bbb70bb1e90.mp4
 
-## What you are going to build
+https://user-images.githubusercontent.com/66553796/170369059-a8147d0a-8fdf-45b7-8507-e2695715610b.mp4
 
-We already have a todo app where you can add your own tasks but... what about adding _pokemon_ related tasks?
-Yes, you'll be reaching out to the pokemon API (https://pokeapi.co/) in order to retrieve pokemon information to populate your todos.
-
-But this kind of work requires a bit more code organization, so...
 
 ### The requirements:
 
