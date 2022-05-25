@@ -1,6 +1,5 @@
 import ItemManager from "./NEWItemManage.js";
 
-
 const ENTER_KEY = 13;
 
 // Implement the `Main` class here
@@ -19,15 +18,14 @@ class Main {
     this.pendingTasksCount = document.getElementById("pendingTasksCountId");
     this.todoList = document.getElementById("listElement");
 
-    this.idCounter = 0
-    this.fethcedPokemons = []
+    this.idCounter = 2000;
+    this.fethcedPokemons = [];
   }
 
   init() {
     const handleInputText = () => {
       this.parseInputValue(this.todoInput.value);
       this.clearInput();
-     
     };
 
     this.todoButton.addEventListener("click", handleInputText);
@@ -47,34 +45,103 @@ class Main {
     if (!inputValue) {
       return alert("Error, the Todo input is empty");
     }
-    
-
-    // let promises = [];
-
+    let batchItemIds = [];
+    let promises = [];
     for (const textItem of inputValue.split(/\s*,\s*/)) {
-     
-     if (/^\d+$/.test(textItem)) {
+      if (/^\d+$/.test(textItem)) {
+        //inputValue is a number
+        const pokemonNumber = Number(textItem);
+        const pokemonInDataBase = this.checkPokemonNumberFetched(pokemonNumber)
+        if(!pokemonInDataBase){
+        const pokemonPromise = this.itemManager.fetchPokemonAndAddData(
+          pokemonNumber,
+          this.idCounter
+        );
+        batchItemIds.push(this.idCounter);
+        this.idCounter++
       
-      
-     }
-     this.handleAddTodo(textItem, this.idCounter);
-   
+        promises.push(pokemonPromise);
+        }
+      } else {
+        //this is a text todo
+        this.handleAddTodo(textItem, this.idCounter);
+       // batchItemIds.push(this.idCounter);
+      }
     }
-  }
+
+    Promise.all(promises).then((data) => {
+      //all requests arrived
+ 
+      for(const pokemonItemId of batchItemIds){
+        //console.log(pokemonItemId)
+       // const pokemonName = this.getPokemonName(pokemonItemId)
      
+        //const pokemonData = this.fetchPokemonData(pokemonName)
+        console.log(pokemonItemId)
+          this.getPokemonName(pokemonItemId)
+       
+      }
+      
+      //console.log("Values", data);
+      // console.log(this.pokemonErrorBatch)
+      if (!this.itemManager.pokemonErrorBatch.length) {
+        return;
+      }
+      if (this.itemManager.pokemonErrorBatch.length == 1) {
+        console.log("hi");
+        this.handleAddTodo(
+          `Pokemon with ID ${this.itemManager.pokemonErrorBatch[0]} was not found`,
+          this.idCounter
+        );
+        return (this.itemManager.pokemonErrorBatch = []);
+      }
 
-  handleAddTodo(textItem, idCounter){
-    
-    //sends to item manager to add item
-    const isPokemon = false
-    this.itemManager.addToItemList(textItem, this.idCounter, isPokemon)
-    this.addItemToDOM(textItem,this.idCounter)
-    this.idCounter ++
+      if (this.itemManager.pokemonErrorBatch.length > 1) {
+        const errorsToString = this.itemManager.pokemonErrorBatch.join();
+        this.handleAddTodo(
+          `Failed to fetch pokemon with this input: ${errorsToString}`,
+          this.idCounter
+        );
+      }
+      this.itemManager.pokemonErrorBatch = [];
+    });
   }
 
-  addItemToDOM(textItem, idCounter){
-    if (this.itemManager.itemList.length == 1){
-      this.showButtonsAndFooter()
+  checkPokemonNumberFetched(pokemonNumber){
+    if (this.itemManager.fethcedPokemons.some(pokemon => pokemon.id === pokemonNumber)){
+      return true 
+    }
+    return false
+    
+  }
+
+  getPokemonName(pokemonItemId){
+     let pokemonName = this.itemManager.itemList.find(function(pokemon, index) {
+      if(pokemon.itemId == pokemonItemId)
+        console.log("aaa")
+        return true
+        //this.handleAddTodo(pokemon.name, pokemonItemId)
+    });
+
+  }
+  
+  handleAddTodo(textItem, idCounter) {
+    //sends to item manager to add item
+    const isPokemon = false;
+    this.itemManager.addToItemList(
+      textItem,
+      this.idCounter,
+      isPokemon,
+     
+    );
+    this.addItemToDOM(textItem, this.idCounter);
+    this.idCounter++;
+  }
+
+  addItemToDOM(textItem, idCounter) {
+    console.log("hi");
+    if (this.itemManager.itemList.length == 1) {
+      this.showButtonsAndFooter();
     }
     this.pendingTasksCount.innerText = this.itemManager.itemList.length;
     const todoLi = document.createElement("li");
@@ -84,14 +151,14 @@ class Main {
     trashButton.innerHTML = "🗑️";
     trashButton.classList.add("trashBtn");
     trashButton.onclick = (event) => {
-      const itemToRemove = trashButton.parentElement
-      this.itemManager.removeFromItemList(textItem, idCounter)
-      if(!this.itemManager.itemList.length ){
-        this.hideButtonsAndFooter()
+      const itemToRemove = trashButton.parentElement;
+      this.itemManager.removeFromItemList(textItem, idCounter);
+      if (!this.itemManager.itemList.length) {
+        this.hideButtonsAndFooter();
       }
-      itemToRemove.remove()
+      itemToRemove.remove();
     };
-    trashButton.setAttribute('id',`${this.idCounter}TrashID` )
+    trashButton.setAttribute("id", `${this.idCounter}itemID`);
     todoLi.appendChild(trashButton);
     this.todoList.appendChild(todoLi);
   }
@@ -139,15 +206,11 @@ class Main {
   }
 
   handleClearAllTodos() {
-    this.hideButtonsAndFooter()
+    this.hideButtonsAndFooter();
     this.itemManager.itemList = [];
-    this.todoList.innerHTML = ''
-    
+    this.todoList.innerHTML = "";
   }
-
 }
-
-
 
 const main = new Main();
 
@@ -158,3 +221,5 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 window.main = main; //todo delete this!
+
+export default Main 

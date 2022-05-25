@@ -1,8 +1,8 @@
 class Item {
     constructor(name, itemId, isPokemon){
         this.name = name;
-        this.id = itemId
-        this.isPokemon
+        this.itemId = itemId
+        this.isPokemon = isPokemon
     }
 }
 export default Item;
