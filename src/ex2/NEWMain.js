@@ -13,6 +13,9 @@ class Main {
     this.sortBtn = document.getElementById("sortBtn");
     this.footerElement = document.getElementById("footertId");
     this.clearAllBtn = document.getElementById("clearAllBtnId");
+    this.clearAllBtn.addEventListener("click", () => {
+      this.handleClearAllTodos();
+    });
     this.pendingTasksCount = document.getElementById("pendingTasksCountId");
     this.todoList = document.getElementById("listElement");
 
@@ -133,6 +136,13 @@ class Main {
   hideClearAllBtn() {
     this.clearAllBtn.classList.add("inactive");
     this.clearAllBtn.classList.remove("active");
+  }
+
+  handleClearAllTodos() {
+    this.hideButtonsAndFooter()
+    this.itemManager.itemList = [];
+    this.todoList.innerHTML = ''
+    
   }
 
 }
