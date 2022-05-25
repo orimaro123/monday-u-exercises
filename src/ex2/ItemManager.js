@@ -5,7 +5,9 @@ import Item from "./ItemClass.js";
 class ItemManager {
   constructor() {
     this.pokemonClient = new PokemonClient();
+    this.uiManager = new UIManager();
     this.fethcedPokemons = [];
+    this.pokemonErrorBatch = [];
     this.itemList = [];
     this.allPokemonsJson = null;
     this.clearAllBtn = document.getElementById("clearAllBtnId");
@@ -32,16 +34,35 @@ class ItemManager {
       if (/^\d+$/.test(item)) {
         const pokemonNumber = Number(item);
         const promise = this.fetchPokemonAndAddToList(pokemonNumber);
-
         promises.push(promise);
-
-        continue;
+      } else {
+        //task is not a number
+        this.handleAddTodo(item);
       }
-
-      this.handleAddTodo(item);
     }
 
-    Promise.all(promises).then({});
+    Promise.all(promises).then((data) => {
+      //console.log("Values", data);
+      // console.log(this.pokemonErrorBatch)
+      if (!this.pokemonErrorBatch.length) {
+        return;
+      }
+      if (this.pokemonErrorBatch.length == 1) {
+        this.handleAddTodo(
+          `Pokemon with ID ${this.pokemonErrorBatch[0]} was not found`
+        );
+        this.pokemonErrorBatch = [];
+      }
+
+      if (this.pokemonErrorBatch.length > 1) {
+        const errorsToString = this.pokemonErrorBatch.join();
+        this.handleAddTodo(
+          `Failed to fetch pokemon with this input: ${errorsToString}`
+        );
+      }
+    });
+
+    this.pokemonErrorBatch = [];
   }
 
   handleAddTodo(itemTextValue) {
@@ -59,22 +80,27 @@ class ItemManager {
 
     const getTrashButtonIdToHandleRemove = () => {
       this.trashButton = document.getElementById(`${itemTextValue}TrashID`);
-      this.trashButton.onclick = (source) => {
+      this.trashButton.onclick = (event) => {
+        console.log(event.currentTarget.id);
         const itemToRemove = document.getElementById(
           `${itemTextValue}TrashID`
         ).parentElement;
+
         this.handleRemoveTodo(itemToRemove);
       };
     };
 
     //need to add also save to local storage
+    let returned;
     if (this.itemList.length == 1) {
-      UIManager.showButtonsAndFooter();
-      UIManager.UIHandleAddRenderItem(itemTextValue, this.itemList.length);
+      this.uiManager.showButtonsAndFooter();
+
+      this.uiManager.UIHandleAddRenderItem(itemTextValue, this.itemList.length);
+
       getTrashButtonIdToHandleRemove(itemTextValue);
       return;
     }
-    UIManager.UIHandleAddRenderItem(itemTextValue, this.itemList.length);
+    this.uiManager.UIHandleAddRenderItem(itemTextValue, this.itemList.length);
     getTrashButtonIdToHandleRemove(itemTextValue);
   }
 
@@ -86,7 +112,7 @@ class ItemManager {
   handleRemoveTodo(itemToRemove) {
     const itemTextValueToRemove = itemToRemove.firstChild.textContent;
     this.removeTodoFromItemList(itemTextValueToRemove);
-    UIManager.UIremoveItem(itemToRemove, this.itemList.length);
+    this.uiManager.UIremoveItem(itemToRemove, this.itemList.length);
   }
 
   removeTodoFromItemList(itemToRemove) {
@@ -96,21 +122,28 @@ class ItemManager {
   handleClearAllTodos() {
     this.itemList = [];
     this.fethcedPokemons = [];
-    UIManager.UIclearAllTodos();
-    UIManager.hideButtonsAndFooter();
+    this.uiManager.UIclearAllTodos();
+    this.uiManager.hideButtonsAndFooter();
   }
 
   async fetchPokemonAndAddToList(pokemonNumber) {
     const pokemon = await this.pokemonClient.fetchPokemon(pokemonNumber);
 
-    if (pokemon != `Pokemon with ID ${pokemonNumber} was not found`) {
-      this.handleAddTodo(`Catch ${pokemon.name}`);
+    //catch ${pokemonName} the ${pokemonType} pokemon
+    if (pokemon != `Pokemon was not found`) {
+      const pokemonTypes = []
+      for (const pokemonType of pokemon.types) {
+        pokemonTypes.push(pokemonType.type.name)
+      
+       }
+       console.log(pokemonTypes.join('/'))
+      this.handleAddTodo(`Catch ${pokemon.name} the ${pokemonTypes.join('/')} type pokemon`);
       this.fethcedPokemons.push(pokemon);
-
       return `Catch ${pokemon.name}`;
     }
-    this.handleAddTodo(`Pokemon with ID ${pokemonNumber} was not found`);
-    return `Pokemon with ID ${pokemonNumber} was not found`;
+    this.pokemonErrorBatch.push(pokemonNumber);
+    //this.handleAddTodo(`Pokemon with ID ${pokemonNumber} was not found`);
+    return pokemonNumber;
   }
 
   async fetchAllPokemons() {

@@ -1,45 +1,58 @@
 class UIManager {
-  static sortBtn = document.getElementById("sortBtn");
+  constructor(){
+  this.sortBtn = document.getElementById("sortBtn");
+  this.footerElement = document.getElementById("footertId");
+  this.clearAllBtn = document.getElementById("clearAllBtnId");
+  this.pendingTasksCount = document.getElementById("pendingTasksCountId");
+  this.todoList = document.getElementById("listElement");
+  this.EventListenersArray = []
+  }
+ /*  static sortBtn = document.getElementById("sortBtn");
   static footerElement = document.getElementById("footertId");
   static clearAllBtn = document.getElementById("clearAllBtnId");
   static pendingTasksCount = document.getElementById("pendingTasksCountId");
-  static todoList = document.getElementById("listElement");
+  static todoList = document.getElementById("listElement"); */
 
-  static showButtonsAndFooter() {
+  showButtonsAndFooter() {
     this.showSortBtn();
     this.showFooter();
     this.showClearAllBtn();
   }
 
-  static showSortBtn() {
+  showSortBtn() {
     this.sortBtn.classList.remove("inactive");
     this.sortBtn.classList.add("active");
   }
 
-  static showFooter() {
+  showFooter() {
     this.footerElement.classList.remove("inactive");
     this.footerElement.classList.add("active");
   }
 
-  static showClearAllBtn() {
+  showClearAllBtn() {
     this.clearAllBtn.classList.remove("inactive");
     this.clearAllBtn.classList.add("active");
   }
 
-  static UIHandleAddRenderItem(textItem, itemListLength) {
+  UIHandleAddRenderItem(textItem, itemListLength) {
     this.pendingTasksCount.innerText = itemListLength;
     const todoLi = document.createElement("li");
     todoLi.classList.add("todo");
     todoLi.innerText = textItem;
-    const trashButton = document.createElement("button");
-    trashButton.innerHTML = "🗑️";
-    trashButton.classList.add("trashBtn");
-    trashButton.setAttribute('id',`${textItem}TrashID` )
-    todoLi.appendChild(trashButton);
+    this.trashButton = document.createElement("button");
+    this.trashButton.innerHTML = "🗑️";
+    this.trashButton.classList.add("trashBtn");
+   
+    this.trashButton.setAttribute('id',`${textItem}TrashID` )
+    todoLi.appendChild(this.trashButton);
     this.todoList.appendChild(todoLi);
+   
+    
+    
+  
   }
 
-  static UIremoveItem(itemToRemove, itemListLength){
+  UIremoveItem(itemToRemove, itemListLength){
     itemToRemove.remove()
     this.pendingTasksCount.innerText = itemListLength;
     if (!itemListLength){
@@ -48,27 +61,27 @@ class UIManager {
 
   }
 
-  static UIclearAllTodos() {
+  UIclearAllTodos() {
     this.todoList.innerHTML = "";
   }
 
-  static hideButtonsAndFooter() {
+  hideButtonsAndFooter() {
     this.hideSortBtn();
     this.hideFooter();
     this.hideClearAllBtn();
   }
 
-  static hideSortBtn() {
+  hideSortBtn() {
     this.sortBtn.classList.add("inactive");
     this.sortBtn.classList.remove("active");
   }
 
-  static hideFooter() {
+  hideFooter() {
     this.footerElement.classList.add("inactive");
     this.footerElement.classList.remove("active");
   }
 
-  static hideClearAllBtn() {
+  hideClearAllBtn() {
     this.clearAllBtn.classList.add("inactive");
     this.clearAllBtn.classList.remove("active");
   }
