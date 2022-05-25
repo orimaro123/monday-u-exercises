@@ -65,7 +65,7 @@ class Main {
       } else {
         //this is a text todo
         this.handleAddTodo(textItem, this.idCounter);
-       // batchItemIds.push(this.idCounter);
+     
       }
     }
 
@@ -73,17 +73,11 @@ class Main {
       //all requests arrived
  
       for(const pokemonItemId of batchItemIds){
-        //console.log(pokemonItemId)
-       // const pokemonName = this.getPokemonName(pokemonItemId)
-     
-        //const pokemonData = this.fetchPokemonData(pokemonName)
-        console.log(pokemonItemId)
+   
           this.getPokemonName(pokemonItemId)
-       
       }
       
-      //console.log("Values", data);
-      // console.log(this.pokemonErrorBatch)
+     
       if (!this.itemManager.pokemonErrorBatch.length) {
         return;
       }
@@ -120,7 +114,6 @@ class Main {
       if(pokemon.itemId == pokemonItemId)
         console.log("aaa")
         return true
-        //this.handleAddTodo(pokemon.name, pokemonItemId)
     });
 
   }

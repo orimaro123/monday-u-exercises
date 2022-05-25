@@ -12,7 +12,7 @@ class PokemonClient {
       }
       return null; //json?.name ?? null;
     } catch (error) {
-      alert("error, fail to fetch pokemon"); // todo: ui toaster fail
+      alert("error, fail to fetch pokemon"); 
       return null;
     }
   }
@@ -29,7 +29,7 @@ class PokemonClient {
 
       return json;
     } catch (error) {
-      console.error(error); // todo: ui toaster fail
+      console.error(error); 
       return null;
     }
   }

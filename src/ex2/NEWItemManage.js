@@ -25,20 +25,14 @@ class ItemManager {
 
   async fetchPokemonAndAddData(pokemonNumber, idCounter) {
     const pokemonData = await this.pokemonClient.fetchPokemon(pokemonNumber);
-    //catch ${pokemonName} the ${pokemonType} pokemon
     if (pokemonData != `Pokemon was not found`) {
       const pokemonTypes = [];
       for (const pokemonType of pokemonData.types) {
         pokemonTypes.push(pokemonType.type.name);
       }
      this.addToItemList(pokemonData.name, idCounter, true, pokemonData);
-     // console.log(pokemonData)
-      // this.handleAddTodo(
-      // `Catch ${pokemonData.name} the ${pokemonTypes.join("/")} type pokemon`
-      //  );
       this.fethcedPokemons.push(pokemonData);
       this.pokemonData = pokemonData
-      
       return pokemonData;
     }
     this.pokemonErrorBatch.push(pokemonNumber);
