@@ -46,9 +46,7 @@ class UIManager {
    
     trashButton.setAttribute('id',`${this.idCounter}TrashID` )
     this.idCounter++
-    trashButton.onclick = () => {
-      console.log(trashButton.id)
-    }
+ 
     todoLi.appendChild(trashButton);
     this.todoList.appendChild(todoLi);
    

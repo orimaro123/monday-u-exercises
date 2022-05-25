@@ -1,6 +1,6 @@
-import PokemonClient from "./PokemonClient.js";
 import UIManager from "./UIManager.js";
 import Item from "./ItemClass.js";
+import PokemonClient from "./PokemonClient.js";
 
 class ItemManager {
   constructor() {
@@ -93,13 +93,12 @@ class ItemManager {
     this.addTodo(itemTextValue);
 
     const getTrashButtonIdToHandleRemove = () => {
+     // alert(counter)
       const trashButton = document.getElementById(`${counter}TrashID`);
       trashButton.onclick = (event) => {
+        
         console.log(event.currentTarget.id);
-        const itemToRemove = document.getElementById(
-          `${counter}TrashID`
-        ).parentElement;
-
+        const itemToRemove = trashButton.parentElement
         this.handleRemoveTodo(itemToRemove);
       };
     };
