@@ -36,12 +36,18 @@ class UIManager {
     trashButton.classList.add("trashBtn");
     trashButton.setAttribute('id',`${textItem}TrashID` )
     //remove item - onclick event handler
-    trashButton.onclick = (source) => {
+   // trashButton.onclick = (source) => {
    //  this.todoList.removeChild(todoLi);
-    };
+   // };
 
     todoLi.appendChild(trashButton);
     this.todoList.appendChild(todoLi);
+  }
+
+  static UIremoveItem(itemToRemove, itemListLength){
+    itemToRemove.remove()
+    //const itemToRemove = itemToRemove
+    //console.log(itemToRemove.remove())
   }
 
   static UIclearAllTodos() {

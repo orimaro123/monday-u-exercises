@@ -47,26 +47,26 @@ class ItemManager {
   handleAddTodo(itemTextValue) {
     this.addTodo(itemTextValue);
 
+    const getTrashButtonIdToHandleRemove = () => {
+      this.trashButton = document.getElementById(`${itemTextValue}TrashID`);
+      this.trashButton.onclick = (source) => {
+        const itemToRemove = document.getElementById(
+          `${itemTextValue}TrashID`
+        ).parentElement;
+        // const itemTextValueToRemove = itemToRemove.firstChild.textContent
+        this.handleRemoveTodo(itemToRemove);
+      };
+    };
+
     //need to add also save to local storage
     if (this.itemList.length == 1) {
       UIManager.showButtonsAndFooter();
       UIManager.UIHandleAddRenderItem(itemTextValue, this.itemList.length);
-      this.trashButton = document.getElementById(`${itemTextValue}TrashID`);
-      this.trashButton.onclick = (source) => {
-        const itemToRemove = document.getElementById(`${itemTextValue}TrashID`)
-        .parentElement.firstChild.textContent;
-      this.removeTodoFromItemList(itemToRemove)
-      };
-
+      getTrashButtonIdToHandleRemove(itemTextValue);
       return;
     }
     UIManager.UIHandleAddRenderItem(itemTextValue, this.itemList.length);
-    this.trashButton = document.getElementById(`${itemTextValue}TrashID`);
-    this.trashButton.onclick = (source) => {
-      const itemToRemove = document.getElementById(`${itemTextValue}TrashID`)
-        .parentElement.firstChild.textContent;
-      this.removeTodoFromItemList(itemToRemove)
-    };
+    getTrashButtonIdToHandleRemove(itemTextValue);
   }
 
   addTodo(itemTextValue) {
@@ -74,8 +74,14 @@ class ItemManager {
     this.itemList.push(this.item);
   }
 
-  removeTodoFromItemList(itemToRemove){
-    console.log(itemToRemove);
+  handleRemoveTodo(itemToRemove) {
+    const itemTextValueToRemove = itemToRemove.firstChild.textContent;
+    this.removeTodoFromItemList(itemTextValueToRemove);
+    UIManager.UIremoveItem(itemToRemove, this.itemList.length);
+  }
+
+  removeTodoFromItemList(itemToRemove) {
+    this.itemList = this.itemList.filter((item) => item.name != itemToRemove);
   }
 
   handleClearAllTodos() {
