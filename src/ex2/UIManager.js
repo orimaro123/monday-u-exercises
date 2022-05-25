@@ -6,6 +6,7 @@ class UIManager {
   this.pendingTasksCount = document.getElementById("pendingTasksCountId");
   this.todoList = document.getElementById("listElement");
   this.EventListenersArray = []
+  this.idCounter = 2000
   }
  /*  static sortBtn = document.getElementById("sortBtn");
   static footerElement = document.getElementById("footertId");
@@ -39,17 +40,21 @@ class UIManager {
     const todoLi = document.createElement("li");
     todoLi.classList.add("todo");
     todoLi.innerText = textItem;
-    this.trashButton = document.createElement("button");
-    this.trashButton.innerHTML = "🗑️";
-    this.trashButton.classList.add("trashBtn");
+    const trashButton = document.createElement("button");
+    trashButton.innerHTML = "🗑️";
+    trashButton.classList.add("trashBtn");
    
-    this.trashButton.setAttribute('id',`${textItem}TrashID` )
-    todoLi.appendChild(this.trashButton);
+    trashButton.setAttribute('id',`${this.idCounter}TrashID` )
+    this.idCounter++
+    trashButton.onclick = () => {
+      console.log(trashButton.id)
+    }
+    todoLi.appendChild(trashButton);
     this.todoList.appendChild(todoLi);
    
     
     
-  
+  return 
   }
 
   UIremoveItem(itemToRemove, itemListLength){

@@ -4,6 +4,7 @@ import Item from "./ItemClass.js";
 
 class ItemManager {
   constructor() {
+    this.itemIdCounter = 2000;
     this.pokemonClient = new PokemonClient();
     this.uiManager = new UIManager();
     this.fethcedPokemons = [];
@@ -11,7 +12,7 @@ class ItemManager {
     this.itemList = [];
     this.allPokemonsJson = null;
     this.clearAllBtn = document.getElementById("clearAllBtnId");
-    this.trashButton = null;
+    // this.trashButton = null;
     this.clearAllBtn.addEventListener("click", () => {
       this.handleClearAllTodos();
     });
@@ -33,7 +34,19 @@ class ItemManager {
     for (const item of inputValue.split(/\s*,\s*/)) {
       if (/^\d+$/.test(item)) {
         const pokemonNumber = Number(item);
-        const promise = this.fetchPokemonAndAddToList(pokemonNumber);
+
+        const pokemonInList = this.fethcedPokemons.find(function (
+          pokemon,
+          index
+        ) {
+          if (pokemon.id == pokemonNumber) {
+            return true;
+          }
+        });
+        let promise = null;
+        if (!pokemonInList) {
+          promise = this.fetchPokemonAndAddToList(pokemonNumber);
+        }
         promises.push(promise);
       } else {
         //task is not a number
@@ -66,24 +79,25 @@ class ItemManager {
   }
 
   handleAddTodo(itemTextValue) {
-    const itemInList = this.itemList.find(function (item, index) {
+    /*   const itemInList = this.itemList.find(function (item, index) {
       if (item.name == itemTextValue) {
+       
         return true;
       }
     });
 
     if (itemInList) {
       return;
-    }
+    }  */
 
     this.addTodo(itemTextValue);
 
     const getTrashButtonIdToHandleRemove = () => {
-      this.trashButton = document.getElementById(`${itemTextValue}TrashID`);
-      this.trashButton.onclick = (event) => {
+      const trashButton = document.getElementById(`${counter}TrashID`);
+      trashButton.onclick = (event) => {
         console.log(event.currentTarget.id);
         const itemToRemove = document.getElementById(
-          `${itemTextValue}TrashID`
+          `${counter}TrashID`
         ).parentElement;
 
         this.handleRemoveTodo(itemToRemove);
@@ -92,16 +106,18 @@ class ItemManager {
 
     //need to add also save to local storage
     let returned;
+    const counter = this.uiManager.idCounter;
     if (this.itemList.length == 1) {
       this.uiManager.showButtonsAndFooter();
 
       this.uiManager.UIHandleAddRenderItem(itemTextValue, this.itemList.length);
 
-      getTrashButtonIdToHandleRemove(itemTextValue);
+      getTrashButtonIdToHandleRemove(counter);
       return;
     }
     this.uiManager.UIHandleAddRenderItem(itemTextValue, this.itemList.length);
-    getTrashButtonIdToHandleRemove(itemTextValue);
+
+    getTrashButtonIdToHandleRemove(counter);
   }
 
   addTodo(itemTextValue) {
@@ -131,13 +147,13 @@ class ItemManager {
 
     //catch ${pokemonName} the ${pokemonType} pokemon
     if (pokemon != `Pokemon was not found`) {
-      const pokemonTypes = []
+      const pokemonTypes = [];
       for (const pokemonType of pokemon.types) {
-        pokemonTypes.push(pokemonType.type.name)
-      
-       }
-       console.log(pokemonTypes.join('/'))
-      this.handleAddTodo(`Catch ${pokemon.name} the ${pokemonTypes.join('/')} type pokemon`);
+        pokemonTypes.push(pokemonType.type.name);
+      }
+      this.handleAddTodo(
+        `Catch ${pokemon.name} the ${pokemonTypes.join("/")} type pokemon`
+      );
       this.fethcedPokemons.push(pokemon);
       return `Catch ${pokemon.name}`;
     }
