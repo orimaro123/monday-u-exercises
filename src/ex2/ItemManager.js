@@ -45,6 +45,16 @@ class ItemManager {
   }
 
   handleAddTodo(itemTextValue) {
+    const itemInList = this.itemList.find(function (item, index) {
+      if (item.name == itemTextValue) {
+        return true;
+      }
+    });
+
+    if (itemInList) {
+      return;
+    }
+
     this.addTodo(itemTextValue);
 
     const getTrashButtonIdToHandleRemove = () => {
@@ -53,7 +63,6 @@ class ItemManager {
         const itemToRemove = document.getElementById(
           `${itemTextValue}TrashID`
         ).parentElement;
-        // const itemTextValueToRemove = itemToRemove.firstChild.textContent
         this.handleRemoveTodo(itemToRemove);
       };
     };
