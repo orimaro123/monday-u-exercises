@@ -112,7 +112,7 @@ class Main {
     return false;
   }
 
-  getPokemoname(pokemonItemId) {
+  getPokemonName(pokemonItemId) {
     let pokemonItem = this.itemManager.itemList.find(function (pokemon, index) {
       if (pokemon.itemId == pokemonItemId) {
         return pokemon.name
@@ -139,7 +139,8 @@ class Main {
       pokemonTypes.push(pokemonType.type.name);
     }
     
-    this.handleAddTodo(`catch ${PokemonData.name} the ${pokemonTypes.join("/")} pokemon`)
+    this.handleAddTodo(`catch ${PokemonData.name} the ${pokemonTypes.join("/")} pokemon`,this.idCounter)
+    this.showButtonsAndFooter()
   }
 
   handleAddTodo(textItem, idCounter) {
