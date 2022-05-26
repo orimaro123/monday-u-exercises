@@ -51,33 +51,33 @@ class Main {
       if (/^\d+$/.test(textItem)) {
         //inputValue is a number
         const pokemonNumber = Number(textItem);
-        const pokemonInDataBase = this.checkPokemonNumberFetched(pokemonNumber)
-        if(!pokemonInDataBase){
-        const pokemonPromise = this.itemManager.fetchPokemonAndAddData(
-          pokemonNumber,
-          this.idCounter
-        );
-        batchItemIds.push(this.idCounter);
-        this.idCounter++
-      
-        promises.push(pokemonPromise);
+        const pokemonInDataBase = this.checkPokemonNumberFetched(pokemonNumber);
+        if (!pokemonInDataBase) {
+          const pokemonPromise = this.itemManager.fetchPokemonAndAddData(
+            pokemonNumber,
+            this.idCounter
+          );
+          //check if id in itemlistId
+          batchItemIds.push(this.idCounter);
+          this.idCounter++;
+
+          promises.push(pokemonPromise);
         }
       } else {
         //this is a text todo
         this.handleAddTodo(textItem, this.idCounter);
-     
       }
     }
 
     Promise.all(promises).then((data) => {
       //all requests arrived
- 
-      for(const pokemonItemId of batchItemIds){
-   
-          this.getPokemonName(pokemonItemId)
+      let pokemonName = null
+      for (const pokemonItemId of batchItemIds) {
+        console.log(batchItemIds)
+        pokemonName = this.getPokemonName(pokemonItemId);
+       
       }
-      
-     
+
       if (!this.itemManager.pokemonErrorBatch.length) {
         return;
       }
@@ -101,38 +101,56 @@ class Main {
     });
   }
 
-  checkPokemonNumberFetched(pokemonNumber){
-    if (this.itemManager.fethcedPokemons.some(pokemon => pokemon.id === pokemonNumber)){
-      return true 
+  checkPokemonNumberFetched(pokemonNumber) {
+    if (
+      this.itemManager.fethcedPokemons.some(
+        (pokemon) => pokemon.id === pokemonNumber
+      )
+    ) {
+      return true;
     }
-    return false
-    
+    return false;
   }
 
-  getPokemonName(pokemonItemId){
-     let pokemonName = this.itemManager.itemList.find(function(pokemon, index) {
-      if(pokemon.itemId == pokemonItemId)
-        console.log("aaa")
-        return true
+  getPokemoname(pokemonItemId) {
+    let pokemonItem = this.itemManager.itemList.find(function (pokemon, index) {
+      if (pokemon.itemId == pokemonItemId) {
+        return pokemon.name
+      }
     });
-
+    this.getPokemonData(pokemonItem)
   }
-  
+
+  getPokemonData(pokemonItem){
+    let pokemonData = this.itemManager.fethcedPokemons.find(function (pokemon, index) {
+      if (pokemon.name == pokemonItem.name) {
+        return pokemon
+      }
+    });
+    
+    this.getPokemonTypes(pokemonData)
+  }
+
+  getPokemonTypes(PokemonData){
+  //  console.log(PokemonData)
+
+    const pokemonTypes = [];
+    for (const pokemonType of PokemonData.types) {
+      pokemonTypes.push(pokemonType.type.name);
+    }
+    
+    this.handleAddTodo(`catch ${PokemonData.name} the ${pokemonTypes.join("/")} pokemon`)
+  }
+
   handleAddTodo(textItem, idCounter) {
     //sends to item manager to add item
     const isPokemon = false;
-    this.itemManager.addToItemList(
-      textItem,
-      this.idCounter,
-      isPokemon,
-     
-    );
+    this.itemManager.addToItemList(textItem, this.idCounter, isPokemon);
     this.addItemToDOM(textItem, this.idCounter);
     this.idCounter++;
   }
 
   addItemToDOM(textItem, idCounter) {
-    console.log("hi");
     if (this.itemManager.itemList.length == 1) {
       this.showButtonsAndFooter();
     }
@@ -215,4 +233,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 window.main = main; //todo delete this!
 
-export default Main 
+export default Main;

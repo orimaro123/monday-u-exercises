@@ -2,7 +2,6 @@ import PokemonClient from "./PokemonClient.js";
 import Item from "./NEWItem.js";
 
 
-
 class ItemManager {
   constructor() {
     this.itemList = [];
@@ -10,6 +9,7 @@ class ItemManager {
     this.pokemonErrorBatch = []
     this.pokemonClient = new PokemonClient();
     this.pokemonData = null
+    
   }
 
   addToItemList(itemTextValue, itemID, isPokemon) {
