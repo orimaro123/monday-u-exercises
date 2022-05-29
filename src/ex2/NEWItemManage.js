@@ -8,7 +8,7 @@ class ItemManager {
     this.fethcedPokemons = []
     this.pokemonErrorBatch = []
     this.pokemonClient = new PokemonClient();
-    this.pokemonData = null
+    this.lastPokemonData = null
     
   }
 
@@ -30,18 +30,18 @@ class ItemManager {
       for (const pokemonType of pokemonData.types) {
         pokemonTypes.push(pokemonType.type.name);
       }
-     this.addToItemList(pokemonData.name, idCounter, true, pokemonData);
+     //this.addToItemList(pokemonData.name, idCounter, true, pokemonData);
       this.fethcedPokemons.push(pokemonData);
-      this.pokemonData = pokemonData
+      this.lastPokemonData = pokemonData
       return pokemonData;
     }
-    this.pokemonErrorBatch.push(pokemonNumber);
+    
 
     return pokemonNumber;
   }
 
   returnDataToMain(){
-      return this.pokemonData
+      return this.lastPokemonData
   }
 }
 export default ItemManager;

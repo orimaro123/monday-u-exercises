@@ -45,24 +45,13 @@ class Main {
     if (!inputValue) {
       return alert("Error, the Todo input is empty");
     }
-    let batchItemIds = [];
+
     let promises = [];
     for (const textItem of inputValue.split(/\s*,\s*/)) {
       if (/^\d+$/.test(textItem)) {
         //inputValue is a number
-        const pokemonNumber = Number(textItem);
-        const pokemonInDataBase = this.checkPokemonNumberFetched(pokemonNumber);
-        if (!pokemonInDataBase) {
-          const pokemonPromise = this.itemManager.fetchPokemonAndAddData(
-            pokemonNumber,
-            this.idCounter
-          );
-          //check if id in itemlistId
-          batchItemIds.push(this.idCounter);
-          this.idCounter++;
-
-          promises.push(pokemonPromise);
-        }
+       
+     
       } else {
         //this is a text todo
         this.handleAddTodo(textItem, this.idCounter);
@@ -70,34 +59,13 @@ class Main {
     }
 
     Promise.all(promises).then((data) => {
-      //all requests arrived
-      let pokemonName = null
-      for (const pokemonItemId of batchItemIds) {
-        console.log(batchItemIds)
-        pokemonName = this.getPokemonName(pokemonItemId);
-       
-      }
+      //all promises arrived
+     
+    
 
-      if (!this.itemManager.pokemonErrorBatch.length) {
-        return;
-      }
-      if (this.itemManager.pokemonErrorBatch.length == 1) {
-        console.log("hi");
-        this.handleAddTodo(
-          `Pokemon with ID ${this.itemManager.pokemonErrorBatch[0]} was not found`,
-          this.idCounter
-        );
-        return (this.itemManager.pokemonErrorBatch = []);
-      }
+      
+     
 
-      if (this.itemManager.pokemonErrorBatch.length > 1) {
-        const errorsToString = this.itemManager.pokemonErrorBatch.join();
-        this.handleAddTodo(
-          `Failed to fetch pokemon with this input: ${errorsToString}`,
-          this.idCounter
-        );
-      }
-      this.itemManager.pokemonErrorBatch = [];
     });
   }
 
@@ -139,8 +107,8 @@ class Main {
       pokemonTypes.push(pokemonType.type.name);
     }
     
-    this.handleAddTodo(`catch ${PokemonData.name} the ${pokemonTypes.join("/")} pokemon`,this.idCounter)
-    this.showButtonsAndFooter()
+   // this.handleAddTodo(`catch ${PokemonData.name} the ${pokemonTypes.join("/")} pokemon`,this.idCounter)
+    //this.showButtonsAndFooter()
   }
 
   handleAddTodo(textItem, idCounter) {
