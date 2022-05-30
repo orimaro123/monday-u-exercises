@@ -56,23 +56,43 @@ class Main {
     let promises = [];
     let inputValues = inputValue.split(/\s*,\s*/);
 
-    for (const textItem of inputValues) {
-      if (/^\d+$/.test(textItem)) {
-        //inputValue is a number
-
-        let promise = this.itemManager.fetchPokemon(textItem);
-        promises.push(promise);
-      } else {
-        //this is a text item
-        const wordsInTodo = textItem.split(" ");
-        this.handleAddTodo(textItem, this.idCounter, false);
-      }
-    }
+    this.handleInputValues(inputValues,promises)
     if (promises.length) {
       this.handlePromises(promises);
     }
   }
 
+  
+handleInputValues(inputValues,promises){
+  for (const textItem of inputValues) {
+    if (/^\d+$/.test(textItem)) {
+      //inputValue is a number
+      let promise = this.itemManager.fetchPokemon(textItem);
+      promises.push(promise);
+    } else {
+      //this is a text item
+      const wordsInTodo = textItem.split(" ");
+      //check if array contains a pokemon name
+      const isInClosedList = closedListOfValues.some(
+        (word) => wordsInTodo.indexOf(word) >= 0
+      );
+      if (isInClosedList) {
+        this.handlePokemonInClosedList(wordsInTodo, promises)
+      } else {
+        this.handleAddTodo(textItem, this.idCounter, false);
+      }
+    }
+  }
+}
+
+handlePokemonInClosedList(wordsInTodo, promises){
+  for (const word of wordsInTodo) {
+    if (closedListOfValues.indexOf(word) >= 0) {
+      let promise = this.itemManager.fetchPokemon(word);
+      promises.push(promise);
+    }
+  }
+}
   handlePromises(promises) {
     Promise.all(promises).then((values) => {
       //all promises arrived
