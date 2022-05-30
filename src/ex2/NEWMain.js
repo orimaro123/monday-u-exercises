@@ -56,43 +56,42 @@ class Main {
     let promises = [];
     let inputValues = inputValue.split(/\s*,\s*/);
 
-    this.handleInputValues(inputValues,promises)
+    this.handleInputValues(inputValues, promises);
     if (promises.length) {
       this.handlePromises(promises);
     }
   }
 
-  
-handleInputValues(inputValues,promises){
-  for (const textItem of inputValues) {
-    if (/^\d+$/.test(textItem)) {
-      //inputValue is a number
-      let promise = this.itemManager.fetchPokemon(textItem);
-      promises.push(promise);
-    } else {
-      //this is a text item
-      const wordsInTodo = textItem.split(" ");
-      //check if array contains a pokemon name
-      const isInClosedList = closedListOfValues.some(
-        (word) => wordsInTodo.indexOf(word) >= 0
-      );
-      if (isInClosedList) {
-        this.handlePokemonInClosedList(wordsInTodo, promises)
+  handleInputValues(inputValues, promises) {
+    for (const textItem of inputValues) {
+      if (/^\d+$/.test(textItem)) {
+        //inputValue is a number
+        let promise = this.itemManager.fetchPokemon(textItem);
+        promises.push(promise);
       } else {
-        this.handleAddTodo(textItem, this.idCounter, false);
+        //this is a text item
+        const wordsInTodo = textItem.split(" ");
+        //check if array contains a pokemon name
+        const isInClosedList = closedListOfValues.some(
+          (word) => wordsInTodo.indexOf(word) >= 0
+        );
+        if (isInClosedList) {
+          this.handlePokemonInClosedList(wordsInTodo, promises);
+        } else {
+          this.handleAddTodo(textItem, this.idCounter, false);
+        }
       }
     }
   }
-}
 
-handlePokemonInClosedList(wordsInTodo, promises){
-  for (const word of wordsInTodo) {
-    if (closedListOfValues.indexOf(word) >= 0) {
-      let promise = this.itemManager.fetchPokemon(word);
-      promises.push(promise);
+  handlePokemonInClosedList(wordsInTodo, promises) {
+    for (const word of wordsInTodo) {
+      if (closedListOfValues.indexOf(word) >= 0) {
+        let promise = this.itemManager.fetchPokemon(word);
+        promises.push(promise);
+      }
     }
   }
-}
   handlePromises(promises) {
     Promise.all(promises).then((values) => {
       //all promises arrived
@@ -191,6 +190,16 @@ handlePokemonInClosedList(wordsInTodo, promises){
     const trashButton = document.createElement("button");
     trashButton.innerHTML = "🗑️";
     trashButton.classList.add("trashBtn");
+    this.createTrashClickEvent(trashButton, textItem, idCounter)
+    trashButton.setAttribute("id", `${this.idCounter}itemID`);
+    if (isPokemon) {
+      this.handlePokemonValuesInDOM(todoLi, textItem, pokemonData);
+    }
+    todoLi.appendChild(trashButton);
+    this.todoList.appendChild(todoLi);
+  }
+
+  createTrashClickEvent(trashButton, textItem, idCounter){
     trashButton.onclick = (event) => {
       const itemToRemove = trashButton.parentElement;
       this.itemManager.removeFromItemList(textItem, idCounter);
@@ -200,19 +209,15 @@ handlePokemonInClosedList(wordsInTodo, promises){
       }
       itemToRemove.remove();
     };
-    trashButton.setAttribute("id", `${this.idCounter}itemID`);
-    if (isPokemon) {
-      todoLi.innerText = `Catch ${textItem}`;
-      const img = this.getPokemonImage(pokemonData);
-      const pokemonTypes = this.getPokemonTypes(pokemonData);
-
-      todoLi.innerText += ` the ${pokemonTypes} type Pokemon`;
-      todoLi.appendChild(img);
-    }
-    todoLi.appendChild(trashButton);
-    this.todoList.appendChild(todoLi);
   }
+  handlePokemonValuesInDOM(todoLi, textItem, pokemonData) {
+    todoLi.innerText = `Catch ${textItem}`;
+    const img = this.getPokemonImage(pokemonData);
+    const pokemonTypes = this.getPokemonTypes(pokemonData);
 
+    todoLi.innerText += ` the ${pokemonTypes} type Pokemon`;
+    todoLi.appendChild(img);
+  }
   getPokemonImage(pokemonData) {
     const url = pokemonData.sprites.front_default;
     const img = document.createElement("img");

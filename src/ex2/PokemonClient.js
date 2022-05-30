@@ -13,7 +13,6 @@ class PokemonClient {
       }
       const json = await response.json();
       if (json.name) {
-        //json?.name ?? null;
         return {
           error: false,
           data: json,
