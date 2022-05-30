@@ -1,36 +1,28 @@
 class PokemonClient {
   async fetchPokemon(pokemonId) {
     const url = "https://pokeapi.co/api/v2/pokemon/" + pokemonId;
+    const errorResponse = {
+      error: true,
+      data: pokemonId,
+      description: `Pokemon with ID ${pokemonId} was not found`,
+    };
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        return `Pokemon with ID ${pokemonID} was not found`;
+        return errorResponse;
       }
       const json = await response.json();
       if (json.name) {
-        return json;
+        //json?.name ?? null;
+        return {
+          error: false,
+          data: json,
+          description: `Pokemon with ID ${pokemonId} data`,
+        };
       }
-      return `Pokemon with ID ${pokemonID} was not found`; //json?.name ?? null;
+      return errorResponse;
     } catch (error) {
-      alert("error, fail to fetch pokemon"); 
-      return `Pokemon with ID ${pokemonID} was not found`;
-    }
-  }
-
-  async fetchAllPokemons() {
-    const url = "https://pokeapi.co/api/v2/pokemon?limit=1126&offset=0";
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        console.error("failed to catch all the pokemons, response is not ok");
-        return null;
-      }
-      const json = await response.json();
-
-      return json;
-    } catch (error) {
-      console.error(error); 
-      return null;
+      return errorResponse;
     }
   }
 }
