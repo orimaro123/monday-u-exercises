@@ -1,4 +1,4 @@
-import ItemManager from "./NEWItemManage.js";
+import ItemManager from "./ItemManage.js";
 
 const ENTER_KEY = 13;
 const ID_GENERATOR = 2000;

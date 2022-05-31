@@ -1,5 +1,5 @@
 import PokemonClient from "./PokemonClient.js";
-import Item from "./NEWItem.js";
+import Item from "./item.js";
 
 class ItemManager {
   constructor() {
