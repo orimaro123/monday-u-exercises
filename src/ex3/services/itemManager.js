@@ -9,30 +9,35 @@ class ItemManager {
     this.pokemonClient = new PokemonClient();
   }
 
-  addToItemList(itemTextValue, itemID, isPokemon, pokemonData) {
-    this.item = new Item(itemTextValue, itemID, isPokemon);
-
-    let data = [];
-
+  load() {
     try {
-      if (fs.existsSync(config.DB_PATH_FILENAME)) {
-        const todoJsonFile = fs.readFileSync(config.DB_PATH_FILENAME);
-        data = JSON.parse(todoJsonFile);
-      }
-
-      if (this.isPokemonExists(itemTextValue, data)) {
-        return;
-      }
-
-      data.push(this.item);
-      fs.writeFileSync(config.DB_PATH_FILENAME, JSON.stringify(data));
+      if (!fs.existsSync(config.DB_PATH_FILENAME)) return;
+      this.itemList = JSON.parse(fs.readFileSync(config.DB_PATH_FILENAME));
     } catch (err) {
-      console.error(err);
+      console.error("cannot load", err);
     }
   }
 
-  isPokemonExists(pokemonName, data) {
-    for (let item of data) {
+  save() {
+    try {
+      fs.writeFileSync(config.DB_PATH_FILENAME, JSON.stringify(this.itemList));
+    } catch (error) {
+      console.error("cannot save", error);
+    }
+  }
+
+  addToItemList(itemTextValue, itemID, isPokemon, pokemonData) {
+    this.load();
+    this.item = new Item(itemTextValue, itemID, isPokemon, pokemonData);
+    if (this.isPokemonExists(itemTextValue)) {
+      return;
+    }
+    this.itemList.push(this.item);
+    this.save();
+  }
+
+  isPokemonExists(pokemonName) {
+    for (let item of this.itemList) {
       if (item.isPokemon && item.name === pokemonName) {
         return true;
       }
@@ -40,8 +45,10 @@ class ItemManager {
     return false;
   }
 
-  removeFromItemList(textItem, itemId) {
-    this.itemList = this.itemList.filter((item) => item.itemId != itemId);
+  removeFromItemList(textItem) {
+    this.load()
+    this.itemList = this.itemList.filter((item) => item.name !== textItem);
+    this.save()
   }
 
   async fetchPokemon(pokemonId) {
