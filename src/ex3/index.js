@@ -19,7 +19,7 @@ function getCommanderProgram() {
 
   program
     .command("get")
-    .description("Add task to list")
+    .description("Show the list")
     .action(() => {
       get();
     });

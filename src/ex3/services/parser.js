@@ -18,17 +18,14 @@ class Parser {
   }
 
   parseInputValue(inputValue) {
-    let promises = [];
     let inputValues = inputValue.split(/\s*,\s*/);
-
-    this.handleInputValues(inputValues, promises);
-    if (promises.length) {
-      this.handlePromises(promises);
-    }
+    this.handleInputValues(inputValues);
   }
 
-  handleInputValues(inputValues, promises) {
-    for (const textItem of inputValues) {
+  handleInputValues(inputValues) {
+    let promises = [];
+
+    for (let textItem of inputValues) {
       if (/^\d+$/.test(textItem)) {
         //inputValue is a number
         let promise = this.itemManager.fetchPokemon(textItem);
@@ -46,6 +43,10 @@ class Parser {
           this.handleAddTodo(textItem, this.idCounter, false);
         }
       }
+    }
+
+    if (promises.length > 0) {
+      this.handlePromises(promises);
     }
   }
 

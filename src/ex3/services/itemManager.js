@@ -1,7 +1,7 @@
 import PokemonClient from "./pokemonClient.js";
 import Item from "../models/item.js";
-import { promises as fs } from "fs";
 import * as config from "../conf/conf.js";
+import fs from "node:fs"
 
 class ItemManager {
   constructor() {
@@ -9,21 +9,21 @@ class ItemManager {
     this.pokemonClient = new PokemonClient();
   }
 
-  async addToItemList(itemTextValue, itemID, isPokemon, pokemonData) {
+  addToItemList(itemTextValue, itemID, isPokemon, pokemonData) {
     this.item = new Item(itemTextValue, itemID, isPokemon);
-    // this.itemList.push(this.item);
 
     let parsedJason = [];
 
     try {
-      const todoJsonFile = await fs.readFile(config.DB_PATH_FILENAME);
+      if (fs.existsSync(config.DB_PATH_FILENAME)){
+        const todoJsonFile = fs.readFileSync(config.DB_PATH_FILENAME);
+        parsedJason = JSON.parse(todoJsonFile);
+      }
 
-      parsedJason = JSON.parse(todoJsonFile);
       parsedJason.push(this.item);
-      await fs.writeFile(config.DB_PATH_FILENAME, JSON.stringify(parsedJason));
+      fs.writeFileSync(config.DB_PATH_FILENAME, JSON.stringify(parsedJason));
     } catch (err) {
-      parsedJason.push(this.item);
-      await fs.writeFile(config.DB_PATH_FILENAME, JSON.stringify(parsedJason));
+      console.error(err);
     }
   }
 
