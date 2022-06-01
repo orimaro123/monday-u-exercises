@@ -1,7 +1,7 @@
 import PokemonClient from "./pokemonClient.js";
 import Item from "../models/item.js";
 import * as config from "../conf/conf.js";
-import fs from "node:fs"
+import fs from "node:fs";
 
 class ItemManager {
   constructor() {
@@ -12,19 +12,32 @@ class ItemManager {
   addToItemList(itemTextValue, itemID, isPokemon, pokemonData) {
     this.item = new Item(itemTextValue, itemID, isPokemon);
 
-    let parsedJason = [];
+    let data = [];
 
     try {
-      if (fs.existsSync(config.DB_PATH_FILENAME)){
+      if (fs.existsSync(config.DB_PATH_FILENAME)) {
         const todoJsonFile = fs.readFileSync(config.DB_PATH_FILENAME);
-        parsedJason = JSON.parse(todoJsonFile);
+        data = JSON.parse(todoJsonFile);
       }
 
-      parsedJason.push(this.item);
-      fs.writeFileSync(config.DB_PATH_FILENAME, JSON.stringify(parsedJason));
+      if (this.isPokemonExists(itemTextValue, data)) {
+        return;
+      }
+
+      data.push(this.item);
+      fs.writeFileSync(config.DB_PATH_FILENAME, JSON.stringify(data));
     } catch (err) {
       console.error(err);
     }
+  }
+
+  isPokemonExists(pokemonName, data) {
+    for (let item of data) {
+      if (item.isPokemon && item.name === pokemonName) {
+        return true;
+      }
+    }
+    return false;
   }
 
   removeFromItemList(textItem, itemId) {
