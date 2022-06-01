@@ -1,19 +1,33 @@
-# Welcome to monday-u!
+# Exercise 3 - Node.js, CLI
 
-Welcome to monday-u official github repository! We are very excited to have you here!  
-This is going to be so much fun! Here are a few general details:
+Time for task #3!<br>
 
-![](https://i.ytimg.com/vi/6_zFLsW7z2E/maxresdefault.jpg)
+## In this section you will practice
 
-## Exercises list
+**Node.js** - Build your first node.js cli app <br> 
+**Npm** - Work with external libraries <br>
+**Files** - Read and write from the file system <br>
 
-**Exercise 1** - [HTML, CSS, JS.](https://github.com/monday-u-com/monday-u-exercises/tree/master/src/ex1)
+## What you are going to build
 
-**Exercise 2** - [In depth JS, Async JS, MVC](https://github.com/monday-u-com/monday-u-exercises/tree/master/src/ex2)
+We already have a beautiful todo app that will help us to catch all the pokemons. <br>
+Now let's create cli tool, so we can add, delete, and view todos like a real pro 👩‍💻 🧑‍💻 
 
-# Submitting your tasks
-Create a pull request in your forked repository and send to your mentor when it's ready.
+Use your code from the last exercise and refactor where needed.
 
-# Solutions
+### The requirements:
 
-Every friday a new exercise and the solution for previous one will be published
+- [ ] Build node.js cli todo app
+- [ ] Detailed help option
+- [ ] Read/Write/Delete todos from a file
+
+When you finish it should look like this:
+
+![](../assets/cli.gif)
+
+### Bonus
+
+- [ ] Publish your code as npm package and run it with npx
+- [ ] Add colors to your cli tool
+- [ ] Add Inquirer.js and make you cli tool interactive
+- [ ] Display pokemon image (ascii art)
