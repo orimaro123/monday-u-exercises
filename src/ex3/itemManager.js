@@ -1,16 +1,31 @@
 import PokemonClient from "./PokemonClient.js";
 import Item from "./item.js";
+import { promises as fs } from "fs";
 
 class ItemManager {
   constructor() {
     this.itemList = [];
-
     this.pokemonClient = new PokemonClient();
   }
 
-  addToItemList(itemTextValue, itemID, isPokemon, pokemonData) {
-    this.item = new Item(itemTextValue, itemID, isPokemon, pokemonData);
-    this.itemList.push(this.item);
+ async addToItemList(itemTextValue, itemID, isPokemon, pokemonData) {
+    this.item = new Item(itemTextValue, itemID, isPokemon);
+   // this.itemList.push(this.item);
+   
+let parsedJason = []
+     
+        try {
+            const todoJsonFile = await fs.readFile("tasks.json");
+           
+            parsedJason = JSON.parse(todoJsonFile)
+            parsedJason.push(this.item)
+            await fs.writeFile("tasks.json", JSON.stringify(parsedJason));
+
+        } catch (err){
+            parsedJason.push(this.item)
+            await fs.writeFile("tasks.json", JSON.stringify(parsedJason));
+        }
+
   }
 
   removeFromItemList(textItem, itemId) {
@@ -19,6 +34,7 @@ class ItemManager {
 
   async fetchPokemon(pokemonId) {
     const pokemonData = await this.pokemonClient.fetchPokemon(pokemonId);
+
 
     if (pokemonData.error) {
       const errorResponse = {

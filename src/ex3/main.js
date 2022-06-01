@@ -1,8 +1,5 @@
+import ItemManager from "./itemManager.js";
 
-
-import ItemManager from "./itemManage.js";
-
-const ENTER_KEY = 13;
 const ID_GENERATOR = 2000;
 const closedListOfValues = [
   "bulbasaur",
@@ -16,45 +13,11 @@ const closedListOfValues = [
 class Main {
   constructor() {
     this.itemManager = new ItemManager();
-    this.todoButton = document.getElementById("addBtn");
-    this.todoInput = document.getElementById("inputTxt");
-
-    this.sortBtn = document.getElementById("sortBtn");
-    this.footerElement = document.getElementById("footertId");
-    this.clearAllBtn = document.getElementById("clearAllBtnId");
-    this.clearAllBtn.addEventListener("click", () => {
-      this.handleClearAllTodos();
-    });
-    this.pendingTasksCount = document.getElementById("pendingTasksCountId");
-    this.todoList = document.getElementById("listElement");
 
     this.idCounter = ID_GENERATOR;
   }
 
-  init() {
-    const handleInputText = () => {
-      this.parseInputValue(this.todoInput.value);
-      this.clearInput();
-    };
-
-    this.todoButton.addEventListener("click", handleInputText);
-    this.todoInput.addEventListener("keyup", () => {
-      if (event.keyCode == ENTER_KEY) {
-        handleInputText();
-      }
-    });
-  }
-
-  clearInput() {
-    this.todoInput.value = "";
-  }
-
   parseInputValue(inputValue) {
-    inputValue = inputValue.trim();
-    if (!inputValue) {
-      return alert("Error, the Todo input is empty");
-    }
-
     let promises = [];
     let inputValues = inputValue.split(/\s*,\s*/);
 
@@ -65,6 +28,7 @@ class Main {
   }
 
   handleInputValues(inputValues, promises) {
+   
     for (const textItem of inputValues) {
       if (/^\d+$/.test(textItem)) {
         //inputValue is a number
@@ -97,10 +61,11 @@ class Main {
   handlePromises(promises) {
     Promise.all(promises).then((values) => {
       //all promises arrived
-
+      
       let errorsId = [];
 
       for (const value of values) {
+       
         if (!value.error) {
           this.handlePromiseValue(value);
         } else {
@@ -132,7 +97,8 @@ class Main {
     }
   }
   handlePromiseValue(value) {
-    const pokemonInList = this.checkIfPokemonFetched(value.data.data.name);
+    console.log(value.data.data.name)
+    const pokemonInList = this.checkIfPokemonFetched(value.data.data.name); //need to refactor this method
     if (!pokemonInList) {
       this.handleAddTodo(
         `${value.data.data.name}`,
@@ -177,113 +143,15 @@ class Main {
       isPokemon,
       pokemonData
     );
-    this.addItemToDOM(textItem, this.idCounter, isPokemon, pokemonData);
     this.idCounter++;
   }
 
-  addItemToDOM(textItem, idCounter, isPokemon, pokemonData) {
-    if (this.itemManager.itemList.length) {
-      this.showButtonsAndFooter();
-    }
-    this.pendingTasksCount.innerText = this.itemManager.itemList.length;
-    const todoLi = document.createElement("li");
-    todoLi.classList.add("todo");
-    todoLi.innerText = textItem;
-    const trashButton = document.createElement("button");
-    trashButton.innerHTML = "🗑️";
-    trashButton.classList.add("trashBtn");
-    this.createTrashClickEvent(trashButton, textItem, idCounter)
-    trashButton.setAttribute("id", `${this.idCounter}itemID`);
-    if (isPokemon) {
-      this.handlePokemonValuesInDOM(todoLi, textItem, pokemonData);
-    }
-    todoLi.appendChild(trashButton);
-    this.todoList.appendChild(todoLi);
-  }
-
-  createTrashClickEvent(trashButton, textItem, idCounter){
-    trashButton.onclick = (event) => {
-      const itemToRemove = trashButton.parentElement;
-      this.itemManager.removeFromItemList(textItem, idCounter);
-      this.pendingTasksCount.innerText = this.itemManager.itemList.length;
-      if (!this.itemManager.itemList.length) {
-        this.hideButtonsAndFooter();
-      }
-      itemToRemove.remove();
-    };
-  }
-  handlePokemonValuesInDOM(todoLi, textItem, pokemonData) {
-    todoLi.innerText = `Catch ${textItem}`;
-    const img = this.getPokemonImage(pokemonData);
-    const pokemonTypes = this.getPokemonTypes(pokemonData);
-
-    todoLi.innerText += ` the ${pokemonTypes} type Pokemon`;
-    todoLi.appendChild(img);
-  }
   getPokemonImage(pokemonData) {
     const url = pokemonData.sprites.front_default;
     const img = document.createElement("img");
     img.setAttribute("src", url);
     return img;
   }
-
-  showButtonsAndFooter() {
-    this.showSortBtn();
-    this.showFooter();
-    this.showClearAllBtn();
-  }
-
-  showSortBtn() {
-    this.sortBtn.classList.remove("inactive");
-    this.sortBtn.classList.add("active");
-  }
-
-  showFooter() {
-    this.footerElement.classList.remove("inactive");
-    this.footerElement.classList.add("active");
-  }
-
-  showClearAllBtn() {
-    this.clearAllBtn.classList.remove("inactive");
-    this.clearAllBtn.classList.add("active");
-  }
-
-  hideButtonsAndFooter() {
-    this.hideSortBtn();
-    this.hideFooter();
-    this.hideClearAllBtn();
-  }
-
-  hideSortBtn() {
-    this.sortBtn.classList.add("inactive");
-    this.sortBtn.classList.remove("active");
-  }
-
-  hideFooter() {
-    this.footerElement.classList.add("inactive");
-    this.footerElement.classList.remove("active");
-  }
-
-  hideClearAllBtn() {
-    this.clearAllBtn.classList.add("inactive");
-    this.clearAllBtn.classList.remove("active");
-  }
-
-  handleClearAllTodos() {
-    this.hideButtonsAndFooter();
-    this.itemManager.itemList = [];
-    this.todoList.innerHTML = "";
-  }
 }
-
-const main = new Main();
-
-document.addEventListener("DOMContentLoaded", function () {
-  // you should create an `init` method in your class
-  // the method should add the event listener to your "add" button
-  main.init();
-});
-
-window.main = main; //todo delete this!
 
 export default Main;

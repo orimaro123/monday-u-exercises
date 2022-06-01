@@ -1,7 +1,6 @@
 import { Command } from "commander";
 import {add} from "../ex3/commands/addCommand.js"
-//import {get} from ""
-//import {getList} from "./getCommand.js"
+
 
 
 function getCommanderProgram() {
