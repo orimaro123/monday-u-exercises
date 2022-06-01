@@ -1,6 +1,7 @@
-import PokemonClient from "./PokemonClient.js";
-import Item from "./item.js";
+import PokemonClient from "./pokemonClient.js";
+import Item from "../models/item.js";
 import { promises as fs } from "fs";
+import * as config from "../conf/conf.js";
 
 class ItemManager {
   constructor() {
@@ -8,24 +9,22 @@ class ItemManager {
     this.pokemonClient = new PokemonClient();
   }
 
- async addToItemList(itemTextValue, itemID, isPokemon, pokemonData) {
+  async addToItemList(itemTextValue, itemID, isPokemon, pokemonData) {
     this.item = new Item(itemTextValue, itemID, isPokemon);
-   // this.itemList.push(this.item);
-   
-let parsedJason = []
-     
-        try {
-            const todoJsonFile = await fs.readFile("tasks.json");
-           
-            parsedJason = JSON.parse(todoJsonFile)
-            parsedJason.push(this.item)
-            await fs.writeFile("tasks.json", JSON.stringify(parsedJason));
+    // this.itemList.push(this.item);
 
-        } catch (err){
-            parsedJason.push(this.item)
-            await fs.writeFile("tasks.json", JSON.stringify(parsedJason));
-        }
+    let parsedJason = [];
 
+    try {
+      const todoJsonFile = await fs.readFile(config.DB_PATH_FILENAME);
+
+      parsedJason = JSON.parse(todoJsonFile);
+      parsedJason.push(this.item);
+      await fs.writeFile(config.DB_PATH_FILENAME, JSON.stringify(parsedJason));
+    } catch (err) {
+      parsedJason.push(this.item);
+      await fs.writeFile(config.DB_PATH_FILENAME, JSON.stringify(parsedJason));
+    }
   }
 
   removeFromItemList(textItem, itemId) {
@@ -34,7 +33,6 @@ let parsedJason = []
 
   async fetchPokemon(pokemonId) {
     const pokemonData = await this.pokemonClient.fetchPokemon(pokemonId);
-
 
     if (pokemonData.error) {
       const errorResponse = {

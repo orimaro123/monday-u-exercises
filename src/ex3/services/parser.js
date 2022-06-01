@@ -10,7 +10,7 @@ const closedListOfValues = [
 ];
 
 // Implement the `Main` class here
-class Main {
+class Parser {
   constructor() {
     this.itemManager = new ItemManager();
 
@@ -28,7 +28,6 @@ class Main {
   }
 
   handleInputValues(inputValues, promises) {
-   
     for (const textItem of inputValues) {
       if (/^\d+$/.test(textItem)) {
         //inputValue is a number
@@ -61,11 +60,10 @@ class Main {
   handlePromises(promises) {
     Promise.all(promises).then((values) => {
       //all promises arrived
-      
+
       let errorsId = [];
 
       for (const value of values) {
-       
         if (!value.error) {
           this.handlePromiseValue(value);
         } else {
@@ -97,7 +95,7 @@ class Main {
     }
   }
   handlePromiseValue(value) {
-    console.log(value.data.data.name)
+    console.log(value.data.data.name);
     const pokemonInList = this.checkIfPokemonFetched(value.data.data.name); //need to refactor this method
     if (!pokemonInList) {
       this.handleAddTodo(
@@ -154,4 +152,4 @@ class Main {
   }
 }
 
-export default Main;
+export default Parser;

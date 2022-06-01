@@ -1,11 +1,10 @@
 import chalk from "chalk";
-import Main from "../main.js";
-import ItemManager from "../itemManager.js";
+import Parser from "../services/parser.js";
+import ItemManager from "../services/itemManager.js";
 
 export async function add(inputValue) {
-  const main = new Main();
+  const main = new Parser();
   main.parseInputValue(inputValue);
-  
 
   console.log(chalk.greenBright(`${inputValue} todo added successfully!`));
 }
