@@ -12,7 +12,7 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/src/ex3",
-            "args": ["add", "1,2,3"]
+            "args": ["add", "charmander,pikachu"]
         }
     ]
 }

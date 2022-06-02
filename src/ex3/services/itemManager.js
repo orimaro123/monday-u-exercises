@@ -2,11 +2,14 @@ import PokemonClient from "./pokemonClient.js";
 import Item from "../models/item.js";
 import * as config from "../conf/conf.js";
 import fs from "node:fs";
+import chalk from "chalk";
 
+const ID_INIT_KEY = 2000;
 class ItemManager {
   constructor() {
     this.itemList = [];
     this.pokemonClient = new PokemonClient();
+    this.idGenerator = ID_INIT_KEY;
   }
 
   load() {
@@ -28,9 +31,21 @@ class ItemManager {
 
   addToItemList(itemTextValue, itemID, isPokemon, pokemonData) {
     this.load();
-    this.item = new Item(itemTextValue, itemID, isPokemon, pokemonData);
+
     if (this.isPokemonExists(itemTextValue)) {
+      console.log(chalk.red(`${itemTextValue} is already in list`));
       return;
+    }
+    console.log(chalk.greenBright(`${itemTextValue} added successfully!`));
+    if (isPokemon) {
+      this.item = new Item(
+        itemTextValue,
+        itemID,
+        isPokemon,
+        pokemonData.sprites.front_default
+      );
+    } else {
+      this.item = new Item(itemTextValue, itemID, isPokemon);
     }
     this.itemList.push(this.item);
     this.save();
@@ -45,10 +60,20 @@ class ItemManager {
     return false;
   }
 
-  removeFromItemList(textItem) {
-    this.load()
+  removeFromItemListByName(textItem) {
+    this.load();
+
     this.itemList = this.itemList.filter((item) => item.name !== textItem);
-    this.save()
+    this.save();
+  }
+
+  removeFromItemListByIndex(itemIndex) {
+    this.load();
+
+    this.itemList = this.itemList.filter(
+      (item) => this.itemList[itemIndex - 1] !== item
+    );
+    this.save();
   }
 
   async fetchPokemon(pokemonId) {

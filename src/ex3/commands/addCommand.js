@@ -6,5 +6,5 @@ export async function add(inputValue) {
   const main = new Parser();
   main.parseInputValue(inputValue);
 
-  console.log(chalk.greenBright(`${inputValue} todo added successfully!`));
+ 
 }

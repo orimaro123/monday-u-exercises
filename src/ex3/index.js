@@ -1,5 +1,7 @@
 import { Command } from "commander";
 import { add } from "./commands/addCommand.js";
+import { remove } from "./commands/removeCommand.js"
+import { show } from "./commands/showCommand.js"
 
 function getCommanderProgram() {
   const program = new Command();
@@ -13,15 +15,24 @@ function getCommanderProgram() {
     .command("add")
     .description("Add task to list")
     .arguments("<string>", "task-name")
-    .action(async (taskName) => {
+    .action( (taskName) => {
       add(taskName);
     });
 
+    program
+    .command("remove")
+    .description("Remove task from list")
+    .arguments("<string>", "task name")
+    .action(async (taskName) => {
+      remove(taskName);
+    });
+
+
   program
-    .command("get")
+    .command("show")
     .description("Show the list")
     .action(() => {
-      get();
+      show();
     });
 
   return program;

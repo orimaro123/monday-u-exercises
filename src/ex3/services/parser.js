@@ -77,7 +77,7 @@ class Parser {
 
   handlePromiseErrors(errorsId) {
     if (errorsId.length == 1) {
-      console.log(errorsId[0]);
+     
       this.handleAddTodo(
         `Pokemon with ${errorsId} was not found`,
         this.idCounter,
@@ -96,16 +96,16 @@ class Parser {
     }
   }
   handlePromiseValue(value) {
-    console.log(value.data.data.name);
-    const pokemonInList = this.checkIfPokemonFetched(value.data.data.name); //need to refactor this method
-    if (!pokemonInList) {
+    
+   
+  
       this.handleAddTodo(
         `${value.data.data.name}`,
         this.idCounter,
         true,
         value.data.data
       );
-    }
+    
   }
 
   checkIfPokemonFetched(pokemonName) {
