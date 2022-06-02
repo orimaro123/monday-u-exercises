@@ -6,7 +6,14 @@ export async function remove(inputValue) {
   const itemManager = new ItemManager();
   
   itemManager.load();
+  const itemList = itemManager.itemList
+  
+  if(!itemList.length){
+    return console.log(chalk.bgRedBright("The list is empty"))
+  }
+  const itemToRemove = itemList[inputValue -1].name
   itemManager.removeFromItemListByIndex(inputValue)
+  console.log(chalk.bgYellowBright(`${itemToRemove} was removed successfully`))
 
  
 }

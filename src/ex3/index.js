@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import { add } from "./commands/addCommand.js";
-import { remove } from "./commands/removeCommand.js"
-import { show } from "./commands/showCommand.js"
+import { remove } from "./commands/removeCommand.js";
+import { get } from "./commands/showCommand.js";
 
 function getCommanderProgram() {
   const program = new Command();
@@ -15,24 +15,23 @@ function getCommanderProgram() {
     .command("add")
     .description("Add task to list")
     .arguments("<string>", "task-name")
-    .action( (taskName) => {
+    .action((taskName) => {
       add(taskName);
     });
 
-    program
-    .command("remove")
+  program
+    .command("delete")
     .description("Remove task from list")
-    .arguments("<string>", "task name")
+    .arguments("<Number>", "task number")
     .action(async (taskName) => {
       remove(taskName);
     });
 
-
   program
-    .command("show")
+    .command("get")
     .description("Show the list")
     .action(() => {
-      show();
+      get();
     });
 
   return program;

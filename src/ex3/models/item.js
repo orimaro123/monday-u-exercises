@@ -1,9 +1,9 @@
 class Item {
-    constructor(name, itemId, isPokemon, pokemonData){
+    constructor(name, itemId, isPokemon, pokemonImageUrl){
         this.name = name;
         this.itemId = itemId
         this.isPokemon = isPokemon
-        this.pokemonData = pokemonData
+        this.pokemonImageUrl = pokemonImageUrl
     }
 }
 export default Item;
