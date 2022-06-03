@@ -9,7 +9,7 @@ import asciifyImage from "asciify-image";
 const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 
 export async function get() {
-  chalkAnimation.rainbow("Lorem ipsum");
+ 
   const rainbowTitle = chalkAnimation.rainbow(
     "\nWelcome to Ori's Todo list! \n"
   );
@@ -35,8 +35,8 @@ export async function get() {
       asciifyImage(
         item.pokemonImageUrl,
         { fit: "box", width: 60, height: 60 },
-        (err, convertedImage) => console.log(convertedImage.trim())
-      ); //=> {console.log(convertedImage)})
+        (err, convertedImage) => console.log(convertedImage)
+      ); 
     } else {
       toString += item.name;
       console.log(chalk.cyan(toString));
