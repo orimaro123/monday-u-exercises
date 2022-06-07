@@ -13,13 +13,37 @@ class ItemManager {
   }
 
   load() {
+ 
+ 
     try {
-      if (!fs.existsSync(config.DB_PATH_FILENAME)) return;
+      if (!fs.existsSync(config.DB_PATH_FILENAME)){
+        this.createStorageFile(config.DB_PATH_DIRECTORY, config.DB_PATH_FILENAME);
+      }
       this.itemList = JSON.parse(fs.readFileSync(config.DB_PATH_FILENAME));
     } catch (err) {
       console.error("cannot load", err);
     }
+ 
+ 
+ 
+    /*   try {
+      if (!fs.existsSync(config.DB_PATH_FILENAME)) return;
+      this.itemList = JSON.parse(fs.readFileSync(config.DB_PATH_FILENAME));
+    } catch (err) {
+      console.error("cannot load", err);
+    } */
   }
+
+  createStorageFile(dirpath, filepath){
+    try {
+      fs.mkdirSync(dirpath, { recursive: true });
+      fs.writeFileSync(filepath, JSON.stringify([]));
+    }
+    catch(e){
+      console.error(`cannot create file ${filepath}`, e);
+    }
+  }
+
 
   save() {
     try {
