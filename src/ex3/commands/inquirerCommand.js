@@ -3,6 +3,8 @@ import inquirer from "inquirer";
 import ItemManager from "../services/itemManager.js";
 import { get } from "./showCommand.js"
 import { add } from "./addCommand.js"
+import { deleteTask } from "./deleteCommand.js";
+import { deleteAll } from "./deleteAllCommand.js";
 
 export async function inquire() {
   const itemManager = new ItemManager();
@@ -14,21 +16,47 @@ export async function inquire() {
       {
         type: "list",
         message: "\n\nPick a task to remove",
-        name: "Action",
-        choices: ["add task", "remove task", "show list"],
+        name: "action",
+        choices: ["add task", "delete task", "delete list", "get list"],
       },
     ])
     .then((answers) => {
-      if (answers.Action === "add task") {
+      if (answers.action === "add task") {
         console.log("you chose add task");
+
+        inquirer.prompt([
+          {
+            type: "input",
+            message: "\n\nPlease enter the task you would like to add:",
+            name: "action",
+          },
+        ]).then ((answer) => {
+         
+          add(answer.action)
+        })
+
       }
 
-      if (answers.Action === "remove task") {
-        console.log("you chose remove task");
+      if (answers.action === "delete task") {
+        inquirer.prompt([
+          {
+            type: "input",
+            message: "\n\nPlease enter the task number you would like to delete:",
+            name: "action",
+          },
+        ]).then ((answer) => {
+         
+          deleteTask(answer.action)
+        })
       }
-      if (answers.Action === "show list") {
-        console.log("you chose show list");
+      if (answers.action === "get list") {
+       
         get()
+
+      }
+      if (answers.action === "delete list") {
+        
+        deleteAll()
 
       }
     });
