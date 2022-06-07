@@ -1,7 +1,6 @@
 import ItemManager from "./itemManager.js";
 import chalk from "chalk";
 
-const ID_GENERATOR = 2000;
 const closedListOfValues = [
   "bulbasaur",
   "ivysaur",
@@ -14,11 +13,10 @@ const closedListOfValues = [
 class Parser {
   constructor() {
     this.itemManager = new ItemManager();
-    this.idCounter = ID_GENERATOR;
   }
 
   parseInputValue(inputValue) {
-    this.itemManager.load()
+    this.itemManager.load();
     const dictionary = this.valuesToDictionary(inputValue);
     this.addTasksToList(dictionary.tasks);
     const promises = this.fetchPokemons(dictionary.pokemons);
@@ -27,7 +25,7 @@ class Parser {
 
   addTasksToList(todos) {
     for (let todo of todos) {
-      this.itemManager.addToItemList(todo, this.idCounter, false);
+      this.itemManager.addToItemList(todo, false);
     }
   }
 
@@ -94,7 +92,7 @@ class Parser {
     if (errorsId.length == 1) {
       this.handleAddTodo(
         `Pokemon with ${errorsId} was not found`,
-        this.idCounter,
+
         false,
         undefined
       );
@@ -103,7 +101,7 @@ class Parser {
       // let IdsForMessage = errors
       this.handleAddTodo(
         `Failed to fetch pokemon with this input: ${errorsId.join(",")}`,
-        this.idCounter,
+
         false,
         undefined
       );
@@ -116,21 +114,20 @@ class Parser {
     }
     this.handleAddTodo(
       `${value.data.data.name}`,
-      this.idCounter,
+
       true,
       value.data.data
     );
   }
 
-  handleAddTodo(textItem, idCounter, isPokemon, pokemonData) {
+  handleAddTodo(textItem, isPokemon, pokemonData) {
     //sends to item manager to add item
     this.itemManager.addToItemList(
       textItem,
-      this.idCounter,
+
       isPokemon,
       pokemonData
     );
-    this.idCounter++;
   }
 }
 
