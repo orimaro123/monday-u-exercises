@@ -18,12 +18,13 @@ class Parser {
   }
 
   parseInputValue(inputValue) {
-    let inputValues = inputValue.split(/\s*,\s*/);
-    this.handleInputValues(inputValues);
+
+    this.handleInputValues(inputValue);
   }
 
-  handleInputValues(inputValues) {
+  handleInputValues(inputValue) {
     let promises = [];
+    let inputValues = inputValue.split(/\s*,\s*/);
 
     for (let textItem of inputValues) {
       if (/^\d+$/.test(textItem)) {
