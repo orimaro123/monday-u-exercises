@@ -56,11 +56,8 @@ class ItemManager {
   addToItemList(itemTextValue, itemID, isPokemon, pokemonData) {
     this.load();
 
-    if (this.isPokemonExists(itemTextValue)) {
-      console.log(chalk.red(`${itemTextValue} is already in list`));
-      return;
-    }
-    console.log(chalk.greenBright(`${itemTextValue} added successfully!`));
+
+    
     if (isPokemon) {
       this.item = new Item(
         itemTextValue,
@@ -73,6 +70,7 @@ class ItemManager {
     }
     this.itemList.push(this.item);
     this.save();
+    console.log(chalk.greenBright(`${itemTextValue} added successfully!`));
   }
 
   isPokemonExists(pokemonName) {

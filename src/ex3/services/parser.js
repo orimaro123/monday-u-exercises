@@ -1,4 +1,5 @@
 import ItemManager from "./itemManager.js";
+import chalk from "chalk";
 
 const ID_GENERATOR = 2000;
 const closedListOfValues = [
@@ -17,6 +18,7 @@ class Parser {
   }
 
   parseInputValue(inputValue) {
+    this.itemManager.load()
     const dictionary = this.valuesToDictionary(inputValue);
     this.addTasksToList(dictionary.tasks);
     const promises = this.fetchPokemons(dictionary.pokemons);
@@ -108,6 +110,10 @@ class Parser {
     }
   }
   handlePromiseValue(value) {
+    if (this.itemManager.isPokemonExists(value.data.data.name)) {
+      console.log(chalk.red(`${value.data.data.name} is already in list`));
+      return;
+    }
     this.handleAddTodo(
       `${value.data.data.name}`,
       this.idCounter,
