@@ -1,7 +1,8 @@
 import { Command } from "commander";
 
 import { add } from "./commands/addCommand.js";
-import { remove } from "./commands/removeCommand.js";
+import { deleteTask } from "./commands/deleteCommand.js";
+import { deleteAll } from "./commands/deleteAllCommand.js";
 import { get } from "./commands/showCommand.js";
 import {inquire} from "./commands/inquirerCommand.js"
 import chalkAnimation from "chalk-animation";
@@ -34,8 +35,15 @@ function getCommanderProgram() {
     .command("delete")
     .description("Remove task from list")
     .arguments("<Number>", "task number")
-    .action(async (taskName) => {
-      remove(taskName);
+    .action((taskName) => {
+      deleteTask(taskName);
+    });
+
+    program
+    .command("deleteAll")
+    .description("Remove all tasks from list")
+    .action(() => {
+      deleteAll();
     });
 
   program

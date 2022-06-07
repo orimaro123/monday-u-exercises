@@ -2,7 +2,7 @@ import chalk from "chalk";
 import Parser from "../services/parser.js";
 import ItemManager from "../services/itemManager.js";
 
-export async function remove(inputValue) {
+export async function deleteTask(inputValue) {
   const itemManager = new ItemManager();
   
   itemManager.load();
