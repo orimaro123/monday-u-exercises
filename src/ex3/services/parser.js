@@ -13,52 +13,64 @@ const closedListOfValues = [
 class Parser {
   constructor() {
     this.itemManager = new ItemManager();
-
     this.idCounter = ID_GENERATOR;
   }
 
   parseInputValue(inputValue) {
-
-    this.handleInputValues(inputValue);
+    const dictionary = this.valuesToDictionary(inputValue);
+    this.addTasksToList(dictionary.tasks);
+    const promises = this.fetchPokemons(dictionary.pokemons);
+    this.handlePromises(promises);
   }
 
-  handleInputValues(inputValue) {
+  addTasksToList(todos) {
+    for (let todo of todos) {
+      this.itemManager.addToItemList(todo, this.idCounter, false);
+    }
+  }
+
+  fetchPokemons(pokemonsToFetch) {
+    const promises = [];
+    for (let pokemon of pokemonsToFetch) {
+      let promise = this.itemManager.fetchPokemon(pokemon);
+      promises.push(promise);
+    }
+    return promises;
+  }
+
+  valuesToDictionary(inputValue) {
     let promises = [];
     let inputValues = inputValue.split(/\s*,\s*/);
+    let dictionary = {
+      pokemons: [],
+      tasks: [],
+    };
 
     for (let textItem of inputValues) {
       if (/^\d+$/.test(textItem)) {
         //inputValue is a number
-        let promise = this.itemManager.fetchPokemon(textItem);
-        promises.push(promise);
-      } else {
-        //this is a text item
-        const wordsInTodo = textItem.split(" ");
-        //check if array contains a pokemon name
-        const isInClosedList = closedListOfValues.some(
-          (word) => wordsInTodo.indexOf(word) >= 0
-        );
-        if (isInClosedList) {
-          this.handlePokemonInClosedList(wordsInTodo, promises);
-        } else {
-          this.handleAddTodo(textItem, this.idCounter, false);
+        dictionary.pokemons.push(textItem);
+        continue;
+      }
+
+      //this is a text item
+      const wordsInTodo = textItem.split(" ");
+      let isInClosedList = false;
+
+      wordsInTodo.forEach((element) => {
+        if (closedListOfValues.includes(element)) {
+          dictionary.pokemons.push(element);
+          isInClosedList = true;
         }
+      });
+      //textItem is a task
+      if (!isInClosedList) {
+        dictionary.tasks.push(textItem);
       }
     }
-
-    if (promises.length > 0) {
-      this.handlePromises(promises);
-    }
+    return dictionary;
   }
 
-  handlePokemonInClosedList(wordsInTodo, promises) {
-    for (const word of wordsInTodo) {
-      if (closedListOfValues.indexOf(word) >= 0) {
-        let promise = this.itemManager.fetchPokemon(word);
-        promises.push(promise);
-      }
-    }
-  }
   handlePromises(promises) {
     Promise.all(promises).then((values) => {
       //all promises arrived
@@ -78,7 +90,6 @@ class Parser {
 
   handlePromiseErrors(errorsId) {
     if (errorsId.length == 1) {
-     
       this.handleAddTodo(
         `Pokemon with ${errorsId} was not found`,
         this.idCounter,
@@ -97,42 +108,12 @@ class Parser {
     }
   }
   handlePromiseValue(value) {
-    
-   
-  
-      this.handleAddTodo(
-        `${value.data.data.name}`,
-        this.idCounter,
-        true,
-        value.data.data
-      );
-    
-  }
-
-  checkIfPokemonFetched(pokemonName) {
-    const pokemonFetched = this.itemManager.itemList.find(function (
-      item,
-      index
-    ) {
-      if (item.name === pokemonName) {
-        return true;
-      }
-
-      return false;
-    });
-
-    if (pokemonFetched != undefined) {
-      return true;
-    }
-
-    return false;
-  }
-  getPokemonTypes(PokemonData) {
-    const pokemonTypes = [];
-    for (const pokemonType of PokemonData.types) {
-      pokemonTypes.push(pokemonType.type.name);
-    }
-    return pokemonTypes;
+    this.handleAddTodo(
+      `${value.data.data.name}`,
+      this.idCounter,
+      true,
+      value.data.data
+    );
   }
 
   handleAddTodo(textItem, idCounter, isPokemon, pokemonData) {
@@ -144,13 +125,6 @@ class Parser {
       pokemonData
     );
     this.idCounter++;
-  }
-
-  getPokemonImage(pokemonData) {
-    const url = pokemonData.sprites.front_default;
-    const img = document.createElement("img");
-    img.setAttribute("src", url);
-    return img;
   }
 }
 
