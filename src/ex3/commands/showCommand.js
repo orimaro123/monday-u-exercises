@@ -34,7 +34,7 @@ export async function get() {
       console.log(chalk.cyan(toString));
       asciifyImage(
         item.pokemonImageUrl,
-        { fit: "box", width: 60, height: 60 },
+        { fit: "box", width: 50, height: 50 },
         (err, convertedImage) => console.log(convertedImage)
       ); 
     } else {
