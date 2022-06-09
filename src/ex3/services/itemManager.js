@@ -44,7 +44,7 @@ class ItemManager {
     }
   }
 
-  addToItemList(itemTextValue,  isPokemon, pokemonData) {
+  async addToItemList(itemTextValue,  isPokemon, pokemonData) {
     this.load();
 
     if (isPokemon) {
@@ -59,7 +59,7 @@ class ItemManager {
     }
     this.idGenerator++;
     this.itemList.push(this.item);
-    this.save();
+    await this.save();
     console.log(chalk.greenBright(`${itemTextValue} added successfully!`));
   }
 

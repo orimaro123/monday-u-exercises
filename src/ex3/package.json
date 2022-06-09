@@ -1,6 +1,7 @@
+
 {
   "name": "ex3mondayuorimarom",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "type": "module",
@@ -19,5 +20,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bin":{
+    "ex3mondayuorimarom": "index.js"
+}
 }
