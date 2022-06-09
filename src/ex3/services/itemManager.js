@@ -44,7 +44,7 @@ class ItemManager {
     }
   }
 
-  async addToItemList(itemTextValue,  isPokemon, pokemonData) {
+  async addToItemList(itemTextValue, isPokemon, pokemonData) {
     this.load();
 
     if (isPokemon) {
