@@ -10,10 +10,12 @@ https://user-images.githubusercontent.com/66553796/172627322-db1123d7-6c35-49b5-
 
 ## Supported features:
 * Detailed help option on launch of npm start and on node help <command>
-* You can add/delete tasks or pokemons
-* You can delete tasks by entering the task number
-* You can delete all tasks with deleteAll command
-* You can use an interactive CLI menu with the inquirer command
+* Add tasks or pokemons by using the **add** command and task name/number
+* Delete tasks with **delete** command and entering the task number
+* Delete all tasks with **deleteAll** command
+* Show all tasks by using **get** command
+* Use an interactive CLI menu with the **inquirer** command
+* The package is also executable through npx
 
 ## Feel free to check out the app
 ## Enjoy ! :) ![jolteon](https://user-images.githubusercontent.com/66553796/172628945-30cb3359-cb46-4d60-a3a7-71a19071a542.gif)  ![charmander_shiny](https://user-images.githubusercontent.com/66553796/172628804-8b4dc620-e982-4ef7-be31-64d97fcebb93.gif)
