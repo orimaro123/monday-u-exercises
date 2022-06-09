@@ -1,6 +1,9 @@
 ## Welcome to Ori's CLI todo App!
 ### The npm library is published and can be installed
-use npm i ex3mondayuorimarom to install the app
+```bash
+npm i ex3mondayuorimarom 
+```
+to install the app
 ## You can watch a short demo of the application:
 
 https://user-images.githubusercontent.com/66553796/172627322-db1123d7-6c35-49b5-bdca-110307f7c2d6.mov
