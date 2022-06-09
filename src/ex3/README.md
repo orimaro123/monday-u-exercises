@@ -15,7 +15,7 @@ https://user-images.githubusercontent.com/66553796/172627322-db1123d7-6c35-49b5-
 * Delete all tasks with **deleteAll** command
 * Show all tasks by using **get** command
 * Use an interactive CLI menu with the **inquirer** command
-* The package is also executable through npx
+* The package is also executable through **npx**
 
 ## Feel free to check out the app
 ## Enjoy ! :) ![jolteon](https://user-images.githubusercontent.com/66553796/172628945-30cb3359-cb46-4d60-a3a7-71a19071a542.gif)  ![charmander_shiny](https://user-images.githubusercontent.com/66553796/172628804-8b4dc620-e982-4ef7-be31-64d97fcebb93.gif)
