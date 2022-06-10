@@ -74,4 +74,8 @@ async function main() {
   program.parse();
 }
 
-main().catch(console.error);
+try {
+  main()
+} catch (err) {
+  console.error(err)
+}

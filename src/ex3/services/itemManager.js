@@ -12,7 +12,7 @@ class ItemManager {
     this.idGenerator = ID_INIT_KEY;
   }
 
-  load() {
+   load() {
     try {
       if (!fs.existsSync(config.DB_PATH_FILENAME)) {
         this.createStorageFile(
@@ -20,7 +20,7 @@ class ItemManager {
           config.DB_PATH_FILENAME
         );
       }
-      this.itemList = JSON.parse(fs.readFileSync(config.DB_PATH_FILENAME));
+      this.itemList =  JSON.parse(fs.readFileSync(config.DB_PATH_FILENAME));
       this.idGenerator = ID_INIT_KEY + this.itemList.length;
     } catch (err) {
       console.error("cannot load", err);
@@ -44,8 +44,14 @@ class ItemManager {
     }
   }
 
-  async addToItemList(itemTextValue, isPokemon, pokemonData) {
-    this.load();
+  addMultipleTasksToList(tasks) {
+    for (let task of tasks) {
+      this.addToItemList(task, false);
+    }
+  }
+
+   async addToItemList(itemTextValue, isPokemon, pokemonData) {
+    
 
     if (isPokemon) {
       this.item = new Item(
@@ -59,11 +65,13 @@ class ItemManager {
     }
     this.idGenerator++;
     this.itemList.push(this.item);
-    await this.save();
+     await this.save();
     console.log(chalk.greenBright(`${itemTextValue} added successfully!`));
   }
 
   isPokemonExists(pokemonName) {
+    
+
     for (let item of this.itemList) {
       if (item.isPokemon && item.name === pokemonName) {
         return true;
@@ -86,21 +94,6 @@ class ItemManager {
       (item) => this.itemList[itemIndex - 1] !== item
     );
     this.save();
-  }
-
-  async fetchPokemon(pokemonId) {
-    const pokemonData = await this.pokemonClient.fetchPokemon(pokemonId);
-
-    if (pokemonData.error) {
-      const errorResponse = {
-        error: true,
-        data: pokemonId,
-        description: `Pokemon with ID ${pokemonId} was not found`,
-      };
-      return errorResponse;
-    }
-
-    return { error: false, data: pokemonData };
   }
 }
 export default ItemManager;
