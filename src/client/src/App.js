@@ -1,9 +1,16 @@
-import './App.css';
+import "./App.css";
+import AppContainer from "./components/AppContainer";
+import React, { useState } from "react";
 
 function App() {
+  const [inputText, setInputText] = useState("")
   return (
     <div className="App">
-      <h1>Hello React</h1>
+      <header>
+        <h1 className="appName">Ori's Todo List</h1>
+      </header>
+
+      <AppContainer />
     </div>
   );
 }
