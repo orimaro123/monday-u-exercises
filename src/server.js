@@ -1,3 +1,4 @@
+const cors = require("cors");
 const express = require("express");
 const { Sequelize } = require("sequelize");
 
@@ -17,6 +18,7 @@ async function test() {
 test();
 
 const path = require("path");
+
 const bodyParser = require("body-parser");
 
 require("express-async-errors");
@@ -27,6 +29,7 @@ const errorHandler = require("./server/middleware/error_handler");
 const itemRouter = require("./server/routes/itemRouter");
 
 const server = express();
+server.use(cors());
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));

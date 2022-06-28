@@ -59,16 +59,14 @@ async function getItems() {
 }
 
 async function createItemsBulk(itemsRow) {
-  const t = await sequelize.transaction();
-
   try {
-    await Item.bulkCreate(itemsRow, { t });
+    await Item.bulkCreate(itemsRow);
   } catch (error) {}
 }
 
 async function updateStatusInDb(itemId, newStatus) {
   let status = newStatus;
- 
+
   Item.update({ status }, { where: { itemId: itemId } });
   let item = getItemById(itemId);
   return item;
@@ -84,9 +82,25 @@ async function updateDoneTimestamp(itemId, timestamp) {
 
 async function updateName(itemId, newName) {
   let itemName = newName;
+  let item = getItemById(itemId);
 
   await Item.update({ itemName }, { where: { itemId: itemId } });
-  let item = getItemById(itemId);
+  if (item.isPokemon) {
+    console.log("this is isPokemon")
+    let isPokemon = false;
+    let pokemonData = null;
+    let pokemonId = null
+    await Item.update(
+      { isPokemon},
+      { where: { itemId: itemId } }
+    );
+
+    await Item.update(
+      { pokemonData},
+      { where: { itemId: itemId } }
+    );
+  }
+
   return item;
 }
 

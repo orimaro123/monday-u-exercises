@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 
-const ListControls = () => {
-
-  const inputTextHandler = (e) => {
-    console.log(e);
-  }
+const ListControls = ({ itemToCreate }) => {
+  const [inputText, setInputText] = useState("");
 
 
 
-  return (<div className="listControls">
-  
-  <input type="text" id="listItemInput" placeholder="Add your new todo" />
-        <button type="button" id="listItemSubmit">
-          +
-        </button>
-  </div>);
+  return (
+    <div className="listControls">
+      <input
+        onChange={(e) => {
+          setInputText(e.target.value);
+        }}
+        type="text"
+        id="listItemInput"
+        placeholder="Add your new todo"
+      />
+      <button type="button" id="listItemSubmit" onClick={() => itemToCreate(inputText)}>
+        +
+      </button>
+    </div>
+  );
 };
 export default ListControls;
