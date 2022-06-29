@@ -8,11 +8,14 @@ const {
   updateStatusInDb,
   updateDoneTimestamp,
   updateName,
+  clearAll,
 } = require("../controllers/itemController");
 
 const itemRouter = express.Router();
 
 itemRouter.get("/", getItems);
+
+itemRouter.post("/", clearAll);
 
 itemRouter.get("/:id", getItemById);
 

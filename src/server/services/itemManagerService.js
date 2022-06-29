@@ -64,6 +64,13 @@ async function createItemsBulk(itemsRow) {
   } catch (error) {}
 }
 
+async function clearAll() {
+  await Item.destroy({
+    where: {},
+    truncate: true,
+  });
+}
+
 async function updateStatusInDb(itemId, newStatus) {
   let status = newStatus;
 
@@ -82,26 +89,26 @@ async function updateDoneTimestamp(itemId, timestamp) {
 
 async function updateName(itemId, newName) {
   let itemName = newName;
-  let item = getItemById(itemId);
 
-  await Item.update({ itemName }, { where: { itemId: itemId } });
-  if (item.isPokemon) {
-    console.log("this is isPokemon")
+  let isNewNameExist = await isTaskNameExistInDb(newName);
+
+  if (!isNewNameExist) {
+    await Item.update({ itemName }, { where: { itemId: itemId } });
+  }
+  let item = await getItemById(itemId);
+
+  if (item.isPokemon && newName != item.itemName) {
     let isPokemon = false;
     let pokemonData = null;
-    let pokemonId = null
-    await Item.update(
-      { isPokemon},
-      { where: { itemId: itemId } }
-    );
+    let pokemonId = null;
+    await Item.update({ isPokemon }, { where: { itemId: itemId } });
 
-    await Item.update(
-      { pokemonData},
-      { where: { itemId: itemId } }
-    );
+    await Item.update({ pokemonData }, { where: { itemId: itemId } });
+
+    await Item.update({ pokemonId }, { where: { itemId: itemId } });
   }
 
-  return item;
+  return item.itemName;
 }
 
 module.exports = {
@@ -117,4 +124,5 @@ module.exports = {
   updateStatusInDb,
   updateDoneTimestamp,
   updateName,
+  clearAll,
 };
