@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ListControls from "./ListControls";
 import List from "./List";
-
+import { ToastContainer, toast } from "react-toastify";
 import {
   fetchAllItems,
   createItem,
@@ -39,15 +39,13 @@ const AppContainer = () => {
 
   const itemToEdit = async (itemId, newName) => {
     setHideClass("");
-   let itemNewName = await updateNameInDb(itemId, newName);
-  
+    let itemNewName = await updateNameInDb(itemId, newName);
+
     const items = await fetchAllItems();
     setAllItems(items.data);
     setHideClass("hide");
-   
- 
-  return itemNewName
-   
+
+    return itemNewName;
   };
 
   const clearAllItems = async () => {
@@ -62,9 +60,8 @@ const AppContainer = () => {
       const items = await fetchAllItems();
 
       setAllItems(items.data);
-      if(items.data.length > 0){
-    setClearAllHideClass("");
-
+      if (items.data.length > 0) {
+        setClearAllHideClass("");
       }
 
       setHideClass("hide");

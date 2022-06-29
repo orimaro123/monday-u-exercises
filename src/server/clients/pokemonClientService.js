@@ -1,6 +1,5 @@
 const { default: axios } = require("axios");
 
-axios;
 async function fetchPokemon(pokemonId) {
   const url = "https://pokeapi.co/api/v2/pokemon/" + pokemonId;
   const errorResponse = {

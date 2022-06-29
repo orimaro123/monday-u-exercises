@@ -11,7 +11,9 @@ async function isPokemonIdExistInDb(pokemonId) {
     return pokemonIdCount > 0;
   } else {
     let stringToCompare = `Catch ${pokemonId}`;
-    let pokemonIdCount = await Item.count({ where: { name: stringToCompare } });
+    let pokemonIdCount = await Item.count({
+      where: { itemName: stringToCompare },
+    });
     return pokemonIdCount > 0;
   }
 }
@@ -47,8 +49,6 @@ async function getItemById(itemId) {
 }
 
 async function deleteItem(itemId) {
-  const deletedItem = getItemById(itemId);
-
   await Item.destroy({ where: { itemId: itemId } });
 }
 
@@ -94,6 +94,8 @@ async function updateName(itemId, newName) {
 
   if (!isNewNameExist) {
     await Item.update({ itemName }, { where: { itemId: itemId } });
+  } else {
+    console.log("item already exist in db");
   }
   let item = await getItemById(itemId);
 

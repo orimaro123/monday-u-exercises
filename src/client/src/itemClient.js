@@ -51,7 +51,7 @@ export async function createItem(input) {
 
     return response;
   } catch (e) {
-    console.log("this is error creating item", e);
+    throw new Error("failed to create item");
   }
 }
 
@@ -101,8 +101,8 @@ export async function updateNameInDb(itemId, newName) {
       itemId: itemId,
       newName: newName,
     });
-   
-  return response.data
+
+    return response.data;
   } catch (err) {
     throw new Error("failed to update name");
   }

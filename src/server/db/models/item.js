@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Item extends Model {
     /**
@@ -13,20 +11,23 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Item.init({
-    itemId: DataTypes.STRING,
-    itemName: DataTypes.STRING,
-    isPokemon: DataTypes.BOOLEAN,
-    pokemonId: DataTypes.INTEGER,
-    pokemonData: DataTypes.STRING,
-    status: DataTypes.BOOLEAN,
-    doneAt: DataTypes.DATE,
-  }, {
-    sequelize,
-    modelName: 'Item',
-    tableName: 'items',
-    timestamps: false
-  });
-  Item.removeAttribute('id');
+  Item.init(
+    {
+      itemId: DataTypes.STRING,
+      itemName: DataTypes.STRING,
+      isPokemon: DataTypes.BOOLEAN,
+      pokemonId: DataTypes.INTEGER,
+      pokemonData: DataTypes.STRING,
+      status: DataTypes.BOOLEAN,
+      doneAt: DataTypes.DATE,
+    },
+    {
+      sequelize,
+      modelName: "Item",
+      tableName: "items",
+      timestamps: false,
+    }
+  );
+
   return Item;
 };
