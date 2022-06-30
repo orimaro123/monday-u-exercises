@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import ListControls from "./ListControls";
 import List from "./List";
 import { Button } from "monday-ui-react-core";
@@ -18,9 +18,7 @@ const AppContainer = () => {
   const [clearAllHideClass, setClearAllHideClass] = useState("hide");
 
   const [loading, setLoading] = useState(false);
-  const onClick = useCallback(() => {
-    setLoading(true);
-  }, [setLoading]);
+  
 
   const itemToCreate = async (item) => {
     setHideClass("");
@@ -31,7 +29,7 @@ const AppContainer = () => {
     setAllItems(items.data);
     setHideClass("hide");
     setClearAllHideClass("");
-  };
+  }
 
   const itemToDelete = async (itemId) => {
     setHideClass("");
@@ -90,7 +88,7 @@ const AppContainer = () => {
         <ListControls
           loading={loading}
           setLoading={setLoading}
-          onClick={onClick}
+          
           itemToCreate={itemToCreate}
         />
 

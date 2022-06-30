@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 
 import { Button } from "monday-ui-react-core";
 import "monday-ui-react-core/dist/main.css";
@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 ListControls.propTypes = {
   itemToCreate: PropTypes.func.isRequired,
 };
-function ListControls({ loading, setLoading, onClick, itemToCreate }) {
+function ListControls({ loading, setLoading,itemToCreate }) {
   const [inputText, setInputText] = useState("");
 
   const inputTextHandler = () => {
@@ -47,7 +47,7 @@ function ListControls({ loading, setLoading, onClick, itemToCreate }) {
       <Button
         id="list-item-submit"
         loading={loading}
-        onClick={onClick}
+        
         onClick={() => inputTextHandler()}
       >
         {" "}
