@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
+import { Button } from "monday-ui-react-core";
+import "monday-ui-react-core/dist/main.css";
 
 import PropTypes from "prop-types";
 
 ListControls.propTypes = {
   itemToCreate: PropTypes.func.isRequired,
 };
-function ListControls({ itemToCreate }) {
+function ListControls({ loading, setLoading, onClick, itemToCreate }) {
   const [inputText, setInputText] = useState("");
 
   const inputTextHandler = () => {
@@ -41,14 +43,16 @@ function ListControls({ itemToCreate }) {
         id="list-item-input"
         placeholder="Add your new todo"
       />
-      <button
-        type="button"
+
+      <Button
         id="list-item-submit"
+        loading={loading}
+        onClick={onClick}
         onClick={() => inputTextHandler()}
       >
-        +
-      </button>
-   
+        {" "}
+        +{" "}
+      </Button>
     </div>
   );
 }

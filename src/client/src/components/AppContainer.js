@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ListControls from "./ListControls";
 import List from "./List";
+import { Button } from "monday-ui-react-core";
+import "monday-ui-react-core/dist/main.css";
 
 import {
   fetchAllItems,
@@ -10,18 +12,22 @@ import {
   clearAll,
 } from "../itemClient";
 
-
-
-
 const AppContainer = () => {
   const [allItems, setAllItems] = useState([]);
   const [hideClass, setHideClass] = useState("hide");
   const [clearAllHideClass, setClearAllHideClass] = useState("hide");
 
+  const [loading, setLoading] = useState(false);
+  const onClick = useCallback(() => {
+    setLoading(true);
+  }, [setLoading]);
+
   const itemToCreate = async (item) => {
     setHideClass("");
+    setLoading(true);
     await createItem(item);
     const items = await fetchAllItems();
+    setLoading(false);
     setAllItems(items.data);
     setHideClass("hide");
     setClearAllHideClass("");
@@ -29,8 +35,10 @@ const AppContainer = () => {
 
   const itemToDelete = async (itemId) => {
     setHideClass("");
+    setLoading(true);
     await deleteItemById(itemId);
     const items = await fetchAllItems();
+    setLoading(false);
     setAllItems(items.data);
     setHideClass("hide");
 
@@ -41,9 +49,11 @@ const AppContainer = () => {
 
   const itemToEdit = async (itemId, newName) => {
     setHideClass("");
+    setLoading(true);
     let itemNewName = await updateNameInDb(itemId, newName);
 
     const items = await fetchAllItems();
+    setLoading(false);
     setAllItems(items.data);
     setHideClass("hide");
 
@@ -59,13 +69,14 @@ const AppContainer = () => {
   useEffect(() => {
     const fetchedItems = async () => {
       setHideClass("");
+      setLoading(true);
       const items = await fetchAllItems();
 
       setAllItems(items.data);
       if (items.data.length > 0) {
         setClearAllHideClass("");
       }
-
+      setLoading(false);
       setHideClass("hide");
     };
     fetchedItems();
@@ -74,10 +85,15 @@ const AppContainer = () => {
   return (
     <div className="app-container">
       <div className="list-container-background">
-        <div className="app-name">Ori's Todo List</div>
-   
-        <ListControls itemToCreate={itemToCreate} />
-       
+        <div className="app-name">Ori's List</div>
+
+        <ListControls
+          loading={loading}
+          setLoading={setLoading}
+          onClick={onClick}
+          itemToCreate={itemToCreate}
+        />
+
         <div className="list-container">
           <List
             itemToEdit={itemToEdit}
@@ -92,12 +108,13 @@ const AppContainer = () => {
           </span>
         </div>
         <div className="clear-all-button-div">
-          <button
+          <Button
+          
             onClick={() => clearAllItems()}
-            className={`clear-all-button ${clearAllHideClass}`}
+            id="clear-all-button"className={`clear-all-button ${clearAllHideClass}`}
           >
-            ClearAll
-          </button>
+            Clear All
+          </Button>
         </div>
       </div>
     </div>
