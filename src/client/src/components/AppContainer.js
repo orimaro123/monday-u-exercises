@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import ListControls from "./ListControls";
 import List from "./List";
-import { Button } from "monday-ui-react-core";
+import { Button, Toast } from "monday-ui-react-core";
 import "monday-ui-react-core/dist/main.css";
 
 import {
@@ -18,7 +18,6 @@ const AppContainer = () => {
   const [clearAllHideClass, setClearAllHideClass] = useState("hide");
 
   const [loading, setLoading] = useState(false);
-  
 
   const itemToCreate = async (item) => {
     setHideClass("");
@@ -29,7 +28,7 @@ const AppContainer = () => {
     setAllItems(items.data);
     setHideClass("hide");
     setClearAllHideClass("");
-  }
+  };
 
   const itemToDelete = async (itemId) => {
     setHideClass("");
@@ -60,7 +59,9 @@ const AppContainer = () => {
 
   const clearAllItems = async () => {
     setAllItems([]);
+    setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
     await clearAll();
+
     setClearAllHideClass("hide");
   };
 
@@ -80,6 +81,13 @@ const AppContainer = () => {
     fetchedItems();
   }, []);
 
+  const [toastOpen, setToastOpen] = useState(false);
+
+  const onCloseCallback = useCallback(
+    () => setToastOpen(false),
+    [setToastOpen]
+  );
+
   return (
     <div className="app-container">
       <div className="list-container-background">
@@ -88,7 +96,6 @@ const AppContainer = () => {
         <ListControls
           loading={loading}
           setLoading={setLoading}
-          
           itemToCreate={itemToCreate}
         />
 
@@ -107,12 +114,21 @@ const AppContainer = () => {
         </div>
         <div className="clear-all-button-div">
           <Button
-          
             onClick={() => clearAllItems()}
-            id="clear-all-button"className={`clear-all-button ${clearAllHideClass}`}
+            id="clear-all-button"
+            className={`clear-all-button ${clearAllHideClass}`}
           >
             Clear All
           </Button>
+          <Toast
+            open={toastOpen}
+            type={Toast.types.POSITIVE}
+            onClose={onCloseCallback}
+            autoHideDuration={4000}
+            className="monday-storybook-toast_box"
+          >
+            All items successfully deleted
+          </Toast>
         </div>
       </div>
     </div>
