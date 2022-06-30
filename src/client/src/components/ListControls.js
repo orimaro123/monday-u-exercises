@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
 
-const ListControls = ({ itemToCreate }) => {
+
+import PropTypes from "prop-types";
+
+ListControls.propTypes = {
+  itemToCreate: PropTypes.func.isRequired,
+};
+function ListControls({ itemToCreate }) {
   const [inputText, setInputText] = useState("");
 
   const inputTextHandler = () => {
@@ -43,7 +48,8 @@ const ListControls = ({ itemToCreate }) => {
       >
         +
       </button>
+   
     </div>
   );
-};
+}
 export default ListControls;

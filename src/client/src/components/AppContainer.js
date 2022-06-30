@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ListControls from "./ListControls";
 import List from "./List";
-import { ToastContainer, toast } from "react-toastify";
+
 import {
   fetchAllItems,
   createItem,
@@ -9,7 +9,9 @@ import {
   updateNameInDb,
   clearAll,
 } from "../itemClient";
-import ComponentItemsRender from "./List";
+
+
+
 
 const AppContainer = () => {
   const [allItems, setAllItems] = useState([]);
@@ -73,8 +75,9 @@ const AppContainer = () => {
     <div className="app-container">
       <div className="list-container-background">
         <div className="app-name">Ori's Todo List</div>
-
+   
         <ListControls itemToCreate={itemToCreate} />
+       
         <div className="list-container">
           <List
             itemToEdit={itemToEdit}

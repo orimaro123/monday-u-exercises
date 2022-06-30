@@ -16,45 +16,45 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
   const [decorateClass, setDecorateClass] = useState("");
 
   const newStatusHandler = async (e) => {
-    if (e.target.checked === true) {
+    if (e.target.checked) {
       setDecorateClass("decorate");
 
-      let timestampNow = new Date();
-      let timestampNowHours = timestampNow.getHours();
+      const timestampNow = new Date();
+      const timestampNowHours = timestampNow.getHours();
       timestampNow.setHours(timestampNowHours + 3);
 
-      let timestampNowToDb = timestampNow
+      const timestampNowToDb = timestampNow
         .toISOString()
         .slice(0, 19)
         .replace("T", " ");
-      let timestampNowToReact = timestampNowToDb.slice(10, 19);
+      const timestampNowToReact = timestampNowToDb.slice(10, 19);
       await updateDoneTimestamp(item.itemId, timestampNowToDb);
       setStatusCompleteTime(timestampNowToReact);
       setHideClass("");
-    } else {
-      setDecorateClass("");
-      setHideClass("hide");
+      return;
     }
+    setDecorateClass("");
+    setHideClass("hide");
   };
 
-  const editName = async (e) => {
+  const editName = async () => {
     if (editSaveButtonIcon == editIcon) {
       setReadOnly(false);
       setEditSaveButtonText(saveIcon);
-    } else {
-      setReadOnly(true);
-      setEditSaveButtonText(editIcon);
-      let itemNewName = await itemToEdit(item.itemId, newName);
-
-      setNewName(itemNewName);
+      return;
     }
+    setReadOnly(true);
+    setEditSaveButtonText(editIcon);
+    let itemNewName = await itemToEdit(item.itemId, newName);
+
+    setNewName(itemNewName);
   };
 
   return (
     <li className="list-item flex">
       {" "}
       <div className="check-box">
-        <input type="checkBox" onChange={(e) => newStatusHandler(e)} />
+        <input type="checkBox" onChange={newStatusHandler} />
       </div>
       <input
         className={`list-item-text ${decorateClass}`}
@@ -85,7 +85,7 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
         <img
           className="list-item-edit-button"
           src={editSaveButtonIcon}
-          onClick={() => editName()}
+          onClick={editName}
         />
       </div>
     </li>

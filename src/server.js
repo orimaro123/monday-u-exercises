@@ -1,8 +1,10 @@
+require('dotenv').config()
 const cors = require("cors");
 const express = require("express");
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("ori", "root", "bgZONOT2602!", {
+const {DB_USERNAME, DB_NAME, DB_PASSWORD} = process.env;
+const sequelize = new Sequelize(DB_USERNAME, DB_NAME, DB_PASSWORD, {
   host: "localhost",
   dialect: "mysql",
 });
@@ -27,6 +29,7 @@ const logger = require("./server/middleware/logger");
 
 const errorHandler = require("./server/middleware/error_handler");
 const itemRouter = require("./server/routes/itemRouter");
+const { env } = require('process');
 
 const server = express();
 server.use(cors());
@@ -35,7 +38,7 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
 
 server.use(logger);
-server.use([express.json(), express.static("dist")]);
+// server.use([express.json(), express.static("dist")]);
 server.use("/item", itemRouter);
 
 server.get("/", (req, res) => {
