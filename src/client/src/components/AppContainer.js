@@ -16,24 +16,36 @@ const AppContainer = () => {
   const [allItems, setAllItems] = useState([]);
   const [hideClass, setHideClass] = useState("hide");
   const [clearAllHideClass, setClearAllHideClass] = useState("hide");
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastContent, setToastContent] = useState("");
 
   const [loading, setLoading] = useState(false);
 
   const itemToCreate = async (item) => {
     setHideClass("");
     setLoading(true);
-    await createItem(item);
+
+    const newItems = await createItem(item);
+  
+    let toToast = newItems.data.map((item) => item.itemName).join(",")
+    setToastContent(`${toToast} successfully added`);
+    setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
+   
     const items = await fetchAllItems();
+
     setLoading(false);
     setAllItems(items.data);
     setHideClass("hide");
     setClearAllHideClass("");
   };
 
-  const itemToDelete = async (itemId) => {
+  const itemToDelete = async (itemId, itemName) => {
     setHideClass("");
     setLoading(true);
     await deleteItemById(itemId);
+    setToastContent(`${itemName} successfully edited and saved`);
+    setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
+
     const items = await fetchAllItems();
     setLoading(false);
     setAllItems(items.data);
@@ -48,6 +60,8 @@ const AppContainer = () => {
     setHideClass("");
     setLoading(true);
     let itemNewName = await updateNameInDb(itemId, newName);
+    setToastContent(`${newName} successfully edited and saved`);
+    setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
 
     const items = await fetchAllItems();
     setLoading(false);
@@ -59,6 +73,7 @@ const AppContainer = () => {
 
   const clearAllItems = async () => {
     setAllItems([]);
+    setToastContent("All items successfully deleted");
     setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
     await clearAll();
 
@@ -80,8 +95,6 @@ const AppContainer = () => {
     };
     fetchedItems();
   }, []);
-
-  const [toastOpen, setToastOpen] = useState(false);
 
   const onCloseCallback = useCallback(
     () => setToastOpen(false),
@@ -127,7 +140,7 @@ const AppContainer = () => {
             autoHideDuration={4000}
             className="monday-storybook-toast_box"
           >
-            All items successfully deleted
+            {toastContent}
           </Toast>
         </div>
       </div>

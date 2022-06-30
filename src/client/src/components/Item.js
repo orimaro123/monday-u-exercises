@@ -78,7 +78,7 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
         <img
           className="list-item-trash-button"
           src={deleteIcon}
-          onClick={() => itemToDelete(item.itemId)}
+          onClick={() => itemToDelete(item.itemId ,item.itemName)}
         />
       </div>
       <div className="list-item-edit-div">
