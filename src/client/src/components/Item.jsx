@@ -6,9 +6,12 @@ import {
   updateDoneTimestamp,
   updateStatusInDb,
 } from "../services/itemClient";
+
 import editIcon from "../images/edit-icon.svg";
 import saveIcon from "../images/save-icon.svg";
 import deleteIcon from "../images/delete-icon.svg";
+import PropTypes from "prop-types";
+ 
 
 const ListItem = ({ item, itemToDelete, itemToEdit }) => {
   const [newName, setNewName] = useState(item.itemName);
@@ -121,4 +124,13 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
     </li>
   );
 };
+
+
+ListItem.propTypes = {
+	itemToDelete: PropTypes.func.isRequired,
+	itemToEdit: PropTypes.func.isRequired,
+	item: PropTypes.object.isRequired,
+
+  }; 
+
 export default ListItem;

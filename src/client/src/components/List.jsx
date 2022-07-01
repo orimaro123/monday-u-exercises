@@ -1,6 +1,7 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 import Item from "./Item"
+
 
 const List = ({ allItems, itemToDelete, itemToEdit }) => {
   return (
@@ -18,4 +19,12 @@ const List = ({ allItems, itemToDelete, itemToEdit }) => {
     </div>
   );
 };
+
+
+ List.propTypes = {
+	itemToDelete: PropTypes.func.isRequired,
+	itemToEdit: PropTypes.func.isRequired,
+	allItems: PropTypes.array.isRequired,
+
+  }; 
 export default List;
