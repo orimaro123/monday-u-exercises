@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import ListControls from "./ListControls";
 
-import { fetchAllItems, updateDoneTimestamp } from "../itemClient";
+import {
+  fetchAllItems,
+  updateDoneTimestamp,
+  updateStatusInDb,
+} from "../services/itemClient";
 import editIcon from "../images/edit-icon.svg";
 import saveIcon from "../images/save-icon.svg";
 import deleteIcon from "../images/delete-icon.svg";
@@ -14,11 +18,12 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
   const [hideClass, setHideClass] = useState("");
   const [readOnly, setReadOnly] = useState(true);
   const [decorateClass, setDecorateClass] = useState("");
+  const [checkBoxCheck, setCheckBoxCheck] = useState(item.status);
 
   const newStatusHandler = async (e) => {
     if (e.target.checked) {
       setDecorateClass("decorate");
-
+      setCheckBoxCheck(true);
       const timestampNow = new Date();
       const timestampNowHours = timestampNow.getHours();
       timestampNow.setHours(timestampNowHours + 3);
@@ -29,10 +34,15 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
         .replace("T", " ");
       const timestampNowToReact = timestampNowToDb.slice(10, 19);
       await updateDoneTimestamp(item.itemId, timestampNowToDb);
-      setStatusCompleteTime(timestampNowToReact);
+
+      await updateStatusInDb(item.itemId, e.target.checked);
+
+      setStatusCompleteTime(`Done at ${timestampNowToReact}`);
       setHideClass("");
       return;
     }
+    await updateStatusInDb(item.itemId, false);
+    setCheckBoxCheck(false);
     setDecorateClass("");
     setHideClass("hide");
   };
@@ -50,11 +60,31 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
     setNewName(itemNewName);
   };
 
+  useEffect(() => {
+    if (checkBoxCheck) {
+      setDecorateClass("decorate");
+      
+      
+      const timeFromDb = item.doneAt.slice(0, 19).replace("T", " ").slice(10, 19)
+     
+      const timeHours = timeFromDb.slice(0,3)
+      const correctHours = Number(timeHours) + 3
+ 
+   const correctTimeToReact = timeFromDb.replace(timeHours, correctHours.toString())
+ setStatusCompleteTime(`Done at ${correctTimeToReact}`)
+     
+    }
+  }, []);
+
   return (
     <li className="list-item flex">
       {" "}
       <div className="check-box">
-        <input type="checkBox" onChange={newStatusHandler} />
+        <input
+          type="checkBox"
+          checked={checkBoxCheck}
+          onChange={newStatusHandler}
+        />
       </div>
       <input
         className={`list-item-text ${decorateClass}`}
@@ -63,9 +93,6 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
         readOnly={readOnly}
         value={newName}
       />
-      <div className={`status-complete-time  ${decorateClass} ${hideClass}`}>
-        {statusCompleteTime}
-      </div>
       {item.isPokemon ? (
         <div className={`pokemon-photo-div ${decorateClass}`}>
           {" "}
@@ -74,11 +101,14 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
       ) : (
         <div className="space-div"></div>
       )}
+      <div className={`status-complete-time   ${hideClass}`}>
+        {statusCompleteTime}
+      </div>
       <div className="list-item-trash-div">
         <img
           className="list-item-trash-button"
           src={deleteIcon}
-          onClick={() => itemToDelete(item.itemId ,item.itemName)}
+          onClick={() => itemToDelete(item.itemId, item.itemName)}
         />
       </div>
       <div className="list-item-edit-div">

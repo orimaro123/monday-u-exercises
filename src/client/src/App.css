@@ -33,7 +33,7 @@
 .list-container-background {
   display: flex;
   flex-direction: column;
-  width: 35%;
+  width: 45%;
   height: 70%;
   background-color: white;
   background: rgba(255, 255, 255, 0.7);
@@ -96,7 +96,7 @@
 .list-controls #list-item-submit {
   color: white;
   background-color: #6c6cff;
-  
+
   border-color: transparent;
 
   height: 45px;
@@ -140,12 +140,16 @@
   background-color: transparent;
   resize: none;
   outline: none;
-  width: 70%;
+  width: 50%;
   font-weight: bold;
 }
 
-.status-complete-time {
-  cursor: none;
+.status-complete-time:not(:empty) {
+  cursor: pointer;
+  font-style: bold;
+
+  font-weight: bold;
+ 
 }
 .space-div {
   width: 30%;
@@ -165,6 +169,7 @@
 .decorate {
   text-decoration: line-through;
   opacity: 0.5;
+  font-style: bold;
 }
 
 .edit-mode {

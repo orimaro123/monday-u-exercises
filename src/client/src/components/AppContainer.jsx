@@ -10,7 +10,7 @@ import {
   deleteItemById,
   updateNameInDb,
   clearAll,
-} from "../itemClient";
+} from "../services/itemClient";
 
 const AppContainer = () => {
   const [allItems, setAllItems] = useState([]);
@@ -26,11 +26,10 @@ const AppContainer = () => {
     setLoading(true);
 
     const newItems = await createItem(item);
-  
-    let toToast = newItems.data.map((item) => item.itemName).join(",")
-    setToastContent(`${toToast} successfully added`);
+
+    setToastContent(`${newItems.data.length} items successfully added`);
     setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
-   
+
     const items = await fetchAllItems();
 
     setLoading(false);
@@ -43,7 +42,7 @@ const AppContainer = () => {
     setHideClass("");
     setLoading(true);
     await deleteItemById(itemId);
-    setToastContent(`${itemName} successfully edited and saved`);
+    setToastContent(`${itemName} successfully deleted`);
     setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
 
     const items = await fetchAllItems();
