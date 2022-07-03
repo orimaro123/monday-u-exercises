@@ -10,6 +10,7 @@ import {
   updateNameInDb,
   clearAll,
 } from "../services/itemClient";
+import Search from "./Search";
 
 const AppContainer = () => {
   const [allItems, setAllItems] = useState([]);
@@ -109,6 +110,7 @@ const AppContainer = () => {
           setLoading={setLoading}
           itemToCreate={itemToCreate}
         />
+        <Search/>
 
         <div className="list-container">
           <List

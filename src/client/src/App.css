@@ -35,19 +35,22 @@
   font-size: 30px;
   text-align: center;
   margin-top: 20px;
+  justify-content: center;
+
 }
 
 .list-container-background {
   display: flex;
   flex-direction: column;
   width: 45%;
-  height: 70%;
+  height: 80%;
   background-color: white;
   background: rgba(255, 255, 255, 0.7);
   border: 1px silver solid;
   border-radius: 8px;
   -webkit-box-shadow: 12px 12px 38px -13px #000000;
   box-shadow: 12px 12px 38px -13px #000000;
+  align-items: center;
 }
 .clear-all-button-div {
   height: 15%;
@@ -84,13 +87,14 @@
 }
 
 .list-controls {
+  width:70%;
   padding: 0px 32px;
   background-color: white;
   display: flex;
   align-items: center;
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
-  height: 20%;
+  height: 15%;
   background: rgba(255, 255, 255, 0);
   justify-content: center;
 }
@@ -103,6 +107,16 @@
   border-radius: 5px;
   border-color: #6c6cff;
 }
+
+.list-controls #search-input {
+  width: 90%;
+  height: 40px;
+  font-size: 16px;
+  padding-left: 8px;
+  border-radius: 5px;
+  border-color: #6c6cff;
+}
+
 
 .list-controls #list-item-submit {
   color: white;
@@ -118,6 +132,20 @@
   cursor: pointer;
 }
 
+.list-controls #search-button {
+  color: white;
+  background-color: #6c6cff;
+
+  border-color: transparent;
+
+  height: 45px;
+  width: 45px;
+  font-size: 25px;
+  display: flex;
+
+  cursor: pointer;
+}
+
 .list-controls #list-item-submit:hover {
   background-color: #3c3cff;
   transition: background-color 0.2s ease-in-out;
@@ -128,7 +156,7 @@
   padding: 0px 40px;
   height: 310px;
   overflow-y: scroll;
-  height: 70%;
+  height: 90%;
   opacity: 1;
 }
 
