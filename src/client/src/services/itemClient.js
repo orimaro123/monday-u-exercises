@@ -81,9 +81,13 @@ export async function updateStatusInDb(itemId, newStatus) {
   const urlUpdateItem = `${URL}/item/update_status/${itemId}/${newStatus}`;
 
   try {
-    const response = await axios.put(urlUpdateItem, {
-      itemId: itemId,
-      newStatus: newStatus,
+    const response = await fetch(urlUpdateItem, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        itemId: itemId,
+        newStatus: newStatus,
+      }),
     });
   } catch (err) {
     throw new Error("failed to update item");
