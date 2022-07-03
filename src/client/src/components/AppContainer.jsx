@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from "react";
 import ListControls from "./ListControls";
 import List from "./List";
 import { Button, Toast } from "monday-ui-react-core";
-import "monday-ui-react-core/dist/main.css";
 
 import {
   fetchAllItems,
@@ -27,7 +26,7 @@ const AppContainer = () => {
 
     const newItems = await createItem(item);
 
-    setToastContent(`${newItems.data.length} items successfully added`);
+    setToastContent(`${newItems.length} items successfully added`);
     setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
 
     const items = await fetchAllItems();

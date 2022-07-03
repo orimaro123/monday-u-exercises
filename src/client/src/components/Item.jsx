@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import ListControls from "./ListControls";
+
 
 import {
-  fetchAllItems,
+
   updateDoneTimestamp,
   updateStatusInDb,
 } from "../services/itemClient";
@@ -16,7 +16,7 @@ import PropTypes from "prop-types";
 const ListItem = ({ item, itemToDelete, itemToEdit }) => {
   const [newName, setNewName] = useState(item.itemName);
   const [editSaveButtonIcon, setEditSaveButtonText] = useState(editIcon);
-  const [itemWasEdited, setItemWasEdited] = useState(false);
+ 
   const [statusCompleteTime, setStatusCompleteTime] = useState("");
   const [hideClass, setHideClass] = useState("");
   const [readOnly, setReadOnly] = useState(true);
@@ -51,7 +51,7 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
   };
 
   const editName = async () => {
-    if (editSaveButtonIcon == editIcon) {
+    if (editSaveButtonIcon === editIcon) {
       setReadOnly(false);
       setEditSaveButtonText(saveIcon);
       return;
@@ -77,7 +77,7 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
  setStatusCompleteTime(`Done at ${correctTimeToReact}`)
      
     }
-  }, []);
+  }, [checkBoxCheck, item.doneAt] );
 
   return (
     <li className="list-item flex">
@@ -99,7 +99,7 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
       {item.isPokemon ? (
         <div className={`pokemon-photo-div ${decorateClass}`}>
           {" "}
-          <img src={item.pokemonData}></img>
+          <img src={item.pokemonData} alt={"pokemon"}></img>
         </div>
       ) : (
         <div className="space-div"></div>
@@ -111,6 +111,7 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
         <img
           className="list-item-trash-button"
           src={deleteIcon}
+          alt="trash"
           onClick={() => itemToDelete(item.itemId, item.itemName)}
         />
       </div>
@@ -118,6 +119,7 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
         <img
           className="list-item-edit-button"
           src={editSaveButtonIcon}
+          alt={"edit icon"}
           onClick={editName}
         />
       </div>

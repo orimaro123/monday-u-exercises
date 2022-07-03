@@ -47,9 +47,17 @@ export async function createItem(input) {
   const urlCreateItem = URL + `/item/create_item/`;
 
   try {
-    const response = await axios.post(urlCreateItem, { data: input });
+    const response = await fetch(urlCreateItem, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data: input }),
+    });
 
-    return response;
+    let items = await response.json();
+
+    //const response = await axios.post(urlCreateItem, { data: input });
+
+    return items;
   } catch (e) {
     throw new Error("failed to create item");
   }
@@ -75,7 +83,7 @@ export async function updateStatusInDb(itemId, newStatus) {
       itemId: itemId,
       newStatus: newStatus,
     });
-   // return response
+    // return response
   } catch (err) {
     throw new Error("failed to update item");
   }
