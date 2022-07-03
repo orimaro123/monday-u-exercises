@@ -78,10 +78,10 @@ export async function clearAll() {
 }
 
 export async function updateStatusInDb(itemId, newStatus) {
-  const urlUpdateItem = `${URL}/item/update_status/${itemId}/${newStatus}`;
+  const urlUpdateItemStatus = `${URL}/item/update_status/${itemId}/${newStatus}`;
 
   try {
-    const response = await fetch(urlUpdateItem, {
+    const response = await fetch(urlUpdateItemStatus, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -90,17 +90,21 @@ export async function updateStatusInDb(itemId, newStatus) {
       }),
     });
   } catch (err) {
-    throw new Error("failed to update item");
+    throw new Error("failed to update status");
   }
 }
 
 export async function updateDoneTimestamp(itemId, timestamp) {
-  const urlUpdateItem = `${URL}/item/update_done_timestamp/${itemId}/${timestamp}`;
+  const urlUpdateItemTimestamp = `${URL}/item/update_done_timestamp/${itemId}/${timestamp}`;
 
   try {
-    const response = await axios.put(urlUpdateItem, {
-      itemId: itemId,
-      timestamp: timestamp,
+    await fetch(urlUpdateItemTimestamp, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        itemId: itemId,
+        timestamp: timestamp,
+      }),
     });
   } catch (err) {
     throw new Error("failed to update done timestamp");
@@ -108,15 +112,20 @@ export async function updateDoneTimestamp(itemId, timestamp) {
 }
 
 export async function updateNameInDb(itemId, newName) {
-  const urlUpdateItem = `${URL}/item/update_name/${itemId}/${newName}`;
+  const urlUpdateItemName = `${URL}/item/update_name/${itemId}/${newName}`;
 
   try {
-    const response = await axios.put(urlUpdateItem, {
-      itemId: itemId,
-      newName: newName,
+    const response = await fetch(urlUpdateItemName, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        itemId: itemId,
+        newName: newName,
+      }),
     });
+    const nameToReact = await response.json();
 
-    return response.data;
+    return nameToReact;
   } catch (err) {
     throw new Error("failed to update name");
   }
