@@ -55,8 +55,6 @@ export async function createItem(input) {
 
     let items = await response.json();
 
-    //const response = await axios.post(urlCreateItem, { data: input });
-
     return items;
   } catch (e) {
     throw new Error("failed to create item");
@@ -67,7 +65,11 @@ export async function clearAll() {
   const urlClearAll = URL + `/item/`;
 
   try {
-    const response = await axios.post(urlClearAll, { data: "clear all" });
+    const response = await fetch(urlClearAll, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data: "clear all" }),
+    });
 
     return response;
   } catch (e) {
