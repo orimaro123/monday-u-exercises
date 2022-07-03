@@ -85,7 +85,6 @@ export async function updateStatusInDb(itemId, newStatus) {
       itemId: itemId,
       newStatus: newStatus,
     });
-    // return response
   } catch (err) {
     throw new Error("failed to update item");
   }

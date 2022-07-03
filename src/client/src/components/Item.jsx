@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from "react";
 
-
-import {
-
-  updateDoneTimestamp,
-  updateStatusInDb,
-} from "../services/itemClient";
+import { updateDoneTimestamp, updateStatusInDb } from "../services/itemClient";
 
 import editIcon from "../images/edit-icon.svg";
 import saveIcon from "../images/save-icon.svg";
 import deleteIcon from "../images/delete-icon.svg";
 import PropTypes from "prop-types";
- 
 
 const ListItem = ({ item, itemToDelete, itemToEdit }) => {
   const [newName, setNewName] = useState(item.itemName);
   const [editSaveButtonIcon, setEditSaveButtonText] = useState(editIcon);
- 
+
   const [statusCompleteTime, setStatusCompleteTime] = useState("");
   const [hideClass, setHideClass] = useState("");
   const [readOnly, setReadOnly] = useState(true);
@@ -43,11 +37,12 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
       setStatusCompleteTime(`Done at ${timestampNowToReact}`);
       setHideClass("");
       return;
+    } else {
+      await updateStatusInDb(item.itemId, false);
+      setCheckBoxCheck(false);
+      setDecorateClass("");
+      setHideClass("hide");
     }
-    await updateStatusInDb(item.itemId, false);
-    setCheckBoxCheck(false);
-    setDecorateClass("");
-    setHideClass("hide");
   };
 
   const editName = async () => {
@@ -66,18 +61,22 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
   useEffect(() => {
     if (checkBoxCheck) {
       setDecorateClass("decorate");
-      
-      
-      const timeFromDb = item.doneAt.slice(0, 19).replace("T", " ").slice(10, 19)
-     
-      const timeHours = timeFromDb.slice(0,3)
-      const correctHours = Number(timeHours) + 3
- 
-   const correctTimeToReact = timeFromDb.replace(timeHours, correctHours.toString())
- setStatusCompleteTime(`Done at ${correctTimeToReact}`)
-     
+
+      const timeFromDb = item.doneAt
+        .slice(0, 19)
+        .replace("T", " ")
+        .slice(10, 19);
+
+      const timeHours = timeFromDb.slice(0, 3);
+      const correctHours = Number(timeHours) + 3;
+
+      const correctTimeToReact = timeFromDb.replace(
+        timeHours,
+        correctHours.toString()
+      );
+      setStatusCompleteTime(`Done at ${correctTimeToReact}`);
     }
-  }, [checkBoxCheck, item.doneAt] );
+  }, []);
 
   return (
     <li className="list-item flex">
@@ -87,6 +86,7 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
           type="checkBox"
           checked={checkBoxCheck}
           onChange={newStatusHandler}
+          onClick={()=> setCheckBoxCheck(!checkBoxCheck)}
         />
       </div>
       <input
@@ -99,7 +99,7 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
       {item.isPokemon ? (
         <div className={`pokemon-photo-div ${decorateClass}`}>
           {" "}
-          <img src={item.pokemonData} alt={"pokemon"}></img>
+          <img src={item.pokemonData} alt=""></img>
         </div>
       ) : (
         <div className="space-div"></div>
@@ -127,12 +127,10 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
   );
 };
 
-
 ListItem.propTypes = {
-	itemToDelete: PropTypes.func.isRequired,
-	itemToEdit: PropTypes.func.isRequired,
-	item: PropTypes.object.isRequired,
-
-  }; 
+  itemToDelete: PropTypes.func.isRequired,
+  itemToEdit: PropTypes.func.isRequired,
+  item: PropTypes.object.isRequired,
+};
 
 export default ListItem;
