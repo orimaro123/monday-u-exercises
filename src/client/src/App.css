@@ -1,3 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+* {
+  font-family: Quicksand;
+  font-weight: bold;
+}
+
 .App {
   height: 100vh;
 }
@@ -5,7 +12,7 @@
   width: 100%;
   height: 100%;
 
-  font-weight: bold;
+  
 
   background-image: linear-gradient(
     to top right,
@@ -24,7 +31,7 @@
 
 .app-name {
   padding-left: 32px;
-  font-weight: bold;
+ 
   font-size: 30px;
   text-align: center;
   margin-top: 20px;
@@ -63,6 +70,10 @@
   border-style: solid;
   border-color: transparent;
   border-radius: 4px;
+  font-family: Quicksand;
+  font-weight: bold;
+
+  
 
   cursor: pointer;
 }
@@ -130,6 +141,7 @@
 
   padding: 8px;
   cursor: pointer;
+  
 }
 .check-box {
   width: 10%;
@@ -141,15 +153,13 @@
   resize: none;
   outline: none;
   width: 50%;
-  font-weight: bold;
+ 
 }
 
 .status-complete-time:not(:empty) {
   cursor: pointer;
-  font-style: bold;
+  
 
-  font-weight: bold;
- 
 }
 .space-div {
   width: 30%;
@@ -182,18 +192,20 @@
 }
 
 .list-item:last-of-type {
-  border-bottom: 1px black solid;
+ /*  border-bottom: 1px black solid; */
+
 }
 
 .list-item {
-  border-top: 1px black solid;
+ /*  border-top: 1px black solid; */
+ 
 }
 
 .list-item-trash-button {
   margin-left: auto;
   padding: 8px;
   cursor: pointer;
-
+  border-radius: 8px;
   width: 25px;
 }
 
