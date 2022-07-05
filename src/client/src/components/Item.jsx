@@ -99,7 +99,7 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
       {item.isPokemon ? (
         <div className={`pokemon-photo-div ${decorateClass}`}>
           {" "}
-          <img src={item.pokemonData} alt=""></img>
+          <img className="pokemon-photo" src={item.pokemonData} alt=""></img>
         </div>
       ) : (
         <div className="space-div"></div>

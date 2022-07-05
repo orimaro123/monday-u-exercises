@@ -12,7 +12,7 @@ import {
 } from "../services/itemClient";
 import Search from "./Search";
 
-const AppContainer = () => {
+const AppContainer = ({ showLoaderAction, hideLoaderAction, showLoader }) => {
   const [allItems, setAllItems] = useState([]);
   const [hideClass, setHideClass] = useState("hide");
   const [clearAllHideClass, setClearAllHideClass] = useState("hide");
@@ -80,16 +80,24 @@ const AppContainer = () => {
   };
 
   useEffect(() => {
+    showLoaderAction();
+
+    const loaderTimer = () => {
+      setTimeout(() => {
+        hideLoaderAction();
+      }, 3000);
+    };
+    loaderTimer();
     const fetchedItems = async () => {
       setHideClass("");
-      setLoading(true);
+      //setLoading(true);
       const items = await fetchAllItems();
 
       setAllItems(items.data);
       if (items.data.length > 0) {
         setClearAllHideClass("");
       }
-      setLoading(false);
+      //setLoading(false);
       setHideClass("hide");
     };
     fetchedItems();
@@ -101,16 +109,22 @@ const AppContainer = () => {
   );
 
   return (
+
+
     <div className="app-container">
+      <div className="upper-div">
+        <Search/>
+      </div>
+     
       <div className="list-container-background">
         <div className="app-name">Ori's List</div>
 
         <ListControls
-          loading={loading}
+          loading={showLoader}
           setLoading={setLoading}
           itemToCreate={itemToCreate}
         />
-        <Search/>
+        
 
         <div className="list-container">
           <List

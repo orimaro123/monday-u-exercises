@@ -99,6 +99,8 @@
   justify-content: center;
 }
 
+
+
 .list-controls #list-item-input {
   width: 90%;
   height: 40px;
@@ -108,14 +110,7 @@
   border-color: #6c6cff;
 }
 
-.list-controls #search-input {
-  width: 90%;
-  height: 40px;
-  font-size: 16px;
-  padding-left: 8px;
-  border-radius: 5px;
-  border-color: #6c6cff;
-}
+
 
 
 .list-controls #list-item-submit {
@@ -131,19 +126,47 @@
 
   cursor: pointer;
 }
+.upper-div{
+  height: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
-.list-controls #search-button {
+.search-div {
+  width:40%;
+  padding: 0px 32px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  height: 15%;
+  background: rgba(255, 255, 255, 0);
+  justify-content: center;
+}
+
+.search-div #search-button {
   color: white;
   background-color: #6c6cff;
 
   border-color: transparent;
 
-  height: 45px;
+  height: 35px;
   width: 45px;
-  font-size: 25px;
+  font-size: 15px;
   display: flex;
 
   cursor: pointer;
+}
+
+.search-div #search-input {
+  width: 50%;
+  height: 30px;
+  font-size: 15px;
+  padding-left: 8px;
+  border-radius: 5px;
+  border-color: #6c6cff;
 }
 
 .list-controls #list-item-submit:hover {
@@ -152,19 +175,21 @@
 }
 
 .list-container {
-  list-style-type: none;
+ 
   padding: 0px 40px;
-  height: 310px;
-  overflow-y: scroll;
+  
+  overflow-y: auto;
   height: 90%;
-  opacity: 1;
+ 
 }
 
+
+
 .list-item {
-  height: 100px;
+  height: 60px;
   width: 100%;
   cursor: pointer;
-  display: flex;
+ 
   align-items: center;
 
   padding: 8px;
@@ -196,6 +221,11 @@
   display: flex;
   width: 30%;
   justify-content: right;
+}
+
+.pokemon-photo{
+  height: 60px;
+
 }
 
 .list-item-trash-div {
