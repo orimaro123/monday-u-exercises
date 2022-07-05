@@ -1,22 +1,37 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getShowLoader } from "../selectors/itemsViewSelectors";
+import {
+  getShowClearButton,
+  getShowLoader,
+} from "../redux/selectors/itemsViewSelectors";
+import { getItemsCount } from "../redux/selectors/itemsEntitiesSelectors";
 import AppContainer from "./AppContainer";
 import {
   showLoaderAction,
   hideLoaderAction,
-} from "../actions/itemsViewsActions";
+  showClearButtonAction,
+  hideClearButtonAction,
+} from "../redux/actions/itemsViewsActions";
 
 const mapStateToProps = (state, ownProps) => {
   const showLoader = getShowLoader(state);
-  console.log("showLoader: ", showLoader);
+  const showClearButton = getShowClearButton(state);
 
-  return { showLoader };
+  const itemsCount = getItemsCount(state);
+
+  return { showLoader,  showClearButton, itemsCount, };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  // TODO bind decrementAction and resetAction action creators
-  return bindActionCreators({ showLoaderAction, hideLoaderAction }, dispatch);
+  return bindActionCreators(
+    {
+      showLoaderAction,
+      hideLoaderAction,
+      showClearButtonAction,
+      hideClearButtonAction,
+    },
+    dispatch
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

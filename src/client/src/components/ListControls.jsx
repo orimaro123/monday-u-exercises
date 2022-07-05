@@ -8,23 +8,23 @@ import PropTypes from "prop-types";
 ListControls.propTypes = {
   itemToCreate: PropTypes.func.isRequired,
 };
-function ListControls({ loading, setLoading,itemToCreate }) {
+function ListControls({ showLoader, createItemHandler }) {
   const [inputText, setInputText] = useState("");
 
   const inputTextHandler = () => {
     if (inputText.trim() === "") {
-      console.log("this is empty state");
+      console.log("this is empty state"); //todo red toaster
     } else {
-      itemToCreate(inputText);
+      createItemHandler(inputText);
       setInputText("");
     }
   };
   const handleEnterKeyDown = (e) => {
     if (e.key === "Enter") {
       if (inputText.trim() === "") {
-        console.log("this is empty state");
+        console.log("this is empty state"); //todo red toaster
       } else {
-        itemToCreate(inputText);
+        createItemHandler(inputText);
         setInputText("");
         e.target.value = "";
       }
@@ -48,7 +48,7 @@ function ListControls({ loading, setLoading,itemToCreate }) {
 
       <Button
         id="list-item-submit"
-        loading={loading}
+        loading={showLoader}
         
         onClick={() => inputTextHandler()}
       >

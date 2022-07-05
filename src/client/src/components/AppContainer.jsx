@@ -12,18 +12,21 @@ import {
 } from "../services/itemClient";
 import Search from "./Search";
 
-const AppContainer = ({ showLoaderAction, hideLoaderAction, showLoader }) => {
+const AppContainer = ({
+  showLoaderAction,
+  hideLoaderAction,
+  showLoader,
+  showClearButtonAction,
+  hideClearButtonAction,
+  showClearButton,
+}) => {
   const [allItems, setAllItems] = useState([]);
-  const [hideClass, setHideClass] = useState("hide");
-  const [clearAllHideClass, setClearAllHideClass] = useState("hide");
+
   const [toastOpen, setToastOpen] = useState(false);
   const [toastContent, setToastContent] = useState("");
 
-  const [loading, setLoading] = useState(false);
-
-  const itemToCreate = async (item) => {
-    setHideClass("");
-    setLoading(true);
+  const createItemHandler = async (item) => {
+    showLoaderAction();
 
     const newItems = await createItem(item);
 
@@ -32,40 +35,40 @@ const AppContainer = ({ showLoaderAction, hideLoaderAction, showLoader }) => {
 
     const items = await fetchAllItems();
 
-    setLoading(false);
+    hideLoaderAction();
     setAllItems(items.data);
-    setHideClass("hide");
-    setClearAllHideClass("");
+
+    showClearButtonAction();
   };
 
   const itemToDelete = async (itemId, itemName) => {
-    setHideClass("");
-    setLoading(true);
+    showLoaderAction();
+
     await deleteItemById(itemId);
     setToastContent(`${itemName} successfully deleted`);
     setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
 
     const items = await fetchAllItems();
-    setLoading(false);
+
+    hideLoaderAction();
     setAllItems(items.data);
-    setHideClass("hide");
 
     if (items.data.length === 0) {
-      setClearAllHideClass("hide");
+      hideClearButtonAction();
     }
   };
 
   const itemToEdit = async (itemId, newName) => {
-    setHideClass("");
-    setLoading(true);
+    showLoaderAction();
+
     let itemNewName = await updateNameInDb(itemId, newName);
     setToastContent(`${newName} successfully edited and saved`);
     setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
 
     const items = await fetchAllItems();
-    setLoading(false);
+    hideLoaderAction();
+
     setAllItems(items.data);
-    setHideClass("hide");
 
     return itemNewName;
   };
@@ -75,8 +78,7 @@ const AppContainer = ({ showLoaderAction, hideLoaderAction, showLoader }) => {
     setToastContent("All items successfully deleted");
     setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
     await clearAll();
-
-    setClearAllHideClass("hide");
+    hideClearButtonAction();
   };
 
   useEffect(() => {
@@ -88,17 +90,14 @@ const AppContainer = ({ showLoaderAction, hideLoaderAction, showLoader }) => {
       }, 3000);
     };
     loaderTimer();
+    hideClearButtonAction();
     const fetchedItems = async () => {
-      setHideClass("");
-      //setLoading(true);
       const items = await fetchAllItems();
 
       setAllItems(items.data);
       if (items.data.length > 0) {
-        setClearAllHideClass("");
+        showClearButtonAction();
       }
-      //setLoading(false);
-      setHideClass("hide");
     };
     fetchedItems();
   }, []);
@@ -109,22 +108,18 @@ const AppContainer = ({ showLoaderAction, hideLoaderAction, showLoader }) => {
   );
 
   return (
-
-
     <div className="app-container">
       <div className="upper-div">
-        <Search/>
+        <Search />
       </div>
-     
+
       <div className="list-container-background">
         <div className="app-name">Ori's List</div>
 
         <ListControls
-          loading={showLoader}
-          setLoading={setLoading}
-          itemToCreate={itemToCreate}
+          showLoader={showLoader}
+          createItemHandler={createItemHandler}
         />
-        
 
         <div className="list-container">
           <List
@@ -134,16 +129,11 @@ const AppContainer = ({ showLoaderAction, hideLoaderAction, showLoader }) => {
           />
         </div>
 
-        <div className={`loader-wrapper ${hideClass}`}>
-          <span className="loader  ">
-            <span className="loader-inner "></span>
-          </span>
-        </div>
         <div className="clear-all-button-div">
           <Button
             onClick={() => clearAllItems()}
             id="clear-all-button"
-            className={`clear-all-button ${clearAllHideClass}`}
+            className={`clear-all-button ${showClearButton}`}
           >
             Clear All
           </Button>
