@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import Item from "./Item";
 
 
-import  {deleteItemAction } from "../redux/actions/itemsEntitiesActions";
+import  {deleteItemAction , editItemAction} from "../redux/actions/itemsEntitiesActions";
 import { getItems } from "../redux/selectors/itemsEntitiesSelectors";
 
 const mapStateToProps = (state, ownProps) => {
@@ -18,6 +18,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return bindActionCreators(
     {
         deleteItemAction,
+        editItemAction,
     },
     dispatch
   );

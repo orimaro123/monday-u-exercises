@@ -4,6 +4,7 @@ import {
   fetchAllItems,
   clearAll,
   deleteItemById,
+  updateNameInDb,
 } from "../../services/itemClient";
 
 import {
@@ -32,6 +33,12 @@ const clearAllItems = () => ({
 const deleteItem = (itemId) => ({
   type: actionsTypes.DELETE_ITEM,
   payload: itemId,
+});
+
+const editItem = (itemId, newName) => ({
+  type: actionsTypes.EDIT_ITEM,
+  itemId: itemId,
+  payload: newName,
 });
 
 export const addItemAction = (input) => {
@@ -77,5 +84,14 @@ export const deleteItemAction = (itemId, itemName) => {
     dispatch(deleteItem(itemId));
 
     dispatch(showToastAction(`${itemName} deleted from list`));
+  };
+};
+
+export const editItemAction = (itemId, newName) => {
+  return async (dispatch) => {
+   
+    const itemNewName = await updateNameInDb(itemId, newName);
+    dispatch(editItem(itemId,newName))
+    dispatch(showToastAction(`${newName} was edited`));
   };
 };

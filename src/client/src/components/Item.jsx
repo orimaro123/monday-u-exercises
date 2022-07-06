@@ -6,12 +6,8 @@ import editIcon from "../images/edit-icon.svg";
 import saveIcon from "../images/save-icon.svg";
 import deleteIcon from "../images/delete-icon.svg";
 
-
-const Item = ({ item, items, deleteItemAction}) => { 
-  
-
-  //itemToDelete, itemToEdit 
-   const [newName, setNewName] = useState(item.itemName);
+const Item = ({ item, items, deleteItemAction, editItemAction }) => {
+  const [newName, setNewName] = useState(item.itemName);
   const [editSaveButtonIcon, setEditSaveButtonText] = useState(editIcon);
 
   const [statusCompleteTime, setStatusCompleteTime] = useState("");
@@ -56,16 +52,14 @@ const Item = ({ item, items, deleteItemAction}) => {
     }
     setReadOnly(true);
     setEditSaveButtonText(editIcon);
-    //let itemNewName = await itemToEdit(item.itemId, newName);
 
-    //setNewName(itemNewName);
-  }; 
+    editItemAction(item.itemId, newName);
+  };
   const deleteItemHandler = () => {
-    
-    deleteItemAction(item.itemId, item.itemName)
-  }
+    deleteItemAction(item.itemId, item.itemName);
+  };
 
-   useEffect(() => {
+  useEffect(() => {
     if (checkBoxCheck) {
       setDecorateClass("decorate");
 
@@ -84,16 +78,15 @@ const Item = ({ item, items, deleteItemAction}) => {
       setStatusCompleteTime(`Done at ${correctTimeToReact}`);
     }
   }, []);
- 
+
   return (
     <li className="list-item flex">
-   
       <div className="check-box">
         <input
           type="checkBox"
           checked={checkBoxCheck}
           onChange={newStatusHandler}
-          onClick={()=> setCheckBoxCheck(!checkBoxCheck)}
+          onClick={() => setCheckBoxCheck(!checkBoxCheck)}
         />
       </div>
       <input
@@ -119,7 +112,7 @@ const Item = ({ item, items, deleteItemAction}) => {
           className="list-item-trash-button"
           src={deleteIcon}
           alt="trash"
-         onClick={deleteItemHandler}
+          onClick={deleteItemHandler}
         />
       </div>
       <div className="list-item-edit-div">
@@ -129,11 +122,9 @@ const Item = ({ item, items, deleteItemAction}) => {
           alt={"edit icon"}
           onClick={editName}
         />
-      </div> 
+      </div>
     </li>
   );
 };
-
-
 
 export default Item;

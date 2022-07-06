@@ -24,9 +24,17 @@ const itemsEntitiesReducer = (state = initialState, action) => {
         items: state.items.filter(item => item.itemId !== action.payload),
       };
 
+      case actionTypes.EDIT_ITEM:
+        return {
+          ...state,
+          items: state.items.map(item => item.itemId === action.itemId ? {...item , itemName:action.payload} : item),
+        };
+
     default:
       return state;
   }
 };
+
+   //items: state.items.map(item => item.itemId === action.itemId ? {item.itemId = action.payload} : null)
 
 export default itemsEntitiesReducer;

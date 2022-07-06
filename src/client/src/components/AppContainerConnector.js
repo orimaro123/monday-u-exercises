@@ -16,11 +16,12 @@ import {
   hideClearButtonAction,
   showToastAction,
   hideToastAction,
+ 
   
 
 } from "../redux/actions/itemsViewsActions";
 
-import { addItemAction, getItemsAction ,clearAllItemsAction} from "../redux/actions/itemsEntitiesActions";
+import { addItemAction, getItemsAction ,clearAllItemsAction,} from "../redux/actions/itemsEntitiesActions";
 
 const mapStateToProps = (state, ownProps) => {
   const showLoader = getShowLoader(state);
@@ -43,6 +44,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       addItemAction,
       getItemsAction,
       clearAllItemsAction,
+     
     },
     dispatch
   );

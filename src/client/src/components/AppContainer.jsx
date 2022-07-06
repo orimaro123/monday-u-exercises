@@ -28,21 +28,10 @@ const AppContainer = ({
   getItemsAction,
   clearAllItemsAction,
   toastContent,
+ 
 }) => {
   const [allItems, setAllItems] = useState([]);
 
-  const itemToEdit = async (itemId, newName) => {
-    showLoaderAction();
-
-    let itemNewName = await updateNameInDb(itemId, newName);
-
-    const items = await fetchAllItems();
-    hideLoaderAction();
-
-    setAllItems(items.data);
-
-    return itemNewName;
-  };
 
   useEffect(() => {
     getItemsAction();
