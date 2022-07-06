@@ -5,11 +5,13 @@ import Item from "./Item";
 
 
 import  {deleteItemAction } from "../redux/actions/itemsEntitiesActions";
+import { getItems } from "../redux/selectors/itemsEntitiesSelectors";
 
 const mapStateToProps = (state, ownProps) => {
  
+    const items = getItems(state)
   
-  return {  };
+  return { items };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

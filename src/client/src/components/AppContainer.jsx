@@ -31,21 +31,6 @@ const AppContainer = ({
 }) => {
   const [allItems, setAllItems] = useState([]);
 
-  const itemToDelete = async (itemId, itemName) => {
-    showLoaderAction();
-
-    await deleteItemById(itemId);
-
-    const items = await fetchAllItems();
-
-    hideLoaderAction();
-    setAllItems(items.data);
-
-    if (items.data.length === 0) {
-      hideClearButtonAction();
-    }
-  };
-
   const itemToEdit = async (itemId, newName) => {
     showLoaderAction();
 
@@ -81,8 +66,6 @@ const AppContainer = ({
         <div className="list-container">
           <ListConnector
           //itemToEdit={itemToEdit}
-          //itemToDelete={itemToDelete}
-          // allItems={allItems}
           />
         </div>
 

@@ -7,7 +7,7 @@ import saveIcon from "../images/save-icon.svg";
 import deleteIcon from "../images/delete-icon.svg";
 
 
-const Item = ({ item, deleteItemAction}) => { 
+const Item = ({ item, items, deleteItemAction}) => { 
   
 
   //itemToDelete, itemToEdit 

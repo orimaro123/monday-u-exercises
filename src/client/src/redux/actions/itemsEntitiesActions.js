@@ -14,10 +14,7 @@ import {
   showToastAction,
 } from "./itemsViewsActions";
 
-import {
-getItems,
-
-} from "../selectors/itemsEntitiesSelectors";
+import { getItems } from "../selectors/itemsEntitiesSelectors";
 
 const increment = () => ({
   type: actionsTypes.INCREMENT,
@@ -78,9 +75,7 @@ export const deleteItemAction = (itemId, itemName) => {
   return async (dispatch) => {
     const deleteItemRes = await deleteItemById(itemId, itemName);
     dispatch(deleteItem(itemId));
-   
-    //dispatch(getItemsAction());
-    //const items = await fetchAllItems();
-   
+
+    dispatch(showToastAction(`${itemName} deleted from list`));
   };
 };
