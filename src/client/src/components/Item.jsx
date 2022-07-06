@@ -5,10 +5,13 @@ import { updateDoneTimestamp, updateStatusInDb } from "../services/itemClient";
 import editIcon from "../images/edit-icon.svg";
 import saveIcon from "../images/save-icon.svg";
 import deleteIcon from "../images/delete-icon.svg";
-import PropTypes from "prop-types";
 
-const ListItem = ({ item, itemToDelete, itemToEdit }) => {
-  const [newName, setNewName] = useState(item.itemName);
+
+const ListItem = ({ item}) => { 
+  
+
+  //itemToDelete, itemToEdit 
+   const [newName, setNewName] = useState(item.itemName);
   const [editSaveButtonIcon, setEditSaveButtonText] = useState(editIcon);
 
   const [statusCompleteTime, setStatusCompleteTime] = useState("");
@@ -53,12 +56,12 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
     }
     setReadOnly(true);
     setEditSaveButtonText(editIcon);
-    let itemNewName = await itemToEdit(item.itemId, newName);
+    //let itemNewName = await itemToEdit(item.itemId, newName);
 
-    setNewName(itemNewName);
-  };
+    //setNewName(itemNewName);
+  }; 
 
-  useEffect(() => {
+   useEffect(() => {
     if (checkBoxCheck) {
       setDecorateClass("decorate");
 
@@ -77,10 +80,10 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
       setStatusCompleteTime(`Done at ${correctTimeToReact}`);
     }
   }, []);
-
+ 
   return (
     <li className="list-item flex">
-      {" "}
+   
       <div className="check-box">
         <input
           type="checkBox"
@@ -112,7 +115,7 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
           className="list-item-trash-button"
           src={deleteIcon}
           alt="trash"
-          onClick={() => itemToDelete(item.itemId, item.itemName)}
+        //  onClick={() => itemToDelete(item.itemId, item.itemName)}
         />
       </div>
       <div className="list-item-edit-div">
@@ -122,15 +125,11 @@ const ListItem = ({ item, itemToDelete, itemToEdit }) => {
           alt={"edit icon"}
           onClick={editName}
         />
-      </div>
+      </div> 
     </li>
   );
 };
 
-ListItem.propTypes = {
-  itemToDelete: PropTypes.func.isRequired,
-  itemToEdit: PropTypes.func.isRequired,
-  item: PropTypes.object.isRequired,
-};
+
 
 export default ListItem;

@@ -3,23 +3,29 @@ import { bindActionCreators } from "redux";
 import {
   getShowClearButton,
   getShowLoader,
+  getShowToastValue,
 } from "../redux/selectors/itemsViewSelectors";
-import { getItemsCount } from "../redux/selectors/itemsEntitiesSelectors";
+
 import AppContainer from "./AppContainer";
 import {
   showLoaderAction,
   hideLoaderAction,
   showClearButtonAction,
   hideClearButtonAction,
+  showToastAction,
+  hideToastAction,
+  
+
 } from "../redux/actions/itemsViewsActions";
+
+import { addItemAction, getItemsAction ,clearAllItemsAction} from "../redux/actions/itemsEntitiesActions";
 
 const mapStateToProps = (state, ownProps) => {
   const showLoader = getShowLoader(state);
   const showClearButton = getShowClearButton(state);
+  const showToastValue = getShowToastValue(state);
 
-  const itemsCount = getItemsCount(state);
-
-  return { showLoader,  showClearButton, itemsCount, };
+  return { showLoader, showClearButton, showToastValue };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -29,6 +35,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       hideLoaderAction,
       showClearButtonAction,
       hideClearButtonAction,
+      showToastAction,
+      hideToastAction,
+      addItemAction,
+      getItemsAction,
+      clearAllItemsAction,
     },
     dispatch
   );

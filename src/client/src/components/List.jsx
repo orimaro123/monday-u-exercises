@@ -1,18 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Item from "./Item"
+import Item from "./Item";
 
-
-const List = ({ allItems, itemToDelete, itemToEdit }) => {
+const List = ({ items }) => {
   return (
     <div>
-      {allItems.map((item) => {
+      {items.map((item) => {
         return (
           <Item
             key={item.itemId}
             item={item}
-            itemToDelete={itemToDelete}
-            itemToEdit={itemToEdit}
+            //itemToDelete={itemToDelete}
+            //itemToEdit={itemToEdit}
           />
         );
       })}
@@ -20,11 +19,4 @@ const List = ({ allItems, itemToDelete, itemToEdit }) => {
   );
 };
 
-
- List.propTypes = {
-	itemToDelete: PropTypes.func.isRequired,
-	itemToEdit: PropTypes.func.isRequired,
-	allItems: PropTypes.array.isRequired,
-
-  }; 
 export default List;

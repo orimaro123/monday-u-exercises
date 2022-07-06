@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import ListControls from "./ListControls";
+import ListControlsConnector from "./ListControlsConnector";
 import List from "./List";
 import { Button, Toast } from "monday-ui-react-core";
 
@@ -11,6 +12,7 @@ import {
   clearAll,
 } from "../services/itemClient";
 import Search from "./Search";
+import ListConnector from "./ListConnector";
 
 const AppContainer = ({
   showLoaderAction,
@@ -19,27 +21,17 @@ const AppContainer = ({
   showClearButtonAction,
   hideClearButtonAction,
   showClearButton,
+  showToastAction,
+  hideToastAction,
+  showToastValue,
+  crateItemAction,
+  getItemsAction,
+  clearAllItemsAction,
 }) => {
   const [allItems, setAllItems] = useState([]);
 
   const [toastOpen, setToastOpen] = useState(false);
   const [toastContent, setToastContent] = useState("");
-
-  const createItemHandler = async (item) => {
-    showLoaderAction();
-
-    const newItems = await createItem(item);
-
-    setToastContent(`${newItems.length} items successfully added`);
-    setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
-
-    const items = await fetchAllItems();
-
-    hideLoaderAction();
-    setAllItems(items.data);
-
-    showClearButtonAction();
-  };
 
   const itemToDelete = async (itemId, itemName) => {
     showLoaderAction();
@@ -73,39 +65,29 @@ const AppContainer = ({
     return itemNewName;
   };
 
-  const clearAllItems = async () => {
+  const clearAllItems = useCallback(async () => {
+    showToastAction();
+
     setAllItems([]);
     setToastContent("All items successfully deleted");
     setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
     await clearAll();
     hideClearButtonAction();
-  };
+  }, [
+    setAllItems,
+    setToastContent,
+    setToastOpen,
+    hideClearButtonAction,
+    showToastAction,
+  ]);
 
   useEffect(() => {
-    showLoaderAction();
+    getItemsAction();
+  }, [getItemsAction]);
 
-    const loaderTimer = () => {
-      setTimeout(() => {
-        hideLoaderAction();
-      }, 3000);
-    };
-    loaderTimer();
-    hideClearButtonAction();
-    const fetchedItems = async () => {
-      const items = await fetchAllItems();
-
-      setAllItems(items.data);
-      if (items.data.length > 0) {
-        showClearButtonAction();
-      }
-    };
-    fetchedItems();
-  }, []);
-
-  const onCloseCallback = useCallback(
-    () => setToastOpen(false),
-    [setToastOpen]
-  );
+  const onCloseCallback = useCallback(() => {
+    hideToastAction();
+  }, [hideToastAction]);
 
   return (
     <div className="app-container">
@@ -116,31 +98,32 @@ const AppContainer = ({
       <div className="list-container-background">
         <div className="app-name">Ori's List</div>
 
-        <ListControls
-          showLoader={showLoader}
-          createItemHandler={createItemHandler}
+        <ListControlsConnector
+        /*  showLoader={showLoader} */
         />
 
         <div className="list-container">
-          <List
-            itemToEdit={itemToEdit}
-            itemToDelete={itemToDelete}
-            allItems={allItems}
+          <ListConnector
+          //itemToEdit={itemToEdit}
+          //itemToDelete={itemToDelete}
+          // allItems={allItems}
           />
         </div>
 
         <div className="clear-all-button-div">
-          <Button
-            onClick={() => clearAllItems()}
-            id="clear-all-button"
-            className={`clear-all-button ${showClearButton}`}
-          >
-            Clear All
-          </Button>
+          {showClearButton ? (
+            <Button
+              onClick={clearAllItemsAction}
+              id="clear-all-button"
+              className={`clear-all-button `} //{showClearButton}
+            >
+              Clear All
+            </Button>
+          ) : null}
           <Toast
-            open={toastOpen}
+            open={showToastValue} //todo toastOpen
             type={Toast.types.POSITIVE}
-            onClose={onCloseCallback}
+            onClose={() => onCloseCallback()}
             autoHideDuration={4000}
             className="monday-storybook-toast_box"
           >

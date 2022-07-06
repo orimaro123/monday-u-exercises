@@ -3,19 +3,15 @@ import React, { useState } from "react";
 import { Button } from "monday-ui-react-core";
 
 
-import PropTypes from "prop-types";
-
-ListControls.propTypes = {
-  itemToCreate: PropTypes.func.isRequired,
-};
-function ListControls({ showLoader, createItemHandler }) {
+function ListControls({ showLoader,  addItemAction}) {
   const [inputText, setInputText] = useState("");
 
   const inputTextHandler = () => {
     if (inputText.trim() === "") {
       console.log("this is empty state"); //todo red toaster
     } else {
-      createItemHandler(inputText);
+    
+     addItemAction(inputText)
       setInputText("");
     }
   };
@@ -24,7 +20,8 @@ function ListControls({ showLoader, createItemHandler }) {
       if (inputText.trim() === "") {
         console.log("this is empty state"); //todo red toaster
       } else {
-        createItemHandler(inputText);
+     
+       addItemAction(inputText)
         setInputText("");
         e.target.value = "";
       }
@@ -33,8 +30,6 @@ function ListControls({ showLoader, createItemHandler }) {
 
   return (
     <div className="list-controls">
-
-      
       <input
         onChange={(e) => {
           setInputText(e.target.value);
@@ -49,11 +44,9 @@ function ListControls({ showLoader, createItemHandler }) {
       <Button
         id="list-item-submit"
         loading={showLoader}
-        
-        onClick={() => inputTextHandler()}
+        onClick={inputTextHandler}
       >
-        {" "}
-        +{" "}
+        +
       </Button>
     </div>
   );

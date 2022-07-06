@@ -1,31 +1,58 @@
 import actionsTypes from "./constants";
+import { createItem, fetchAllItems, clearAll } from "../../services/itemClient";
+
+import {
+  showLoaderAction,
+  hideLoaderAction,
+  showClearButtonAction,
+  hideClearButtonAction,
+  showToastAction,
+} from "./itemsViewsActions";
 
 const increment = () => ({
-  type: actionsTypes.INCREMENT
+  type: actionsTypes.INCREMENT,
 });
 
-// TODO create decrement and reset actions
+const addItem = (data) => ({
+  type: actionsTypes.ADD_ITEMS,
+  data: data,
+});
 
-export const incrementAction = () => {
-  return dispatch => {
-    dispatch(increment());
+const clearAllItems = () => ({
+  type: actionsTypes.CLEAR_ALL_ITEMS,
+});
+
+export const addItemAction = (input) => {
+  return async (dispatch) => {
+    dispatch(showLoaderAction());
+
+    const data = await createItem(input);
+    dispatch(hideLoaderAction());
+    dispatch(showClearButtonAction());
+
+    dispatch(addItem(data));
   };
 };
-/* 
 
+export const getItemsAction = () => {
+  return async (dispatch) => {
+    const items = await fetchAllItems();
 
-const showLoader = () => ({
-  type: actionTypes.SHOW_LOADER,
-});
+    if (items.data.length > 0) {
+      dispatch(showClearButtonAction());
+    }
 
-const hideLoader = () => ({
-  type: actionTypes.HIDE_LOADER,
-});
-
-export const showLoaderAction = () => {
-  return (dispatch) => dispatch(showLoader());
+    dispatch(addItem(items.data));
+  };
 };
 
-export const hideLoaderAction = () => {
-  return (dispatch) => dispatch(hideLoader());
-}; */
+export const clearAllItemsAction = () => {
+  return async (dispatch) => {
+    const clearAllItemsRes = await clearAll();
+    dispatch(showToastAction())
+    dispatch(hideClearButtonAction());
+
+  
+    dispatch(clearAllItems());
+  };
+};
