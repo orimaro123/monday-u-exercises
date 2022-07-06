@@ -7,7 +7,7 @@ import saveIcon from "../images/save-icon.svg";
 import deleteIcon from "../images/delete-icon.svg";
 
 
-const ListItem = ({ item}) => { 
+const Item = ({ item, deleteItemAction}) => { 
   
 
   //itemToDelete, itemToEdit 
@@ -60,6 +60,10 @@ const ListItem = ({ item}) => {
 
     //setNewName(itemNewName);
   }; 
+  const deleteItemHandler = () => {
+    
+    deleteItemAction(item.itemId, item.itemName)
+  }
 
    useEffect(() => {
     if (checkBoxCheck) {
@@ -115,7 +119,7 @@ const ListItem = ({ item}) => {
           className="list-item-trash-button"
           src={deleteIcon}
           alt="trash"
-        //  onClick={() => itemToDelete(item.itemId, item.itemName)}
+         onClick={deleteItemHandler}
         />
       </div>
       <div className="list-item-edit-div">
@@ -132,4 +136,4 @@ const ListItem = ({ item}) => {
 
 
 
-export default ListItem;
+export default Item;

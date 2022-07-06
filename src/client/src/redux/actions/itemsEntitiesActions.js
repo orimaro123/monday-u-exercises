@@ -1,5 +1,10 @@
 import actionsTypes from "./constants";
-import { createItem, fetchAllItems, clearAll } from "../../services/itemClient";
+import {
+  createItem,
+  fetchAllItems,
+  clearAll,
+  deleteItemById,
+} from "../../services/itemClient";
 
 import {
   showLoaderAction,
@@ -8,6 +13,11 @@ import {
   hideClearButtonAction,
   showToastAction,
 } from "./itemsViewsActions";
+
+import {
+getItems,
+
+} from "../selectors/itemsEntitiesSelectors";
 
 const increment = () => ({
   type: actionsTypes.INCREMENT,
@@ -22,15 +32,23 @@ const clearAllItems = () => ({
   type: actionsTypes.CLEAR_ALL_ITEMS,
 });
 
+const deleteItem = (itemId) => ({
+  type: actionsTypes.DELETE_ITEM,
+  payload: itemId,
+});
+
 export const addItemAction = (input) => {
   return async (dispatch) => {
     dispatch(showLoaderAction());
 
-    const data = await createItem(input);
+    const addedItems = await createItem(input);
     dispatch(hideLoaderAction());
     dispatch(showClearButtonAction());
 
-    dispatch(addItem(data));
+    dispatch(addItem(addedItems));
+    dispatch(
+      showToastAction(`${addedItems.length} items were added successfully`)
+    );
   };
 };
 
@@ -49,10 +67,20 @@ export const getItemsAction = () => {
 export const clearAllItemsAction = () => {
   return async (dispatch) => {
     const clearAllItemsRes = await clearAll();
-    dispatch(showToastAction("All items cleared"))
+    dispatch(showToastAction("All items cleared"));
     dispatch(hideClearButtonAction());
 
-  
     dispatch(clearAllItems());
+  };
+};
+
+export const deleteItemAction = (itemId, itemName) => {
+  return async (dispatch) => {
+    const deleteItemRes = await deleteItemById(itemId, itemName);
+    dispatch(deleteItem(itemId));
+   
+    //dispatch(getItemsAction());
+    //const items = await fetchAllItems();
+   
   };
 };

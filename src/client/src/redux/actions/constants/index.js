@@ -7,6 +7,7 @@ const ACTIONS = {
     ADD_ITEMS: "ADD_ITEMS",
     SET_ITEMS: "SET_ITEMS",
     CLEAR_ALL_ITEMS: "CLEAR_ALL_ITEMS",
+    DELETE_ITEM: "DELETE_ITEM",
 
     //Items view actions type
     SHOW_LOADER: "SHOW_LOADER",

@@ -31,14 +31,10 @@ const AppContainer = ({
 }) => {
   const [allItems, setAllItems] = useState([]);
 
-  const [toastOpen, setToastOpen] = useState(false);
-
   const itemToDelete = async (itemId, itemName) => {
     showLoaderAction();
 
     await deleteItemById(itemId);
-
-    setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
 
     const items = await fetchAllItems();
 
@@ -55,8 +51,6 @@ const AppContainer = ({
 
     let itemNewName = await updateNameInDb(itemId, newName);
 
-    setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
-
     const items = await fetchAllItems();
     hideLoaderAction();
 
@@ -67,7 +61,6 @@ const AppContainer = ({
 
   useEffect(() => {
     getItemsAction();
-    console.log(toastContent);
   }, [getItemsAction]);
 
   const onCloseCallback = useCallback(() => {
