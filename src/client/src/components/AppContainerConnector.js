@@ -3,7 +3,9 @@ import { bindActionCreators } from "redux";
 import {
   getShowClearButton,
   getShowLoader,
-  getShowToastValue,
+  getShowToast,
+  getToastContent,
+
 } from "../redux/selectors/itemsViewSelectors";
 
 import AppContainer from "./AppContainer";
@@ -23,9 +25,10 @@ import { addItemAction, getItemsAction ,clearAllItemsAction} from "../redux/acti
 const mapStateToProps = (state, ownProps) => {
   const showLoader = getShowLoader(state);
   const showClearButton = getShowClearButton(state);
-  const showToastValue = getShowToastValue(state);
+  const showToast = getShowToast(state);
+  const toastContent = getToastContent(state)
 
-  return { showLoader, showClearButton, showToastValue };
+  return { showLoader, showClearButton, showToast , toastContent};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

@@ -23,21 +23,21 @@ const AppContainer = ({
   showClearButton,
   showToastAction,
   hideToastAction,
-  showToastValue,
+  showToast,
   crateItemAction,
   getItemsAction,
   clearAllItemsAction,
+  toastContent,
 }) => {
   const [allItems, setAllItems] = useState([]);
 
   const [toastOpen, setToastOpen] = useState(false);
-  const [toastContent, setToastContent] = useState("");
 
   const itemToDelete = async (itemId, itemName) => {
     showLoaderAction();
 
     await deleteItemById(itemId);
-    setToastContent(`${itemName} successfully deleted`);
+
     setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
 
     const items = await fetchAllItems();
@@ -54,7 +54,7 @@ const AppContainer = ({
     showLoaderAction();
 
     let itemNewName = await updateNameInDb(itemId, newName);
-    setToastContent(`${newName} successfully edited and saved`);
+
     setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
 
     const items = await fetchAllItems();
@@ -65,24 +65,9 @@ const AppContainer = ({
     return itemNewName;
   };
 
-  const clearAllItems = useCallback(async () => {
-    showToastAction();
-
-    setAllItems([]);
-    setToastContent("All items successfully deleted");
-    setToastOpen((toastOpen) => !toastOpen, [setToastOpen]);
-    await clearAll();
-    hideClearButtonAction();
-  }, [
-    setAllItems,
-    setToastContent,
-    setToastOpen,
-    hideClearButtonAction,
-    showToastAction,
-  ]);
-
   useEffect(() => {
     getItemsAction();
+    console.log(toastContent);
   }, [getItemsAction]);
 
   const onCloseCallback = useCallback(() => {
@@ -98,9 +83,7 @@ const AppContainer = ({
       <div className="list-container-background">
         <div className="app-name">Ori's List</div>
 
-        <ListControlsConnector
-        /*  showLoader={showLoader} */
-        />
+        <ListControlsConnector />
 
         <div className="list-container">
           <ListConnector
@@ -115,13 +98,13 @@ const AppContainer = ({
             <Button
               onClick={clearAllItemsAction}
               id="clear-all-button"
-              className={`clear-all-button `} //{showClearButton}
+              className={`clear-all-button `}
             >
               Clear All
             </Button>
           ) : null}
           <Toast
-            open={showToastValue} //todo toastOpen
+            open={showToast}
             type={Toast.types.POSITIVE}
             onClose={() => onCloseCallback()}
             autoHideDuration={4000}

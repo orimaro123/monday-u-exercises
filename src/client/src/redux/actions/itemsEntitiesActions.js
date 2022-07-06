@@ -49,7 +49,7 @@ export const getItemsAction = () => {
 export const clearAllItemsAction = () => {
   return async (dispatch) => {
     const clearAllItemsRes = await clearAll();
-    dispatch(showToastAction())
+    dispatch(showToastAction("All items cleared"))
     dispatch(hideClearButtonAction());
 
   

@@ -3,7 +3,8 @@ import actionTypes from "../actions/constants";
 const initialState = {
   showLoader: false,
   showClearButton: false,
-  showToastValue: false,
+  showToast: false,
+  toastContent: "",
 };
 
 const itemsViewReducer = (state = initialState, action) => {
@@ -12,7 +13,8 @@ const itemsViewReducer = (state = initialState, action) => {
       return {
         showLoader: true,
         showClearButton: state.showClearButton,
-        showToastValue: state.showToastValue,
+        showToast: state.showToast,
+        toastContent: state.toastContent,
       };
     }
 
@@ -20,39 +22,44 @@ const itemsViewReducer = (state = initialState, action) => {
       return {
         showLoader: false,
         showClearButton: state.showClearButton,
-        showToastValue: state.showToastValue,
+        showToast: state.showToast,
+        toastContent: state.toastContent,
       };
     }
 
     case actionTypes.SHOW_CLEAR_BUTTON: {
       return {
         showClearButton: true,
-        showToastValue: state.showToastValue,
+        showToast: state.showToast,
         showLoader: state.showLoader,
+        toastContent: state.toastContent,
       };
     }
 
     case actionTypes.HIDE_CLEAR_BUTTON: {
       return {
         showClearButton: false,
-        showToastValue: state.showToastValue,
+        showToast: state.showToast,
         showLoader: state.showLoader,
+        toastContent: state.toastContent,
       };
     }
 
     case actionTypes.SHOW_TOAST: {
       return {
-        showToastValue: true,
+        showToast: true,
         showLoader: state.showLoader,
         showClearButton: state.showClearButton,
+        toastContent: action.data,
       };
     }
 
     case actionTypes.HIDE_TOAST: {
       return {
-        showToastValue: false,
+        showToast: false,
         showLoader: state.showLoader,
         showClearButton: state.showClearButton,
+        toastContent: state.toastContent,
       };
     }
 

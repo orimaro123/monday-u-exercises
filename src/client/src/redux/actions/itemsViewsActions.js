@@ -16,16 +16,19 @@ const hideClearButton = () => ({
   type: actionTypes.HIDE_CLEAR_BUTTON,
 });
 
-const showToastValue = () => ({
+const showToast = (content) => ({
   type: actionTypes.SHOW_TOAST,
+  data: content,
 });
 
-const hideToastValue = () => ({
+const hideToast = () => ({
   type: actionTypes.HIDE_TOAST,
 });
 
 export const showLoaderAction = () => {
-  return (dispatch) => dispatch(showLoader());
+  return (dispatch) => {
+    dispatch(showLoader());
+  };
 };
 
 export const hideLoaderAction = () => {
@@ -40,10 +43,13 @@ export const hideClearButtonAction = () => {
   return (dispatch) => dispatch(hideClearButton());
 };
 
-export const showToastAction = () => {
-  return (dispatch) => dispatch(showToastValue());
+export const showToastAction = (content) => {
+  return (dispatch) => {
+   
+    dispatch(showToast(content));
+  }
 };
 
 export const hideToastAction = () => {
-  return (dispatch) => dispatch(hideToastValue());
+  return (dispatch) => dispatch(hideToast());
 };
