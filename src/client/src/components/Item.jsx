@@ -6,8 +6,10 @@ import editIcon from "../images/edit-icon.svg";
 import saveIcon from "../images/save-icon.svg";
 import deleteIcon from "../images/delete-icon.svg";
 
-const Item = ({ item, items, deleteItemAction, editItemAction }) => {
+const Item = ({ item, items, deleteItemAction, editItemAction, updateCheckBoxAction, checkBoxCheckRedux }) => {
  
+ 
+// console.log(items)
   const [newName, setNewName] = useState(item.itemName);
   const [editSaveButtonIcon, setEditSaveButtonText] = useState(editIcon);
 
@@ -18,8 +20,12 @@ const Item = ({ item, items, deleteItemAction, editItemAction }) => {
   const [checkBoxCheck, setCheckBoxCheck] = useState(item.status);
 
   const newStatusHandler = async (e) => {
+    
     if (e.target.checked) {
       setDecorateClass("decorate");
+
+      updateCheckBoxAction( item.itemId,e.target.checked)
+      
       setCheckBoxCheck(true);
       const timestampNow = new Date();
       const timestampNowHours = timestampNow.getHours();
@@ -30,15 +36,16 @@ const Item = ({ item, items, deleteItemAction, editItemAction }) => {
         .slice(0, 19)
         .replace("T", " ");
       const timestampNowToReact = timestampNowToDb.slice(10, 19);
-      await updateDoneTimestamp(item.itemId, timestampNowToDb);
+     // await updateDoneTimestamp(item.itemId, timestampNowToDb);
 
-      await updateStatusInDb(item.itemId, e.target.checked);
+     // await updateStatusInDb(item.itemId, e.target.checked);
 
       setStatusCompleteTime(`Done at ${timestampNowToReact}`);
       setHideClass("");
       return;
     } else {
-      await updateStatusInDb(item.itemId, false);
+     // await updateStatusInDb(item.itemId, false);
+      updateCheckBoxAction(item.itemId,false)
       setCheckBoxCheck(false);
       setDecorateClass("");
       setHideClass("hide");
@@ -61,7 +68,10 @@ const Item = ({ item, items, deleteItemAction, editItemAction }) => {
   };
 
   useEffect(() => {
-    if (checkBoxCheck) {
+    
+  
+    if (item.status) {
+     
       setDecorateClass("decorate");
 
       const timeFromDb = item.doneAt
@@ -78,16 +88,16 @@ const Item = ({ item, items, deleteItemAction, editItemAction }) => {
       );
       setStatusCompleteTime(`Done at ${correctTimeToReact}`);
     }
-  }, []);
+  }, [item]);
 
   return (
     <li className="list-item flex">
       <div className="check-box">
         <input
           type="checkBox"
-          checked={checkBoxCheck}
+          checked={item.status}
           onChange={newStatusHandler}
-          onClick={() => setCheckBoxCheck(!checkBoxCheck)}
+          onClick={() => updateCheckBoxAction( item.itemId,!item.status)} //setCheckBoxCheck(!checkBoxCheck)
         />
       </div>
       <input

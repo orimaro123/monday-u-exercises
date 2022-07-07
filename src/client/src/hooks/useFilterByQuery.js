@@ -36,6 +36,10 @@ export default function useFilterByQuery() {
         return filteredItems.filter((item) => item.status === false);
       }
 
+      if (status === STATUS.ALL) {
+        return filteredItems
+      }
+
       return filteredItems;
     },
     [query]

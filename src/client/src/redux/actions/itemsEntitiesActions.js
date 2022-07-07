@@ -5,6 +5,8 @@ import {
   clearAll,
   deleteItemById,
   updateNameInDb,
+  updateDoneTimestamp,
+  updateStatusInDb,
 } from "../../services/itemClient";
 
 import {
@@ -43,6 +45,20 @@ const editItem = (itemId, newName) => ({
   type: actionsTypes.EDIT_ITEM,
   itemId: itemId,
   payload: newName,
+});
+
+const updateItemStatus = (itemId, checked) => ({
+  type: actionsTypes.UPDATE_CHECKBOX,
+  itemId: itemId,
+  payload: checked,
+})
+
+const checkCheckBox = () => ({
+  type: actionsTypes.CHECK_CHECKBOX,
+});
+
+const unCheckCheckBox = () => ({
+  type: actionsTypes.UNCHECK_CHECKBOX,
 });
 
 export const addItemAction = (input) => {
@@ -113,5 +129,34 @@ export const updateQueryName = (name) => {
   return {
     type: actionsTypes.UPDATE_QUERY_NAME,
     payload: name,
+  };
+};
+
+export const updateCheckBoxAction = (itemId, checked) => {
+  return async (dispatch) => {
+   
+
+    const timestampNow = new Date();
+    const timestampNowHours = timestampNow.getHours();
+    timestampNow.setHours(timestampNowHours + 3);
+
+    const timestampNowToDb = timestampNow
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
+    const timestampNowToReact = timestampNowToDb.slice(10, 19);
+    await updateDoneTimestamp(itemId, timestampNowToDb);
+
+    await updateStatusInDb(itemId, checked);
+  
+
+
+    dispatch(updateItemStatus(itemId, checked))
+   
+
+  
+
+
+
   };
 };

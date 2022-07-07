@@ -6,8 +6,9 @@ const initialState = {
   items: [],
   query: {
     status: STATUS.ALL,
-    name: '',
+    name: "",
   },
+  checkBoxCheck: false,
 };
 
 const itemsEntitiesReducer = (state = initialState, action) => {
@@ -16,10 +17,14 @@ const itemsEntitiesReducer = (state = initialState, action) => {
       return { itemsCount: state.itemsCount + 1 };
 
     case actionTypes.ADD_ITEMS:
-      return { items: [...state.items, ...action.data] };
+      return {
+        ...state,
+        items: [...state.items, ...action.data],
+      };
 
     case actionTypes.CLEAR_ALL_ITEMS:
       return {
+        ...state,
         items: [],
       };
 
@@ -39,6 +44,20 @@ const itemsEntitiesReducer = (state = initialState, action) => {
         ),
       };
 
+      
+    case actionTypes.UPDATE_CHECKBOX:
+      return {
+        ...state,
+        items: state.items.map((item) =>
+          item.itemId === action.itemId
+            ? { ...item, status: action.payload }
+            : item
+        ),
+      };
+
+
+      
+
     case actionTypes.UPDATE_QUERY_STATUS:
       return {
         ...state,
@@ -49,6 +68,18 @@ const itemsEntitiesReducer = (state = initialState, action) => {
       return {
         ...state,
         query: { ...state.query, name: action.payload },
+      };
+
+    case actionTypes.CHECK_CHECKBOX:
+      return {
+        ...state,
+        checkBoxCheck: true,
+      };
+
+    case actionTypes.UNCHECK_CHECKBOX:
+      return {
+        ...state,
+        checkBoxCheck: false,
       };
 
     default:

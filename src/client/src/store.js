@@ -12,6 +12,6 @@ const logger = store => next => action => {
 
 export const store = configureStore({
   reducer: allReducers,
-  middleware: [thunkMiddleware, logger],
+  middleware: [thunkMiddleware, /* logger */],
   preloadedState: {}
 });

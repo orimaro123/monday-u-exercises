@@ -28,12 +28,11 @@ const hideToast = () => ({
 
 const toastOrientationPositive = () => ({
   type: actionTypes.TOAST_ORIENTATION_POSITIVE,
-})
+});
 
 const toastOrientationNegative = () => ({
   type: actionTypes.TOAST_ORIENTATION_NEGATIVE,
-})
-
+});
 
 export const showLoaderAction = () => {
   return (dispatch) => {
@@ -55,10 +54,8 @@ export const hideClearButtonAction = () => {
 
 export const showToastAction = (content) => {
   return (dispatch) => {
-   
-    
     dispatch(showToast(content));
-  }
+  };
 };
 
 export const hideToastAction = () => {
@@ -67,22 +64,15 @@ export const hideToastAction = () => {
 
 export const toastOrientationPositiveAction = () => {
   return (dispatch) => dispatch(toastOrientationPositive());
-
-}
+};
 
 export const toastOrientationNegativeAction = () => {
   return (dispatch) => dispatch(toastOrientationNegative());
-
-}
+};
 
 export const emptyInputAction = () => {
   return async (dispatch) => {
-
-  
-    dispatch(toastOrientationNegativeAction())
+    dispatch(toastOrientationNegativeAction());
     dispatch(showToastAction(`No input was entered`));
-  
-  }
-
-
-}
+  };
+};

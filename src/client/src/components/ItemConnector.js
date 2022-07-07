@@ -4,14 +4,15 @@ import { bindActionCreators } from "redux";
 import Item from "./Item";
 
 
-import  {deleteItemAction , editItemAction} from "../redux/actions/itemsEntitiesActions";
-import { getItems } from "../redux/selectors/itemsEntitiesSelectors";
+import  {deleteItemAction , editItemAction, updateCheckBoxAction} from "../redux/actions/itemsEntitiesActions";
+import { getItems , getCheckBoxCheck} from "../redux/selectors/itemsEntitiesSelectors";
 
 const mapStateToProps = (state, ownProps) => {
  
-    const items = getItems(state)
+   const items = getItems(state)
+    const checkBoxCheckRedux = getCheckBoxCheck(state)
   
-  return { items };
+  return {  checkBoxCheckRedux, items};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -19,6 +20,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     {
         deleteItemAction,
         editItemAction,
+        updateCheckBoxAction,
     },
     dispatch
   );

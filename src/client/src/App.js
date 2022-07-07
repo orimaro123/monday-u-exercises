@@ -1,12 +1,16 @@
 import "./App.css";
+//import ErrorBoundary from "./components/ErrorBoundary"
 
 import AppContainerConnector from "./components/AppContainerConnector";
+
 import React from "react";
 
 function App() {
   return (
     <div className="App">
-      <AppContainerConnector />
+     {/*  <ErrorBoundary> */}
+        <AppContainerConnector />
+     {/*  </ErrorBoundary> */}
     </div>
   );
 }

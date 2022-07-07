@@ -177,7 +177,8 @@
 #filter-id {
   width: 80%;
   font-weight: bold;
- 
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
 }
 
 .list-controls #list-item-submit:hover {
