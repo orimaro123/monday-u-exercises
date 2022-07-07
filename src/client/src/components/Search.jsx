@@ -22,7 +22,7 @@ function Search({}) {
     <div className="search-div">
       <input type="text" id="search-input" placeholder="Search... " value={name} onChange={handleChange} />
 
-      <Button id="search-button"> 🔎 </Button>
+   
     </div>
   );
 }
