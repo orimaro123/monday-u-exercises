@@ -12,6 +12,7 @@ import {
   clearAll,
 } from "../services/itemClient";
 import Search from "./Search";
+import Filter from "./Filter";
 import ListConnector from "./ListConnector";
 
 const AppContainer = ({
@@ -29,11 +30,7 @@ const AppContainer = ({
   clearAllItemsAction,
   toastContent,
   toastOrientation,
-  
 }) => {
-  const [allItems, setAllItems] = useState([]);
-  
-
   useEffect(() => {
     getItemsAction();
   }, [getItemsAction]);
@@ -46,6 +43,7 @@ const AppContainer = ({
     <div className="app-container">
       <div className="upper-div">
         <Search />
+        <Filter />
       </div>
 
       <div className="list-container-background">

@@ -1,8 +1,10 @@
 import actionTypes from "../actions/constants";
+import { STATUS } from "../../hooks/useFilterByQuery";
 
 const initialState = {
   itemsCount: 0,
   items: [],
+  query: STATUS.ALL,
 };
 
 const itemsEntitiesReducer = (state = initialState, action) => {
@@ -32,6 +34,12 @@ const itemsEntitiesReducer = (state = initialState, action) => {
             ? { ...item, itemName: action.payload }
             : item
         ),
+      };
+
+    case actionTypes.UPDATE_QUERY:
+      return {
+        ...state,
+        query: action.payload,
       };
 
     default:

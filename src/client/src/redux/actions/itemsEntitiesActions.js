@@ -20,6 +20,7 @@ import {
 
 import { getItems } from "../selectors/itemsEntitiesSelectors";
 import { getToastOrientation } from "../selectors/itemsViewSelectors";
+import ACTIONS from "./constants";
 
 const increment = () => ({
   type: actionsTypes.INCREMENT,
@@ -103,4 +104,9 @@ export const editItemAction = (itemId, newName) => {
   };
 };
 
-
+export const updateQuery = (query) => {
+  return {
+    type: actionsTypes.UPDATE_QUERY,
+    payload: query,
+  }
+}

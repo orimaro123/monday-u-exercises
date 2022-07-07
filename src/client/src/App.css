@@ -12,8 +12,6 @@
   width: 100%;
   height: 100%;
 
-  
-
   background-image: linear-gradient(
     to top right,
     white,
@@ -31,12 +29,11 @@
 
 .app-name {
   padding-left: 32px;
- 
+
   font-size: 30px;
   text-align: center;
   margin-top: 20px;
   justify-content: center;
-
 }
 
 .list-container-background {
@@ -76,8 +73,6 @@
   font-family: Quicksand;
   font-weight: bold;
 
-  
-
   cursor: pointer;
 }
 
@@ -87,7 +82,7 @@
 }
 
 .list-controls {
-  width:70%;
+  width: 70%;
   padding: 0px 32px;
   background-color: white;
   display: flex;
@@ -99,8 +94,6 @@
   justify-content: center;
 }
 
-
-
 .list-controls #list-item-input {
   width: 90%;
   height: 40px;
@@ -109,9 +102,6 @@
   border-radius: 5px;
   border-color: #6c6cff;
 }
-
-
-
 
 .list-controls #list-item-submit {
   color: white;
@@ -126,22 +116,23 @@
 
   cursor: pointer;
 }
-.upper-div{
-  height: 40px;
+.upper-div {
+  height: 100px;
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .search-div {
-  width:40%;
+  width: 25%;
   padding: 0px 32px;
   background-color: white;
   display: flex;
   align-items: center;
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
-  height: 15%;
+
   background: rgba(255, 255, 255, 0);
   justify-content: center;
 }
@@ -161,12 +152,31 @@
 }
 
 .search-div #search-input {
-  width: 50%;
+  width: 80%;
   height: 30px;
   font-size: 15px;
   padding-left: 8px;
   border-radius: 5px;
   border-color: #6c6cff;
+}
+
+.filter-div {
+  width: 10%;
+
+  padding: 0px 32px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+
+  background: rgba(255, 255, 255, 0);
+  justify-content: center;
+}
+
+#filter-id {
+  width: 80%;
+  font-weight: bold;
 }
 
 .list-controls #list-item-submit:hover {
@@ -175,26 +185,22 @@
 }
 
 .list-container {
- 
   padding: 0px 40px;
-  
+
   overflow-y: auto;
   height: 90%;
- width: 70%;
+  width: 70%;
 }
-
-
 
 .list-item {
   height: 60px;
   width: 100%;
   cursor: pointer;
- 
+
   align-items: center;
 
   padding: 8px;
   cursor: pointer;
-  
 }
 .check-box {
   width: 10%;
@@ -206,13 +212,10 @@
   resize: none;
   outline: none;
   width: 50%;
- 
 }
 
 .status-complete-time:not(:empty) {
   cursor: pointer;
-  
-
 }
 .space-div {
   width: 30%;
@@ -223,9 +226,8 @@
   justify-content: right;
 }
 
-.pokemon-photo{
+.pokemon-photo {
   height: 60px;
-
 }
 
 .list-item-trash-div {
@@ -250,13 +252,11 @@
 }
 
 .list-item:last-of-type {
- /*  border-bottom: 1px black solid; */
-
+  /*  border-bottom: 1px black solid; */
 }
 
 .list-item {
- /*  border-top: 1px black solid; */
- 
+  /*  border-top: 1px black solid; */
 }
 
 .list-item-trash-button {
