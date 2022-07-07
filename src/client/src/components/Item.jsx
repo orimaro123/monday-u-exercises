@@ -7,6 +7,7 @@ import saveIcon from "../images/save-icon.svg";
 import deleteIcon from "../images/delete-icon.svg";
 
 const Item = ({ item, items, deleteItemAction, editItemAction }) => {
+ 
   const [newName, setNewName] = useState(item.itemName);
   const [editSaveButtonIcon, setEditSaveButtonText] = useState(editIcon);
 

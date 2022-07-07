@@ -4,17 +4,11 @@ import Item from "./Item";
 import ItemConnector from "./ItemConnector";
 
 const List = ({ items }) => {
+  
   return (
     <div>
       {items.map((item) => {
-        return (
-          <ItemConnector
-            key={item.itemId}
-            item={item}
-            //itemToDelete={itemToDelete}
-            //itemToEdit={itemToEdit}
-          />
-        );
+        return <ItemConnector key={item.itemId} item={item} />;
       })}
     </div>
   );

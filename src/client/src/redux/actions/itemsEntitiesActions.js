@@ -13,9 +13,13 @@ import {
   showClearButtonAction,
   hideClearButtonAction,
   showToastAction,
+  toastOrientationPositiveAction,
+  toastOrientationNegativeAction,
+
 } from "./itemsViewsActions";
 
 import { getItems } from "../selectors/itemsEntitiesSelectors";
+import { getToastOrientation } from "../selectors/itemsViewSelectors";
 
 const increment = () => ({
   type: actionsTypes.INCREMENT,
@@ -50,6 +54,7 @@ export const addItemAction = (input) => {
     dispatch(showClearButtonAction());
 
     dispatch(addItem(addedItems));
+    dispatch(toastOrientationPositiveAction())
     dispatch(
       showToastAction(`${addedItems.length} items were added successfully`)
     );
@@ -71,6 +76,7 @@ export const getItemsAction = () => {
 export const clearAllItemsAction = () => {
   return async (dispatch) => {
     const clearAllItemsRes = await clearAll();
+    dispatch(toastOrientationPositiveAction())
     dispatch(showToastAction("All items cleared"));
     dispatch(hideClearButtonAction());
 
@@ -82,7 +88,7 @@ export const deleteItemAction = (itemId, itemName) => {
   return async (dispatch) => {
     const deleteItemRes = await deleteItemById(itemId, itemName);
     dispatch(deleteItem(itemId));
-
+    dispatch(toastOrientationPositiveAction())
     dispatch(showToastAction(`${itemName} deleted from list`));
   };
 };
@@ -92,6 +98,9 @@ export const editItemAction = (itemId, newName) => {
    
     const itemNewName = await updateNameInDb(itemId, newName);
     dispatch(editItem(itemId,newName))
+    dispatch(toastOrientationPositiveAction())
     dispatch(showToastAction(`${newName} was edited`));
   };
 };
+
+

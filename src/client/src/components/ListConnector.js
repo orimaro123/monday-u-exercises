@@ -5,6 +5,7 @@ import List from "./List";
 import { getItems } from "../redux/selectors/itemsEntitiesSelectors";
 import { addItemAction } from "../redux/actions/itemsEntitiesActions";
 
+
 const mapStateToProps = (state, ownProps) => {
   const items = getItems(state);
   

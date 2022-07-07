@@ -2,26 +2,23 @@ import React, { useState } from "react";
 
 import { Button } from "monday-ui-react-core";
 
-
-function ListControls({ showLoader,  addItemAction}) {
+function ListControls({ showLoader, addItemAction, emptyInputAction }) {
   const [inputText, setInputText] = useState("");
 
   const inputTextHandler = () => {
     if (inputText.trim() === "") {
-      console.log("this is empty state"); //todo red toaster
+      emptyInputAction();
     } else {
-    
-     addItemAction(inputText)
+      addItemAction(inputText);
       setInputText("");
     }
   };
   const handleEnterKeyDown = (e) => {
     if (e.key === "Enter") {
       if (inputText.trim() === "") {
-        console.log("this is empty state"); //todo red toaster
+        emptyInputAction();
       } else {
-     
-       addItemAction(inputText)
+        addItemAction(inputText);
         setInputText("");
         e.target.value = "";
       }

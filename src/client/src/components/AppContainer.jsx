@@ -28,10 +28,11 @@ const AppContainer = ({
   getItemsAction,
   clearAllItemsAction,
   toastContent,
- 
+  toastOrientation,
+  
 }) => {
   const [allItems, setAllItems] = useState([]);
-
+  
 
   useEffect(() => {
     getItemsAction();
@@ -53,9 +54,7 @@ const AppContainer = ({
         <ListControlsConnector />
 
         <div className="list-container">
-          <ListConnector
-          //itemToEdit={itemToEdit}
-          />
+          <ListConnector />
         </div>
 
         <div className="clear-all-button-div">
@@ -70,7 +69,7 @@ const AppContainer = ({
           ) : null}
           <Toast
             open={showToast}
-            type={Toast.types.POSITIVE}
+            type={toastOrientation}
             onClose={() => onCloseCallback()}
             autoHideDuration={4000}
             className="monday-storybook-toast_box"

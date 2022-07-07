@@ -1,10 +1,12 @@
 import actionTypes from "../actions/constants";
+import { Toast } from "monday-ui-react-core";
 
 const initialState = {
   showLoader: false,
   showClearButton: false,
   showToast: false,
   toastContent: "",
+  toastOrientation: Toast.types.POSITIVE
 };
 
 const itemsViewReducer = (state = initialState, action) => {
@@ -15,6 +17,7 @@ const itemsViewReducer = (state = initialState, action) => {
         showClearButton: state.showClearButton,
         showToast: state.showToast,
         toastContent: state.toastContent,
+        toastOrientation: state.toastOrientation,
       };
     }
 
@@ -24,6 +27,7 @@ const itemsViewReducer = (state = initialState, action) => {
         showClearButton: state.showClearButton,
         showToast: state.showToast,
         toastContent: state.toastContent,
+        toastOrientation: state.toastOrientation,
       };
     }
 
@@ -33,6 +37,7 @@ const itemsViewReducer = (state = initialState, action) => {
         showToast: state.showToast,
         showLoader: state.showLoader,
         toastContent: state.toastContent,
+        toastOrientation: state.toastOrientation,
       };
     }
 
@@ -42,6 +47,7 @@ const itemsViewReducer = (state = initialState, action) => {
         showToast: state.showToast,
         showLoader: state.showLoader,
         toastContent: state.toastContent,
+        toastOrientation: state.toastOrientation,
       };
     }
 
@@ -51,6 +57,7 @@ const itemsViewReducer = (state = initialState, action) => {
         showLoader: state.showLoader,
         showClearButton: state.showClearButton,
         toastContent: action.data,
+        toastOrientation: state.toastOrientation,
       };
     }
 
@@ -60,6 +67,27 @@ const itemsViewReducer = (state = initialState, action) => {
         showLoader: state.showLoader,
         showClearButton: state.showClearButton,
         toastContent: state.toastContent,
+        toastOrientation: state.toastOrientation,
+      };
+    }
+
+    case actionTypes.TOAST_ORIENTATION_POSITIVE: {
+      return {
+        showToast: state.showToast,
+        showLoader: state.showLoader,
+        showClearButton: state.showClearButton,
+        toastContent: state.toastContent,
+        toastOrientation: Toast.types.POSITIVE,
+      };
+    }
+
+    case actionTypes.TOAST_ORIENTATION_NEGATIVE: {
+      return {
+        showToast: state.showToast,
+        showLoader: state.showLoader,
+        showClearButton: state.showClearButton,
+        toastContent: state.toastContent,
+        toastOrientation: Toast.types.NEGATIVE,
       };
     }
 
