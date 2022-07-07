@@ -1,14 +1,12 @@
 import { useSelector } from "react-redux";
 import { useCallback } from "react";
+import { getQuery } from "../redux/selectors/itemsEntitiesSelectors";
 
 export const STATUS = {
   COMPLETED: "COMPLETED",
   IN_PROGRESS: "IN_PROGRESS",
   ALL: "ALL",
 };
-
-// todo: move this to selectors
-const getQuery = (state) => state.itemsEntities.query;
 
 /**
  * Custom hook
@@ -26,7 +24,9 @@ export default function useFilterByQuery() {
 
       let filteredItems = items;
 
-      filteredItems = filteredItems.filter(item => item.itemName.toLowerCase().includes(name?.toLowerCase() ?? ''));
+      filteredItems = filteredItems.filter((item) =>
+        item.itemName.toLowerCase().includes(name?.toLowerCase() ?? "")
+      );
 
       if (status === STATUS.COMPLETED) {
         return filteredItems.filter((item) => item.status);
