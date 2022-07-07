@@ -15,7 +15,6 @@ import {
   showToastAction,
   toastOrientationPositiveAction,
   toastOrientationNegativeAction,
-
 } from "./itemsViewsActions";
 
 import { getItems } from "../selectors/itemsEntitiesSelectors";
@@ -55,7 +54,7 @@ export const addItemAction = (input) => {
     dispatch(showClearButtonAction());
 
     dispatch(addItem(addedItems));
-    dispatch(toastOrientationPositiveAction())
+    dispatch(toastOrientationPositiveAction());
     dispatch(
       showToastAction(`${addedItems.length} items were added successfully`)
     );
@@ -77,7 +76,7 @@ export const getItemsAction = () => {
 export const clearAllItemsAction = () => {
   return async (dispatch) => {
     const clearAllItemsRes = await clearAll();
-    dispatch(toastOrientationPositiveAction())
+    dispatch(toastOrientationPositiveAction());
     dispatch(showToastAction("All items cleared"));
     dispatch(hideClearButtonAction());
 
@@ -89,24 +88,30 @@ export const deleteItemAction = (itemId, itemName) => {
   return async (dispatch) => {
     const deleteItemRes = await deleteItemById(itemId, itemName);
     dispatch(deleteItem(itemId));
-    dispatch(toastOrientationPositiveAction())
+    dispatch(toastOrientationPositiveAction());
     dispatch(showToastAction(`${itemName} deleted from list`));
   };
 };
 
 export const editItemAction = (itemId, newName) => {
   return async (dispatch) => {
-   
     const itemNewName = await updateNameInDb(itemId, newName);
-    dispatch(editItem(itemId,newName))
-    dispatch(toastOrientationPositiveAction())
+    dispatch(editItem(itemId, newName));
+    dispatch(toastOrientationPositiveAction());
     dispatch(showToastAction(`${newName} was edited`));
   };
 };
 
-export const updateQuery = (query) => {
+export const updateQueryStatus = (status) => {
   return {
-    type: actionsTypes.UPDATE_QUERY,
-    payload: query,
-  }
-}
+    type: actionsTypes.UPDATE_QUERY_STATUS,
+    payload: status,
+  };
+};
+
+export const updateQueryName = (name) => {
+  return {
+    type: actionsTypes.UPDATE_QUERY_NAME,
+    payload: name,
+  };
+};

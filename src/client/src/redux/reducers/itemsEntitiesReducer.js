@@ -4,7 +4,10 @@ import { STATUS } from "../../hooks/useFilterByQuery";
 const initialState = {
   itemsCount: 0,
   items: [],
-  query: STATUS.ALL,
+  query: {
+    status: STATUS.ALL,
+    name: '',
+  },
 };
 
 const itemsEntitiesReducer = (state = initialState, action) => {
@@ -36,10 +39,16 @@ const itemsEntitiesReducer = (state = initialState, action) => {
         ),
       };
 
-    case actionTypes.UPDATE_QUERY:
+    case actionTypes.UPDATE_QUERY_STATUS:
       return {
         ...state,
-        query: action.payload,
+        query: { ...state.query, status: action.payload },
+      };
+
+    case actionTypes.UPDATE_QUERY_NAME:
+      return {
+        ...state,
+        query: { ...state.query, name: action.payload },
       };
 
     default:

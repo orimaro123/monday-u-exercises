@@ -12,13 +12,5 @@ const mapStateToProps = (state, ownProps) => {
   return { items };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return bindActionCreators(
-    {
-     
-    },
-    dispatch
-  );
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default connect(mapStateToProps,)(List);

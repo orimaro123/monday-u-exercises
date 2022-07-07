@@ -6,7 +6,7 @@ import { STATUS } from "../hooks/useFilterByQuery";
 
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { updateQuery } from "../redux/actions/itemsEntitiesActions";
+import { updateQueryStatus } from "../redux/actions/itemsEntitiesActions";
 
 function Filter({}) {
   const dispatch = useDispatch();
@@ -43,10 +43,12 @@ function Filter({}) {
         className="dropdown-stories-style-spacing "
         optionRenderer={labelRenderer}
         valueRenderer={labelRenderer}
-        onChange={(option) => dispatch(updateQuery(option.value))}
+        onChange={(option) => {
+          option?.value && dispatch(updateQueryStatus(option.value));
+        }}
         searchable={false}
         size={Dropdown.size.SMALL}
-        defaultValue={[options[2]]}
+        defaultValue={[options[options.length - 1]]}
       />
     </div>
   );

@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useCallback } from "react";
 
 export const STATUS = {
   COMPLETED: "COMPLETED",
@@ -15,17 +16,30 @@ const getQuery = (state) => state.itemsEntities.query;
  */
 export default function useFilterByQuery() {
   const query = useSelector(getQuery);
-  const filter = (items) => {
-    if (query === STATUS.COMPLETED) {
-      return items.filter((item) => item.status);
-    }
+  const filter = useCallback(
+    (items) => {
+      const { status, name } = query ?? {};
 
-    if (query === STATUS.IN_PROGRESS) {
-      return items.filter((item) => item.status === false);
-    }
+      if (status === STATUS.ALL && name?.length === 0) {
+        return items;
+      }
 
-    return items;
-  };
+      let filteredItems = items;
+
+      filteredItems = filteredItems.filter(item => item.itemName.toLowerCase().includes(name?.toLowerCase() ?? ''));
+
+      if (status === STATUS.COMPLETED) {
+        return filteredItems.filter((item) => item.status);
+      }
+
+      if (status === STATUS.IN_PROGRESS) {
+        return filteredItems.filter((item) => item.status === false);
+      }
+
+      return filteredItems;
+    },
+    [query]
+  );
 
   return filter;
 }
