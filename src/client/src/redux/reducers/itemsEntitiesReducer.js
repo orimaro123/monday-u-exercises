@@ -55,8 +55,16 @@ const itemsEntitiesReducer = (state = initialState, action) => {
         ),
       };
 
-
       
+      case actionTypes.UPDATE_DONE_AT:
+        return {
+          ...state,
+          items: state.items.map((item) =>
+            item.itemId === action.itemId
+              ? { ...item, doneAt: action.payload }
+              : item
+          ),
+        };
 
     case actionTypes.UPDATE_QUERY_STATUS:
       return {

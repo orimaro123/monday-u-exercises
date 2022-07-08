@@ -73,8 +73,8 @@ const Item = ({ item, items, deleteItemAction, editItemAction, updateCheckBoxAct
     if (item.status) {
      
       setDecorateClass("decorate");
-
-      const timeFromDb = item.doneAt
+console.log(item)
+       const timeFromDb = item.doneAt
         .slice(0, 19)
         .replace("T", " ")
         .slice(10, 19);
@@ -84,7 +84,7 @@ const Item = ({ item, items, deleteItemAction, editItemAction, updateCheckBoxAct
 
       const correctTimeToReact = timeFromDb.replace(
         timeHours,
-        correctHours.toString()
+        correctHours.toString() 
       );
       setStatusCompleteTime(`Done at ${correctTimeToReact}`);
     }

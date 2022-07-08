@@ -51,7 +51,13 @@ const updateItemStatus = (itemId, checked) => ({
   type: actionsTypes.UPDATE_CHECKBOX,
   itemId: itemId,
   payload: checked,
-})
+});
+
+const updateItemDoneAt = (itemId, doneAt) => ({
+  type: actionsTypes.UPDATE_DONE_AT,
+  itemId: itemId,
+  payload: doneAt,
+});
 
 const checkCheckBox = () => ({
   type: actionsTypes.CHECK_CHECKBOX,
@@ -134,8 +140,6 @@ export const updateQueryName = (name) => {
 
 export const updateCheckBoxAction = (itemId, checked) => {
   return async (dispatch) => {
-   
-
     const timestampNow = new Date();
     const timestampNowHours = timestampNow.getHours();
     timestampNow.setHours(timestampNowHours + 3);
@@ -148,15 +152,8 @@ export const updateCheckBoxAction = (itemId, checked) => {
     await updateDoneTimestamp(itemId, timestampNowToDb);
 
     await updateStatusInDb(itemId, checked);
-  
 
-
-    dispatch(updateItemStatus(itemId, checked))
-   
-
-  
-
-
-
+    dispatch(updateItemStatus(itemId, checked));
+    dispatch(updateItemDoneAt(itemId, timestampNowToDb));
   };
 };
