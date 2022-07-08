@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { updateQueryStatus } from "../redux/actions/itemsEntitiesActions";
 
-function Filter({}) {
+function Filter({query, queryName}) {
   const dispatch = useDispatch();
 
   const labelRenderer = useCallback(({ label, color }) => {

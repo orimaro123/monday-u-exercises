@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import ListControls from "./ListControls";
 import ListControlsConnector from "./ListControlsConnector";
+
 import List from "./List";
 import { Button, Toast } from "monday-ui-react-core";
 
@@ -14,6 +15,7 @@ import {
 import Search from "./Search";
 import Filter from "./Filter";
 import ListConnector from "./ListConnector";
+import FilterConnector from "./FilterConnector";
 
 const AppContainer = ({
   showLoaderAction,
@@ -43,7 +45,7 @@ const AppContainer = ({
     <div className="app-container">
       <div className="upper-div">
         <Search />
-        <Filter />
+        <FilterConnector />
       </div>
 
       <div className="list-container-background">

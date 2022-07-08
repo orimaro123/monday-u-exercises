@@ -73,7 +73,7 @@ const Item = ({ item, items, deleteItemAction, editItemAction, updateCheckBoxAct
     if (item.status) {
      
       setDecorateClass("decorate");
-console.log(item)
+
        const timeFromDb = item.doneAt
         .slice(0, 19)
         .replace("T", " ")
