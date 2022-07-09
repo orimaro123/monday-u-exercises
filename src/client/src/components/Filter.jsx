@@ -1,19 +1,18 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 
-import { Button, Dropdown, Label } from "monday-ui-react-core";
+import { Dropdown, Label } from "monday-ui-react-core";
 
 import { STATUS } from "../hooks/useFilterByQuery";
 
-import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { updateQueryStatus } from "../redux/actions/itemsEntitiesActions";
 
-function Filter({query, queryName}) {
+function Filter({ query, queryName }) {
   const dispatch = useDispatch();
 
-  const labelRenderer = useCallback(({ label, color }) => {
+  const labelRenderer = ({ label, color }) => {
     return <Label text={label} color={color} isAnimationDisabled />;
-  });
+  };
   const options = useMemo(
     () => [
       {
@@ -21,7 +20,6 @@ function Filter({query, queryName}) {
         label: "Completed",
         color: Label.colors.POSITIVE,
       },
-      ,
       {
         value: STATUS.IN_PROGRESS,
         label: "In progress",

@@ -16,16 +16,7 @@ import {
   hideClearButtonAction,
   showToastAction,
   toastOrientationPositiveAction,
-  toastOrientationNegativeAction,
 } from "./itemsViewsActions";
-
-import { getItems } from "../selectors/itemsEntitiesSelectors";
-import { getToastOrientation } from "../selectors/itemsViewSelectors";
-import ACTIONS from "./constants";
-
-const increment = () => ({
-  type: actionsTypes.INCREMENT,
-});
 
 const addItem = (data) => ({
   type: actionsTypes.ADD_ITEMS,
@@ -57,14 +48,6 @@ const updateItemDoneAt = (itemId, doneAt) => ({
   type: actionsTypes.UPDATE_DONE_AT,
   itemId: itemId,
   payload: doneAt,
-});
-
-const checkCheckBox = () => ({
-  type: actionsTypes.CHECK_CHECKBOX,
-});
-
-const unCheckCheckBox = () => ({
-  type: actionsTypes.UNCHECK_CHECKBOX,
 });
 
 export const addItemAction = (input) => {

@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
-
-import { updateDoneTimestamp, updateStatusInDb } from "../services/itemClient";
+import { useDispatch } from "react-redux";
 
 import editIcon from "../images/edit-icon.svg";
 import saveIcon from "../images/save-icon.svg";
 import deleteIcon from "../images/delete-icon.svg";
 
-const Item = ({ item, items, deleteItemAction, editItemAction, updateCheckBoxAction, checkBoxCheckRedux }) => {
- 
- 
-// console.log(items)
+const Item = ({
+  item,
+  items,
+  deleteItemAction,
+  editItemAction,
+  editItem,
+  updateCheckBoxAction,
+  checkBoxCheckRedux,
+}) => {
+  const dispatch = useDispatch();
   const [newName, setNewName] = useState(item.itemName);
   const [editSaveButtonIcon, setEditSaveButtonText] = useState(editIcon);
 
@@ -17,16 +22,13 @@ const Item = ({ item, items, deleteItemAction, editItemAction, updateCheckBoxAct
   const [hideClass, setHideClass] = useState("");
   const [readOnly, setReadOnly] = useState(true);
   const [decorateClass, setDecorateClass] = useState("");
-  const [checkBoxCheck, setCheckBoxCheck] = useState(item.status);
 
   const newStatusHandler = async (e) => {
-    
     if (e.target.checked) {
       setDecorateClass("decorate");
 
-      updateCheckBoxAction( item.itemId,e.target.checked)
-      
-      setCheckBoxCheck(true);
+      updateCheckBoxAction(item.itemId, e.target.checked);
+
       const timestampNow = new Date();
       const timestampNowHours = timestampNow.getHours();
       timestampNow.setHours(timestampNowHours + 3);
@@ -36,17 +38,13 @@ const Item = ({ item, items, deleteItemAction, editItemAction, updateCheckBoxAct
         .slice(0, 19)
         .replace("T", " ");
       const timestampNowToReact = timestampNowToDb.slice(10, 19);
-     // await updateDoneTimestamp(item.itemId, timestampNowToDb);
-
-     // await updateStatusInDb(item.itemId, e.target.checked);
 
       setStatusCompleteTime(`Done at ${timestampNowToReact}`);
       setHideClass("");
       return;
     } else {
-     // await updateStatusInDb(item.itemId, false);
-      updateCheckBoxAction(item.itemId,false)
-      setCheckBoxCheck(false);
+      updateCheckBoxAction(item.itemId, false);
+
       setDecorateClass("");
       setHideClass("hide");
     }
@@ -68,13 +66,10 @@ const Item = ({ item, items, deleteItemAction, editItemAction, updateCheckBoxAct
   };
 
   useEffect(() => {
-    
-  
     if (item.status) {
-     
       setDecorateClass("decorate");
 
-       const timeFromDb = item.doneAt
+      const timeFromDb = item.doneAt
         .slice(0, 19)
         .replace("T", " ")
         .slice(10, 19);
@@ -84,7 +79,7 @@ const Item = ({ item, items, deleteItemAction, editItemAction, updateCheckBoxAct
 
       const correctTimeToReact = timeFromDb.replace(
         timeHours,
-        correctHours.toString() 
+        correctHours.toString()
       );
       setStatusCompleteTime(`Done at ${correctTimeToReact}`);
     }
@@ -97,12 +92,12 @@ const Item = ({ item, items, deleteItemAction, editItemAction, updateCheckBoxAct
           type="checkBox"
           checked={item.status}
           onChange={newStatusHandler}
-          onClick={() => updateCheckBoxAction( item.itemId,!item.status)} //setCheckBoxCheck(!checkBoxCheck)
+          onClick={() => updateCheckBoxAction(item.itemId, !item.status)}
         />
       </div>
       <input
         className={`list-item-text ${decorateClass}`}
-        onChange={(e) => setNewName(e.target.value)}
+        onChange={(e) => setNewName(e.target.value)} //setNewName(e.target.value)
         type="text"
         readOnly={readOnly}
         value={newName}

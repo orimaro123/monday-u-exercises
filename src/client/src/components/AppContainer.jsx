@@ -1,19 +1,11 @@
-import React, { useEffect, useState, useCallback } from "react";
-import ListControls from "./ListControls";
+import React, { useEffect, useCallback } from "react";
+
 import ListControlsConnector from "./ListControlsConnector";
 
-import List from "./List";
 import { Button, Toast } from "monday-ui-react-core";
 
-import {
-  fetchAllItems,
-  createItem,
-  deleteItemById,
-  updateNameInDb,
-  clearAll,
-} from "../services/itemClient";
 import Search from "./Search";
-import Filter from "./Filter";
+
 import ListConnector from "./ListConnector";
 import FilterConnector from "./FilterConnector";
 
