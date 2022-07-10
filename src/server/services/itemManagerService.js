@@ -11,7 +11,9 @@ async function isPokemonIdExistInDb(pokemonId) {
     return pokemonIdCount > 0;
   } else {
     let stringToCompare = `Catch ${pokemonId}`;
-    let pokemonIdCount = await Item.count({ where: { name: stringToCompare } });
+    let pokemonIdCount = await Item.count({
+      where: { itemName: stringToCompare },
+    });
     return pokemonIdCount > 0;
   }
 }
@@ -47,8 +49,6 @@ async function getItemById(itemId) {
 }
 
 async function deleteItem(itemId) {
-  const deletedItem = getItemById(itemId);
-
   await Item.destroy({ where: { itemId: itemId } });
 }
 
@@ -59,16 +59,21 @@ async function getItems() {
 }
 
 async function createItemsBulk(itemsRow) {
-  const t = await sequelize.transaction();
-
   try {
-    await Item.bulkCreate(itemsRow, { t });
+    await Item.bulkCreate(itemsRow);
   } catch (error) {}
+}
+
+async function clearAll() {
+  await Item.destroy({
+    where: {},
+    truncate: true,
+  });
 }
 
 async function updateStatusInDb(itemId, newStatus) {
   let status = newStatus;
- 
+
   Item.update({ status }, { where: { itemId: itemId } });
   let item = getItemById(itemId);
   return item;
@@ -85,9 +90,27 @@ async function updateDoneTimestamp(itemId, timestamp) {
 async function updateName(itemId, newName) {
   let itemName = newName;
 
-  await Item.update({ itemName }, { where: { itemId: itemId } });
-  let item = getItemById(itemId);
-  return item;
+  let isNewNameExist = await isTaskNameExistInDb(newName);
+
+  if (!isNewNameExist) {
+    await Item.update({ itemName }, { where: { itemId: itemId } });
+  } else {
+    console.log("item already exist in db");
+  }
+  let item = await getItemById(itemId);
+
+  if (item.isPokemon && newName != item.itemName) {
+    let isPokemon = false;
+    let pokemonData = null;
+    let pokemonId = null;
+    await Item.update({ isPokemon }, { where: { itemId: itemId } });
+
+    await Item.update({ pokemonData }, { where: { itemId: itemId } });
+
+    await Item.update({ pokemonId }, { where: { itemId: itemId } });
+  }
+
+  return item.itemName;
 }
 
 module.exports = {
@@ -103,4 +126,5 @@ module.exports = {
   updateStatusInDb,
   updateDoneTimestamp,
   updateName,
+  clearAll,
 };

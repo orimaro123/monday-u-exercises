@@ -1,0 +1,269 @@
+.App {
+  height: 100vh;
+}
+.app-container {
+  width: 100%;
+  height: 100%;
+
+  font-weight: bold;
+
+  background-image: linear-gradient(
+    to top right,
+    white,
+    #d4dff3,
+    rgba(138, 144, 224, 0.76),
+    rgba(106, 117, 231, 0.76),
+    rgba(85, 97, 229, 0.76)
+  );
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-name {
+  padding-left: 32px;
+  font-weight: bold;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.list-container-background {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  height: 70%;
+  background-color: white;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px silver solid;
+  border-radius: 8px;
+  -webkit-box-shadow: 12px 12px 38px -13px #000000;
+  box-shadow: 12px 12px 38px -13px #000000;
+}
+.clear-all-button-div {
+  height: 15%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  background-color: white;
+
+  border-radius: 1px;
+  font-size: 32px;
+  background: rgba(255, 255, 255, 0);
+}
+#clear-all-button {
+  background-color: #6c6cff;
+  color: white;
+  font-style: bold;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 4px;
+
+  cursor: pointer;
+}
+
+#clear-all-button:hover {
+  background-color: #3c3cff;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.list-controls {
+  padding: 0px 32px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  height: 20%;
+  background: rgba(255, 255, 255, 0);
+  justify-content: center;
+}
+
+.list-controls #list-item-input {
+  width: 90%;
+  height: 40px;
+  font-size: 16px;
+  padding-left: 8px;
+  border-radius: 5px;
+  border-color: #6c6cff;
+}
+
+.list-controls #list-item-submit {
+  color: white;
+  background-color: #6c6cff;
+
+  border-color: transparent;
+
+  height: 45px;
+  width: 45px;
+  font-size: 40px;
+  display: flex;
+
+  cursor: pointer;
+}
+
+.list-controls #list-item-submit:hover {
+  background-color: #3c3cff;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.list-container {
+  list-style-type: none;
+  padding: 0px 40px;
+  height: 310px;
+  overflow-y: scroll;
+  height: 70%;
+  opacity: 1;
+}
+
+.list-item {
+  height: 100px;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  padding: 8px;
+  cursor: pointer;
+}
+.check-box {
+  width: 10%;
+}
+
+.list-item-text {
+  border: none;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+  width: 50%;
+  font-weight: bold;
+}
+
+.status-complete-time:not(:empty) {
+  cursor: pointer;
+  font-style: bold;
+
+  font-weight: bold;
+ 
+}
+.space-div {
+  width: 30%;
+}
+.pokemon-photo-div {
+  display: flex;
+  width: 30%;
+  justify-content: right;
+}
+
+.list-item-trash-div {
+  display: flex;
+  justify-content: right;
+  width: 10%;
+}
+
+.decorate {
+  text-decoration: line-through;
+  opacity: 0.5;
+  font-style: bold;
+}
+
+.edit-mode {
+  color: gray;
+}
+
+.list-item:hover {
+  color: blueviolet;
+  transition: color 0.2s ease-in-out;
+}
+
+.list-item:last-of-type {
+  border-bottom: 1px black solid;
+}
+
+.list-item {
+  border-top: 1px black solid;
+}
+
+.list-item-trash-button {
+  margin-left: auto;
+  padding: 8px;
+  cursor: pointer;
+
+  width: 25px;
+}
+
+.list-item-trash-button:hover {
+  background-color: #c2c2fe;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.list-item-edit-div:hover {
+  background-color: #c2c2fe;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.list-item-edit-div {
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+.hide {
+  opacity: 0;
+}
+
+.save {
+  height: 25px;
+  margin-left: 5px;
+  width: 25px;
+}
+
+.list-item-edit-button {
+  width: 25px;
+  margin-left: 5px;
+  height: 25px;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(180deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader-inner {
+  0% {
+    height: 0%;
+  }
+  25% {
+    height: 0%;
+  }
+  50% {
+    height: 100%;
+  }
+  75% {
+    height: 100%;
+  }
+  100% {
+    height: 0%;
+  }
+}

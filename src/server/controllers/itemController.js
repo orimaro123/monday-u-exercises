@@ -86,6 +86,12 @@ async function createItem(req, res) {
   await res.status(200).json(dataToAddToDb);
 }
 
+async function clearAll(req, res) {
+itemManagerService.clearAll()
+  res.status(200).json([])
+  
+}
+
 async function getItems(req, res) {
   let data = await itemManagerService.getItems();
 
@@ -191,8 +197,10 @@ async function updateName(req, res) {
     throw error;
   }
 
-  let updatedItem = await itemManagerService.updateName(itemId, newName);
-  await res.status(200).json(updatedItem);
+  let itemNewName= await itemManagerService.updateName(itemId, newName);
+let jsonData = {itemNewName : itemNewName}
+
+  return await res.status(200).json(itemNewName);
 }
 
 module.exports = {
@@ -203,4 +211,5 @@ module.exports = {
   updateStatusInDb,
   updateDoneTimestamp,
   updateName,
+  clearAll,
 };

@@ -1,9 +1,13 @@
-import './App.css';
+import "./App.css";
+import AppContainer from "./components/AppContainer";
+//import { BrowserRouter as Router, Route } from "react-router-dom";
+
+import React from "react";
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello React</h1>
+      <AppContainer />
     </div>
   );
 }
