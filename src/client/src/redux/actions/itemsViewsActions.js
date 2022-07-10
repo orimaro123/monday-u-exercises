@@ -1,5 +1,4 @@
 import actionTypes from "./constants";
-import { Toast } from "monday-ui-react-core";
 
 const showLoader = () => ({
   type: actionTypes.SHOW_LOADER,

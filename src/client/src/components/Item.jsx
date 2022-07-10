@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 
 import editIcon from "../images/edit-icon.svg";
 import saveIcon from "../images/save-icon.svg";
@@ -7,14 +6,12 @@ import deleteIcon from "../images/delete-icon.svg";
 
 const Item = ({
   item,
-  items,
+
   deleteItemAction,
   editItemAction,
-  editItem,
+
   updateCheckBoxAction,
-  checkBoxCheckRedux,
 }) => {
-  const dispatch = useDispatch();
   const [newName, setNewName] = useState(item.itemName);
   const [editSaveButtonIcon, setEditSaveButtonText] = useState(editIcon);
 

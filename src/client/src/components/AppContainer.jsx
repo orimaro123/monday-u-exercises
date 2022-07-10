@@ -10,16 +10,9 @@ import ListConnector from "./ListConnector";
 import FilterConnector from "./FilterConnector";
 
 const AppContainer = ({
-  showLoaderAction,
-  hideLoaderAction,
-  showLoader,
-  showClearButtonAction,
-  hideClearButtonAction,
   showClearButton,
-  showToastAction,
   hideToastAction,
   showToast,
-  crateItemAction,
   getItemsAction,
   clearAllItemsAction,
   toastContent,

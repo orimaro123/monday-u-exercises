@@ -125,13 +125,15 @@ export const updateCheckBoxAction = (itemId, checked) => {
   return async (dispatch) => {
     const timestampNow = new Date();
     const timestampNowHours = timestampNow.getHours();
+
     timestampNow.setHours(timestampNowHours + 3);
 
     const timestampNowToDb = timestampNow
       .toISOString()
       .slice(0, 19)
       .replace("T", " ");
-    const timestampNowToReact = timestampNowToDb.slice(10, 19);
+
+    
     await updateDoneTimestamp(itemId, timestampNowToDb);
 
     await updateStatusInDb(itemId, checked);
