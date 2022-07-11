@@ -3,17 +3,9 @@ const URL = "http://localhost:8080";
 export async function fetchAllItems() {
   const urlFetchAllItems = `${URL}/item/`;
 
-  const errorResponse = {
-    error: true,
-
-    description: `Items were not found`,
-  };
   try {
     const response = await fetch(urlFetchAllItems);
 
-    if (!response.ok) {
-      return errorResponse;
-    }
     const json = await response.json();
 
     return {
@@ -22,9 +14,7 @@ export async function fetchAllItems() {
       description: `Items with ${json} data`,
     };
   } catch (error) {
-    console.log("this is error fetching the items");
-
-    return errorResponse;
+    throw new Error("this is error fetching the items");
   }
 }
 

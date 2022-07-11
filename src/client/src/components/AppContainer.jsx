@@ -8,6 +8,7 @@ import Search from "./Search";
 
 import ListConnector from "./ListConnector";
 import FilterConnector from "./FilterConnector";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 const AppContainer = ({
   showClearButton,
@@ -20,7 +21,7 @@ const AppContainer = ({
 }) => {
   useEffect(() => {
     getItemsAction();
-  }, [getItemsAction]);
+  }, []);
 
   const onCloseCallback = useCallback(() => {
     hideToastAction();

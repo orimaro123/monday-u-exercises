@@ -94,7 +94,7 @@ const Item = ({
       </div>
       <input
         className={`list-item-text ${decorateClass}`}
-        onChange={(e) => setNewName(e.target.value)} //setNewName(e.target.value)
+        onChange={(e) => setNewName(e.target.value)} 
         type="text"
         readOnly={readOnly}
         value={newName}
