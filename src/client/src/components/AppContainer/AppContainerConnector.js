@@ -6,7 +6,7 @@ import {
   getShowToast,
   getToastContent,
   getToastOrientation,
-} from "../redux/selectors/itemsViewSelectors";
+} from "../../redux/selectors/itemsViewSelectors";
 
 import AppContainer from "./AppContainer";
 import {
@@ -16,13 +16,13 @@ import {
   hideClearButtonAction,
   showToastAction,
   hideToastAction,
-} from "../redux/actions/itemsViewsActions";
+} from "../../redux/actions/itemsViewsActions";
 
 import {
   addItemAction,
   getItemsAction,
   clearAllItemsAction,
-} from "../redux/actions/itemsEntitiesActions";
+} from "../../redux/actions/itemsEntitiesActions";
 
 const mapStateToProps = (state, ownProps) => {
   const showLoader = getShowLoader(state);

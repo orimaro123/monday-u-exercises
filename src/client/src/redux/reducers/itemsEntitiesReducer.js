@@ -5,7 +5,7 @@ const initialState = {
   itemsCount: 0,
   items: [],
   query: {
-    status: STATUS.ALL,
+    status: undefined,
     name: "",
   },
   checkBoxCheck: false,
@@ -44,7 +44,6 @@ const itemsEntitiesReducer = (state = initialState, action) => {
         ),
       };
 
-      
     case actionTypes.UPDATE_CHECKBOX:
       return {
         ...state,
@@ -55,16 +54,15 @@ const itemsEntitiesReducer = (state = initialState, action) => {
         ),
       };
 
-      
-      case actionTypes.UPDATE_DONE_AT:
-        return {
-          ...state,
-          items: state.items.map((item) =>
-            item.itemId === action.itemId
-              ? { ...item, doneAt: action.payload }
-              : item
-          ),
-        };
+    case actionTypes.UPDATE_DONE_AT:
+      return {
+        ...state,
+        items: state.items.map((item) =>
+          item.itemId === action.itemId
+            ? { ...item, doneAt: action.payload }
+            : item
+        ),
+      };
 
     case actionTypes.UPDATE_QUERY_STATUS:
       return {

@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import '@testing-library/jest-dom'
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store";
@@ -13,6 +14,5 @@ test("renders learn react link", () => {
     </BrowserRouter>
   );
   const linkElement = screen.getByText(/Ori's List/i);
- // expect(linkElement).toBeInTheDocument();
+  expect(linkElement).toBeInTheDocument();
 });
-reqi

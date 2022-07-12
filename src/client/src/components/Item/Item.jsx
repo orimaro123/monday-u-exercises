@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import editIcon from "../images/edit-icon.svg";
-import saveIcon from "../images/save-icon.svg";
-import deleteIcon from "../images/delete-icon.svg";
+import editIcon from "../../images/edit-icon.svg";
+import saveIcon from "../../images/save-icon.svg";
+import deleteIcon from "../../images/delete-icon.svg";
 
 const Item = ({
   item,

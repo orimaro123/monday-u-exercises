@@ -4,8 +4,8 @@ import { bindActionCreators } from "redux";
 import Item from "./Item";
 
 
-import  {deleteItemAction , editItemAction, updateCheckBoxAction} from "../redux/actions/itemsEntitiesActions";
-import { getItems , getCheckBoxCheck} from "../redux/selectors/itemsEntitiesSelectors";
+import  {deleteItemAction , editItemAction, updateCheckBoxAction} from "../../redux/actions/itemsEntitiesActions";
+import { getItems , getCheckBoxCheck} from "../../redux/selectors/itemsEntitiesSelectors";
 
 const mapStateToProps = (state, ownProps) => {
  

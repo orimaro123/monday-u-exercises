@@ -1,6 +1,6 @@
 import "./App.css";
 
-import AppContainerConnector from "./components/AppContainerConnector";
+import AppContainerConnector from "./components/AppContainer/AppContainerConnector";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import React from "react";
 

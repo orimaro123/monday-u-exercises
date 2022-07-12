@@ -1,6 +1,6 @@
 import React from "react";
-import ItemConnector from "./ItemConnector";
-import useFilterByQuery from "../hooks/useFilterByQuery";
+import ItemConnector from "../Item/ItemConnector";
+import useFilterByQuery from "../../hooks/useFilterByQuery";
 
 const List = ({ items }) => {
   const filter = useFilterByQuery();

@@ -2,10 +2,10 @@ import React, { useMemo } from "react";
 
 import { Dropdown, Label } from "monday-ui-react-core";
 
-import { STATUS } from "../hooks/useFilterByQuery";
+import { STATUS } from "../../hooks/useFilterByQuery";
 
 import { useDispatch } from "react-redux";
-import { updateQueryStatus } from "../redux/actions/itemsEntitiesActions";
+import { updateQueryStatus } from "../../redux/actions/itemsEntitiesActions";
 
 function Filter({  }) {
   const dispatch = useDispatch();

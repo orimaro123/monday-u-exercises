@@ -68,13 +68,15 @@ export const addItemAction = (input) => {
 
 export const getItemsAction = () => {
   return async (dispatch) => {
-    const items = await fetchAllItems();
+    try {
+      const items = await fetchAllItems();
 
-    if (items.data.length > 0) {
-      dispatch(showClearButtonAction());
-    }
+      if (items.data.length > 0) {
+        dispatch(showClearButtonAction());
+      }
 
-    dispatch(addItem(items.data));
+      dispatch(addItem(items.data));
+    } catch (e) {}
   };
 };
 
@@ -133,7 +135,6 @@ export const updateCheckBoxAction = (itemId, checked) => {
       .slice(0, 19)
       .replace("T", " ");
 
-    
     await updateDoneTimestamp(itemId, timestampNowToDb);
 
     await updateStatusInDb(itemId, checked);

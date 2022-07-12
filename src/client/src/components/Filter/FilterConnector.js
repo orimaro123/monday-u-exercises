@@ -4,8 +4,8 @@ import { bindActionCreators } from "redux";
 import Filter from "./Filter";
 
 
-import  {} from "../redux/actions/itemsEntitiesActions";
-import {getQuery, getQueryName } from "../redux/selectors/itemsEntitiesSelectors";
+import  {} from "../../redux/actions/itemsEntitiesActions";
+import {getQuery, getQueryName } from "../../redux/selectors/itemsEntitiesSelectors";
 
 const mapStateToProps = (state, ownProps) => {
  
