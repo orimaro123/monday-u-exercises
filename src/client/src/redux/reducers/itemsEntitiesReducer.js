@@ -1,8 +1,6 @@
 import actionTypes from "../actions/constants";
-import { STATUS } from "../../hooks/useFilterByQuery";
 
 const initialState = {
-  itemsCount: 0,
   items: [],
   query: {
     status: undefined,

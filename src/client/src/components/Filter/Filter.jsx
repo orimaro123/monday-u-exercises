@@ -7,7 +7,7 @@ import { STATUS } from "../../hooks/useFilterByQuery";
 import { useDispatch } from "react-redux";
 import { updateQueryStatus } from "../../redux/actions/itemsEntitiesActions";
 
-function Filter({  }) {
+function Filter() {
   const dispatch = useDispatch();
 
   const labelRenderer = ({ label, color }) => {

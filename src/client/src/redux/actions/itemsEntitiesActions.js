@@ -18,7 +18,7 @@ import {
   toastOrientationPositiveAction,
 } from "./itemsViewsActions";
 
-const addItem = (data) => ({
+const addItems = (data) => ({
   type: actionsTypes.ADD_ITEMS,
   data: data,
 });
@@ -58,7 +58,7 @@ export const addItemAction = (input) => {
     dispatch(hideLoaderAction());
     dispatch(showClearButtonAction());
 
-    dispatch(addItem(addedItems));
+    dispatch(addItems(addedItems));
     dispatch(toastOrientationPositiveAction());
     dispatch(
       showToastAction(`${addedItems.length} items were added successfully`)
@@ -75,14 +75,14 @@ export const getItemsAction = () => {
         dispatch(showClearButtonAction());
       }
 
-      dispatch(addItem(items.data));
+      dispatch(addItems(items.data));
     } catch (e) {}
   };
 };
 
 export const clearAllItemsAction = () => {
   return async (dispatch) => {
-    const clearAllItemsRes = await clearAll();
+    await clearAll();
     dispatch(toastOrientationPositiveAction());
     dispatch(showToastAction("All items cleared"));
     dispatch(hideClearButtonAction());
@@ -93,7 +93,7 @@ export const clearAllItemsAction = () => {
 
 export const deleteItemAction = (itemId, itemName) => {
   return async (dispatch) => {
-    const deleteItemRes = await deleteItemById(itemId, itemName);
+    await deleteItemById(itemId, itemName);
     dispatch(deleteItem(itemId));
     dispatch(toastOrientationPositiveAction());
     dispatch(showToastAction(`${itemName} deleted from list`));
@@ -102,7 +102,7 @@ export const deleteItemAction = (itemId, itemName) => {
 
 export const editItemAction = (itemId, newName) => {
   return async (dispatch) => {
-    const itemNewName = await updateNameInDb(itemId, newName);
+    await updateNameInDb(itemId, newName);
     dispatch(editItem(itemId, newName));
     dispatch(toastOrientationPositiveAction());
     dispatch(showToastAction(`${newName} was edited`));

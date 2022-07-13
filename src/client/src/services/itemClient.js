@@ -69,7 +69,7 @@ export async function updateStatusInDb(itemId, newStatus) {
   const urlUpdateItemStatus = `${URL}/item/update_status/${itemId}/${newStatus}`;
 
   try {
-    const response = await fetch(urlUpdateItemStatus, {
+    await fetch(urlUpdateItemStatus, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

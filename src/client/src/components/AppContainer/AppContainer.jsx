@@ -22,7 +22,7 @@ const AppContainer = ({
     try {
       getItemsAction();
     } catch (err) {}
-  }, []);
+  }, [getItemsAction]);
 
   const onCloseCallback = useCallback(() => {
     hideToastAction();
