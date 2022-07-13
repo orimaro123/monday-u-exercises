@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List should render both items (one done and one not) 1`] = `
+<input
+  class="list-item-text "
+  data-testid="item-56"
+  readonly=""
+  type="text"
+  value="Take dog out for a walk"
+/>
+`;
+
+exports[`List should render both items (one done and one not) 2`] = `
+<input
+  class="list-item-text decorate"
+  data-testid="item-32"
+  readonly=""
+  type="text"
+  value="Do the dishes"
+/>
+`;
+
+exports[`ListContainer should render both items (one done and one not) 1`] = `
+<input
+  class="list-item-text "
+  data-testid="item-56"
+  readonly=""
+  type="text"
+  value="Take dog out for a walk"
+/>
+`;
+
+exports[`ListContainer should render both items (one done and one not) 2`] = `
+<input
+  class="list-item-text decorate"
+  data-testid="item-32"
+  readonly=""
+  type="text"
+  value="Do the dishes"
+/>
+`;

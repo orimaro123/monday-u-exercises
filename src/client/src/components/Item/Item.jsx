@@ -86,7 +86,7 @@ const Item = ({
   return (
     <li className="list-item flex">
       <div className="check-box">
-        <input
+        <input 
           type="checkBox"
           checked={item.status}
           onChange={newStatusHandler}
