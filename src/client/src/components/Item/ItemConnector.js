@@ -8,15 +8,11 @@ import {
   editItemAction,
   updateCheckBoxAction,
 } from "../../redux/actions/itemsEntitiesActions";
-import {
+
+
+const mapStateToProps = () => {
  
-  getCheckBoxCheck,
-} from "../../redux/selectors/itemsEntitiesSelectors";
-
-const mapStateToProps = (state, ownProps) => {
-  const checkBoxCheckRedux = getCheckBoxCheck(state);
-
-  return { checkBoxCheckRedux };
+  return {  };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

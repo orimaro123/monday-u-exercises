@@ -9,7 +9,6 @@ exports[`renders correctly 1`] = `
   >
     <input
       onChange={[Function]}
-      onClick={[Function]}
       type="checkBox"
     />
   </div>
@@ -61,7 +60,6 @@ exports[`should render item component 1`] = `
     <input
       checked={false}
       onChange={[Function]}
-      onClick={[Function]}
       type="checkBox"
     />
   </div>
