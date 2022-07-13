@@ -47,6 +47,7 @@ function Filter() {
         searchable={false}
         size={Dropdown.size.SMALL}
         defaultValue={[options[options.length - 1]]}
+        clearable={false}
       />
     </div>
   );

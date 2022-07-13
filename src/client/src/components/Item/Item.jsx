@@ -93,7 +93,7 @@ const Item = ({
           onClick={() => updateCheckBoxAction(item.itemId, !item.status)}
         />
       </div>
-      <input data-testId={`item-${item.id}`}
+      <input data-testid={`item-${item.id}`}
         className={`list-item-text ${decorateClass}`}
         onChange={(e) => setNewName(e.target.value)} 
         type="text"

@@ -3,13 +3,11 @@ import actionTypes from "../../actions/constants";
 
 test("should return the initial state", () => {
   expect(itemsEntitiesReducer(undefined, { type: undefined })).toEqual({
-    itemsCount: 0,
     items: [],
     query: {
       status: undefined,
       name: "",
     },
-    checkBoxCheck: false,
   });
 });
 

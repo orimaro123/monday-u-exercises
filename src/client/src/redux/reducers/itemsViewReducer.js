@@ -6,87 +6,63 @@ const initialState = {
   showClearButton: false,
   showToast: false,
   toastContent: "",
-  toastOrientation: Toast.types.POSITIVE
+  toastOrientation: Toast.types.POSITIVE,
 };
 
 const itemsViewReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SHOW_LOADER: {
       return {
+        ...state,
         showLoader: true,
-        showClearButton: state.showClearButton,
-        showToast: state.showToast,
-        toastContent: state.toastContent,
-        toastOrientation: state.toastOrientation,
       };
     }
 
     case actionTypes.HIDE_LOADER: {
       return {
+        ...state,
         showLoader: false,
-        showClearButton: state.showClearButton,
-        showToast: state.showToast,
-        toastContent: state.toastContent,
-        toastOrientation: state.toastOrientation,
       };
     }
 
     case actionTypes.SHOW_CLEAR_BUTTON: {
       return {
+        ...state,
         showClearButton: true,
-        showToast: state.showToast,
-        showLoader: state.showLoader,
-        toastContent: state.toastContent,
-        toastOrientation: state.toastOrientation,
       };
     }
 
     case actionTypes.HIDE_CLEAR_BUTTON: {
       return {
+        ...state,
         showClearButton: false,
-        showToast: state.showToast,
-        showLoader: state.showLoader,
-        toastContent: state.toastContent,
-        toastOrientation: state.toastOrientation,
       };
     }
 
     case actionTypes.SHOW_TOAST: {
       return {
+        ...state,
         showToast: true,
-        showLoader: state.showLoader,
-        showClearButton: state.showClearButton,
-        toastContent: action.data,
-        toastOrientation: state.toastOrientation,
       };
     }
 
     case actionTypes.HIDE_TOAST: {
       return {
+        ...state,
         showToast: false,
-        showLoader: state.showLoader,
-        showClearButton: state.showClearButton,
-        toastContent: state.toastContent,
-        toastOrientation: state.toastOrientation,
       };
     }
 
     case actionTypes.TOAST_ORIENTATION_POSITIVE: {
       return {
-        showToast: state.showToast,
-        showLoader: state.showLoader,
-        showClearButton: state.showClearButton,
-        toastContent: state.toastContent,
+        ...state,
         toastOrientation: Toast.types.POSITIVE,
       };
     }
 
     case actionTypes.TOAST_ORIENTATION_NEGATIVE: {
       return {
-        showToast: state.showToast,
-        showLoader: state.showLoader,
-        showClearButton: state.showClearButton,
-        toastContent: state.toastContent,
+        ...state,
         toastOrientation: Toast.types.NEGATIVE,
       };
     }

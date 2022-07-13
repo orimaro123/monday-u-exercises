@@ -15,7 +15,7 @@ exports[`renders correctly 1`] = `
   </div>
   <input
     className="list-item-text "
-    data-testId="item-3"
+    data-testid="item-3"
     onChange={[Function]}
     readOnly={true}
     type="text"
@@ -67,7 +67,7 @@ exports[`should render item component 1`] = `
   </div>
   <input
     className="list-item-text "
-    data-testId="item-1"
+    data-testid="item-1"
     onChange={[Function]}
     readOnly={true}
     type="text"

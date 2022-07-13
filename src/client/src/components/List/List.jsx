@@ -6,11 +6,11 @@ const List = ({ items }) => {
   const filter = useFilterByQuery();
 
   return (
-    <div>
+    <ul>
       {filter(items).map((item) => {
-        return <ItemConnector key={item.itemId} item={item} />;
+        return <ItemConnector key={item.id} item={item} />;
       })}
-    </div>
+    </ul>
   );
 };
 

@@ -1,10 +1,9 @@
-const getItemsEntities = state => state.itemsEntities;
+const getItemsEntities = (state) => state.itemsEntities;
 
-export const getItemsCount = (state) => getItemsEntities(state).itemsCount;
+export const getItemsCount = (state) => getItemsEntities(state).items.length;
 export const getItems = (state) => getItemsEntities(state).items;
 
 export const getQuery = (state) => state.itemsEntities.query;
-export const getQueryName = (state) => state?.itemsEntities?.query?.name ?? ''
-export const getCheckBoxCheck = (state) => getItemsEntities(state).checkBoxCheck;
-
-
+export const getQueryName = (state) => state?.itemsEntities?.query?.name ?? "";
+export const getCheckBoxCheck = (state) =>
+  getItemsEntities(state).checkBoxCheck;

@@ -6,14 +6,10 @@ const initialState = {
     status: undefined,
     name: "",
   },
-  checkBoxCheck: false,
 };
 
 const itemsEntitiesReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.INCREMENT:
-      return { itemsCount: state.itemsCount + 1 };
-
     case actionTypes.ADD_ITEMS:
       return {
         ...state,
@@ -72,18 +68,6 @@ const itemsEntitiesReducer = (state = initialState, action) => {
       return {
         ...state,
         query: { ...state.query, name: action.payload },
-      };
-
-    case actionTypes.CHECK_CHECKBOX:
-      return {
-        ...state,
-        checkBoxCheck: true,
-      };
-
-    case actionTypes.UNCHECK_CHECKBOX:
-      return {
-        ...state,
-        checkBoxCheck: false,
       };
 
     default:
