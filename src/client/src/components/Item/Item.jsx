@@ -12,6 +12,7 @@ const Item = ({
 
   updateCheckBoxAction,
 }) => {
+ 
   const [newName, setNewName] = useState(item.itemName);
   const [editSaveButtonIcon, setEditSaveButtonText] = useState(editIcon);
 
@@ -92,7 +93,7 @@ const Item = ({
           onClick={() => updateCheckBoxAction(item.itemId, !item.status)}
         />
       </div>
-      <input
+      <input data-testId={`item-${item.id}`}
         className={`list-item-text ${decorateClass}`}
         onChange={(e) => setNewName(e.target.value)} 
         type="text"
