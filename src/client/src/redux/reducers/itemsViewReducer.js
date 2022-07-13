@@ -43,6 +43,8 @@ const itemsViewReducer = (state = initialState, action) => {
       return {
         ...state,
         showToast: true,
+        toastContent: action.data,
+     
       };
     }
 

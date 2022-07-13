@@ -3,24 +3,28 @@ import { bindActionCreators } from "redux";
 
 import Item from "./Item";
 
-
-import  {deleteItemAction , editItemAction, updateCheckBoxAction} from "../../redux/actions/itemsEntitiesActions";
-import { getItems , getCheckBoxCheck} from "../../redux/selectors/itemsEntitiesSelectors";
+import {
+  deleteItemAction,
+  editItemAction,
+  updateCheckBoxAction,
+} from "../../redux/actions/itemsEntitiesActions";
+import {
+ 
+  getCheckBoxCheck,
+} from "../../redux/selectors/itemsEntitiesSelectors";
 
 const mapStateToProps = (state, ownProps) => {
- 
-   const items = getItems(state)
-    const checkBoxCheckRedux = getCheckBoxCheck(state)
-  
-  return {  checkBoxCheckRedux, items};
+  const checkBoxCheckRedux = getCheckBoxCheck(state);
+
+  return { checkBoxCheckRedux };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return bindActionCreators(
     {
-        deleteItemAction,
-        editItemAction,
-        updateCheckBoxAction,
+      deleteItemAction,
+      editItemAction,
+      updateCheckBoxAction,
     },
     dispatch
   );

@@ -84,13 +84,13 @@ const Item = ({
   }, [item]);
 
   return (
-    <li className="list-item flex">
+    <li key={item.id} className="list-item flex">
       <div className="check-box">
         <input 
           type="checkBox"
           checked={item.status}
           onChange={newStatusHandler}
-          onClick={() => updateCheckBoxAction(item.itemId, !item.status)}
+      
         />
       </div>
       <input data-testid={`item-${item.id}`}
