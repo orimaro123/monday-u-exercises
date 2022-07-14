@@ -1,13 +1,7 @@
 require('dotenv').config()
 const cors = require("cors");
 const express = require("express");
-const { Sequelize } = require("sequelize");
-
-const {DB_USERNAME, DB_NAME, DB_PASSWORD} = process.env;
-const sequelize = new Sequelize(DB_USERNAME, DB_NAME, DB_PASSWORD, {
-  host: "localhost",
-  dialect: "mysql",
-});
+const { sequelize } = require("./server/db/models");
 
 async function test() {
   try {
