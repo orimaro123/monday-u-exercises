@@ -6,7 +6,7 @@ const List = ({ items }) => {
   const filter = useFilterByQuery();
 
   return (
-    <div className="list">
+    <div id={"list"}>
       {filter(items).map((item) => {
         return <ItemConnector key={item.itemId} item={item} />;
       })}
