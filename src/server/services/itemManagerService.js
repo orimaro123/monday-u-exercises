@@ -90,7 +90,7 @@ async function updateDoneTimestamp(itemId, timestamp) {
 async function updateName(itemId, newName) {
   let itemName = newName;
 
-  let isNewNameExist = await isTaskNameExistInDb(newName);
+  const isNewNameExist = await isTaskNameExistInDb(newName);
 
   if (!isNewNameExist) {
     await Item.update({ itemName }, { where: { itemId: itemId } });

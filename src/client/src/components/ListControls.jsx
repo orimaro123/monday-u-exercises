@@ -1,30 +1,24 @@
 import React, { useState } from "react";
 
 import { Button } from "monday-ui-react-core";
-import "monday-ui-react-core/dist/main.css";
 
-import PropTypes from "prop-types";
-
-ListControls.propTypes = {
-  itemToCreate: PropTypes.func.isRequired,
-};
-function ListControls({ loading, setLoading,itemToCreate }) {
+function ListControls({ showLoader, addItemAction, emptyInputAction }) {
   const [inputText, setInputText] = useState("");
 
   const inputTextHandler = () => {
     if (inputText.trim() === "") {
-      console.log("this is empty state");
+      emptyInputAction();
     } else {
-      itemToCreate(inputText);
+      addItemAction(inputText);
       setInputText("");
     }
   };
   const handleEnterKeyDown = (e) => {
     if (e.key === "Enter") {
       if (inputText.trim() === "") {
-        console.log("this is empty state");
+        emptyInputAction();
       } else {
-        itemToCreate(inputText);
+        addItemAction(inputText);
         setInputText("");
         e.target.value = "";
       }
@@ -33,8 +27,6 @@ function ListControls({ loading, setLoading,itemToCreate }) {
 
   return (
     <div className="list-controls">
-
-      
       <input
         onChange={(e) => {
           setInputText(e.target.value);
@@ -48,12 +40,10 @@ function ListControls({ loading, setLoading,itemToCreate }) {
 
       <Button
         id="list-item-submit"
-        loading={loading}
-        
-        onClick={() => inputTextHandler()}
+        loading={showLoader}
+        onClick={inputTextHandler}
       >
-        {" "}
-        +{" "}
+        +
       </Button>
     </div>
   );

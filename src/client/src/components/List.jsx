@@ -1,30 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Item from "./Item"
+import Item from "./Item";
+import ItemConnector from "./ItemConnector";
+import useFilterByQuery from "../hooks/useFilterByQuery"; 
 
-
-const List = ({ allItems, itemToDelete, itemToEdit }) => {
+const List = ({ items }) => {
+  const filter = useFilterByQuery();
+  
   return (
     <div>
-      {allItems.map((item) => {
-        return (
-          <Item
-            key={item.itemId}
-            item={item}
-            itemToDelete={itemToDelete}
-            itemToEdit={itemToEdit}
-          />
-        );
+      {filter(items).map((item) => {
+        return <ItemConnector key={item.itemId} item={item} />;
       })}
     </div>
   );
 };
 
-
- List.propTypes = {
-	itemToDelete: PropTypes.func.isRequired,
-	itemToEdit: PropTypes.func.isRequired,
-	allItems: PropTypes.array.isRequired,
-
-  }; 
 export default List;

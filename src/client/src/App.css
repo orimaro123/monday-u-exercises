@@ -1,11 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+* {
+  font-family: Quicksand;
+  font-weight: bold;
+}
+
 .App {
   height: 100vh;
 }
 .app-container {
   width: 100%;
   height: 100%;
-
-  font-weight: bold;
 
   background-image: linear-gradient(
     to top right,
@@ -24,10 +29,11 @@
 
 .app-name {
   padding-left: 32px;
-  font-weight: bold;
+
   font-size: 30px;
   text-align: center;
   margin-top: 20px;
+  justify-content: center;
 }
 
 .list-container-background {
@@ -41,6 +47,7 @@
   border-radius: 8px;
   -webkit-box-shadow: 12px 12px 38px -13px #000000;
   box-shadow: 12px 12px 38px -13px #000000;
+  align-items: center;
 }
 .clear-all-button-div {
   height: 15%;
@@ -63,6 +70,8 @@
   border-style: solid;
   border-color: transparent;
   border-radius: 4px;
+  font-family: Quicksand;
+  font-weight: bold;
 
   cursor: pointer;
 }
@@ -73,13 +82,14 @@
 }
 
 .list-controls {
+  width: 70%;
   padding: 0px 32px;
   background-color: white;
   display: flex;
   align-items: center;
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
-  height: 20%;
+  height: 15%;
   background: rgba(255, 255, 255, 0);
   justify-content: center;
 }
@@ -106,6 +116,70 @@
 
   cursor: pointer;
 }
+.upper-div {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-div {
+  width: 25%;
+  padding: 0px 32px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+
+  background: rgba(255, 255, 255, 0);
+  justify-content: center;
+}
+
+.search-div #search-button {
+  color: white;
+  background-color: #6c6cff;
+
+  border-color: transparent;
+
+  height: 35px;
+  width: 45px;
+  font-size: 15px;
+  display: flex;
+
+  cursor: pointer;
+}
+
+.search-div #search-input {
+  width: 80%;
+  height: 30px;
+  font-size: 15px;
+  padding-left: 8px;
+  border-radius: 5px;
+  border-color: #6c6cff;
+}
+
+.filter-div {
+  width: 15%;
+
+  padding: 0px 32px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+
+  background: rgba(255, 255, 255, 0);
+  justify-content: center;
+}
+
+#filter-id {
+  width: 80%;
+  font-weight: bold;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
 
 .list-controls #list-item-submit:hover {
   background-color: #3c3cff;
@@ -113,19 +187,18 @@
 }
 
 .list-container {
-  list-style-type: none;
   padding: 0px 40px;
-  height: 310px;
-  overflow-y: scroll;
-  height: 70%;
-  opacity: 1;
+
+  overflow-y: auto;
+  height: 90%;
+  width: 70%;
 }
 
 .list-item {
-  height: 100px;
+  height: 60px;
   width: 100%;
   cursor: pointer;
-  display: flex;
+
   align-items: center;
 
   padding: 8px;
@@ -141,15 +214,10 @@
   resize: none;
   outline: none;
   width: 50%;
-  font-weight: bold;
 }
 
 .status-complete-time:not(:empty) {
   cursor: pointer;
-  font-style: bold;
-
-  font-weight: bold;
- 
 }
 .space-div {
   width: 30%;
@@ -158,6 +226,10 @@
   display: flex;
   width: 30%;
   justify-content: right;
+}
+
+.pokemon-photo {
+  height: 60px;
 }
 
 .list-item-trash-div {
@@ -182,18 +254,18 @@
 }
 
 .list-item:last-of-type {
-  border-bottom: 1px black solid;
+  /*  border-bottom: 1px black solid; */
 }
 
 .list-item {
-  border-top: 1px black solid;
+  /*  border-top: 1px black solid; */
 }
 
 .list-item-trash-button {
   margin-left: auto;
   padding: 8px;
   cursor: pointer;
-
+  border-radius: 8px;
   width: 25px;
 }
 

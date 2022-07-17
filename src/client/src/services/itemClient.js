@@ -47,9 +47,15 @@ export async function createItem(input) {
   const urlCreateItem = URL + `/item/create_item/`;
 
   try {
-    const response = await axios.post(urlCreateItem, { data: input });
+    const response = await fetch(urlCreateItem, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data: input }),
+    });
 
-    return response;
+    let items = await response.json();
+
+    return items;
   } catch (e) {
     throw new Error("failed to create item");
   }
@@ -59,7 +65,11 @@ export async function clearAll() {
   const urlClearAll = URL + `/item/`;
 
   try {
-    const response = await axios.post(urlClearAll, { data: "clear all" });
+    const response = await fetch(urlClearAll, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data: "clear all" }),
+    });
 
     return response;
   } catch (e) {
@@ -68,26 +78,33 @@ export async function clearAll() {
 }
 
 export async function updateStatusInDb(itemId, newStatus) {
-  const urlUpdateItem = `${URL}/item/update_status/${itemId}/${newStatus}`;
+  const urlUpdateItemStatus = `${URL}/item/update_status/${itemId}/${newStatus}`;
 
   try {
-    const response = await axios.put(urlUpdateItem, {
-      itemId: itemId,
-      newStatus: newStatus,
+    const response = await fetch(urlUpdateItemStatus, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        itemId: itemId,
+        newStatus: newStatus,
+      }),
     });
-   // return response
   } catch (err) {
-    throw new Error("failed to update item");
+    throw new Error("failed to update status");
   }
 }
 
 export async function updateDoneTimestamp(itemId, timestamp) {
-  const urlUpdateItem = `${URL}/item/update_done_timestamp/${itemId}/${timestamp}`;
+  const urlUpdateItemTimestamp = `${URL}/item/update_done_timestamp/${itemId}/${timestamp}`;
 
   try {
-    const response = await axios.put(urlUpdateItem, {
-      itemId: itemId,
-      timestamp: timestamp,
+    await fetch(urlUpdateItemTimestamp, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        itemId: itemId,
+        timestamp: timestamp,
+      }),
     });
   } catch (err) {
     throw new Error("failed to update done timestamp");
@@ -95,15 +112,20 @@ export async function updateDoneTimestamp(itemId, timestamp) {
 }
 
 export async function updateNameInDb(itemId, newName) {
-  const urlUpdateItem = `${URL}/item/update_name/${itemId}/${newName}`;
+  const urlUpdateItemName = `${URL}/item/update_name/${itemId}/${newName}`;
 
   try {
-    const response = await axios.put(urlUpdateItem, {
-      itemId: itemId,
-      newName: newName,
+    const response = await fetch(urlUpdateItemName, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        itemId: itemId,
+        newName: newName,
+      }),
     });
+    const nameToReact = await response.json();
 
-    return response.data;
+    return nameToReact;
   } catch (err) {
     throw new Error("failed to update name");
   }

@@ -1,13 +1,16 @@
 import "./App.css";
-import AppContainer from "./components/AppContainer";
-//import { BrowserRouter as Router, Route } from "react-router-dom";
+//import ErrorBoundary from "./components/ErrorBoundary"
+
+import AppContainerConnector from "./components/AppContainerConnector";
 
 import React from "react";
 
 function App() {
   return (
     <div className="App">
-      <AppContainer />
+     {/*  <ErrorBoundary> */}
+        <AppContainerConnector />
+     {/*  </ErrorBoundary> */}
     </div>
   );
 }
