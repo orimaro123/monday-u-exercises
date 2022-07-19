@@ -26,20 +26,24 @@ const itemRouter = require("./server/routes/itemRouter");
 const { env } = require('process');
 
 const server = express();
+
 server.use(cors());
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
 
 server.use(logger);
-// server.use([express.json(), express.static("dist")]);
+
 server.use("/item", itemRouter);
 
-server.get("/", (req, res) => {
+server.get("/health", (req, res) => {
   res.status(200).json({
     health: `ok`,
   });
 });
+
+server.use(express.static(path.join(__dirname + "/server/public")))
+
 
 server.use(errorHandler);
 
