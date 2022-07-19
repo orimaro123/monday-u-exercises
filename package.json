@@ -1,6 +1,6 @@
 {
     "scripts": {
-      "heroku-prebuild": "npm i --prefix src/server && npm i --prefix src/client && cp -r src/client/build/ src/server/public",
-      "start": "npm start --prefix src/server"
+      "heroku-prebuild": "npm i --prefix src && npm i --prefix src/client && cp -r src/client/build/ src/server/public",
+      "start": "npm start --prefix src"
     }
   }
