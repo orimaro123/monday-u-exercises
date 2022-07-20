@@ -47,7 +47,7 @@ server.use(express.static(path.join(__dirname + "/server/public")))
 
 server.use(errorHandler);
 
-const port = process.env.PORT || "8080";
+const port = process.env.PORT || "8080" || "sql11.freemysqlhosting.net" ;
 
 server.listen(port, function () {
   console.log("Running on " + port);
