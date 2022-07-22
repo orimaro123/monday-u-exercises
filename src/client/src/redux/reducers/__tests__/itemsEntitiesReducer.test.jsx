@@ -73,4 +73,25 @@ test("should delete an item from an existing list", () => {
   });
 });
 
+test("should edit an item from an existing list", () => {
+  const previousState = {
+    items: [
+      { itemId: 1, itemName: "A todo" },
+      { itemId: 2, itemName: "A new todo" },
+    ],
+  };
+  const action = {
+    type: actionTypes.EDIT_ITEM,
+    itemId: 1,
+    payload: "The first Todo",
+  };
+
+  expect(itemsEntitiesReducer(previousState, action)).toEqual({
+    items: [
+      { itemId: 1, itemName: "The first Todo" },
+      { itemId: 2, itemName: "A new todo" },
+    ],
+  });
+});
+
 
