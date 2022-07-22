@@ -14,10 +14,13 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "sql11507651",
-    "password": "FpcEt8kzAu",
-    "database": "sql11507651",
-    "host": "sql11.freemysqlhosting.net",
-    "dialect": "mysql"
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
