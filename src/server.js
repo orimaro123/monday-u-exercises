@@ -36,11 +36,11 @@ server.use(logger);
 
 server.use("/item", itemRouter);
 
-server.get("/", (req, res) => {
+/* server.get("/", (req, res) => {
   res.status(200).json({
     health: `ok`,
   });
-});
+}); */
 
 server.use(express.static(path.join(__dirname + "/server/public")))
 
