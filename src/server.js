@@ -36,18 +36,18 @@ server.use(logger);
 
 server.use("/item", itemRouter);
 
-/* server.get("/", (req, res) => {
+server.get("/", (req, res) => {
   res.status(200).json({
     health: `ok`,
   });
-}); */
+});  
 
 server.use(express.static(path.join(__dirname + "/server/public")))
 
 
 server.use(errorHandler);
 
-const port = process.env.PORT || "8080" ;
+const port = process.env.PORT || "8080";
 
 server.listen(port, function () {
   console.log("Running on " + port);
