@@ -15,13 +15,7 @@ function ListControls({ showLoader, addItemAction, emptyInputAction }) {
   };
   const handleEnterKeyDown = (e) => {
     if (e.key === "Enter") {
-      if (inputText.trim() === "") {
-        emptyInputAction();
-      } else {
-        addItemAction(inputText);
-        setInputText("");
-        e.target.value = "";
-      }
+      inputTextHandler();
     }
   };
 

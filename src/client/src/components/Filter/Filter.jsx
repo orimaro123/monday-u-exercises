@@ -1,13 +1,13 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 
 import { Dropdown, Label } from "monday-ui-react-core";
 
-import { STATUS } from "../hooks/useFilterByQuery";
+import { STATUS } from "../../hooks/useFilterByQuery";
 
 import { useDispatch } from "react-redux";
-import { updateQueryStatus } from "../redux/actions/itemsEntitiesActions";
+import { updateQueryStatus } from "../../redux/actions/itemsEntitiesActions";
 
-function Filter({ query, queryName }) {
+function Filter() {
   const dispatch = useDispatch();
 
   const labelRenderer = ({ label, color }) => {
@@ -47,6 +47,7 @@ function Filter({ query, queryName }) {
         searchable={false}
         size={Dropdown.size.SMALL}
         defaultValue={[options[options.length - 1]]}
+        clearable={false}
       />
     </div>
   );

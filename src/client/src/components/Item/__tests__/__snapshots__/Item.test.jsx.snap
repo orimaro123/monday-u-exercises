@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<li
+  className="list-item flex"
+>
+  <div
+    className="check-box"
+  >
+    <input
+      onChange={[Function]}
+      type="checkBox"
+    />
+  </div>
+  <input
+    className="list-item-text "
+    data-testid="item-3"
+    onChange={[Function]}
+    readOnly={true}
+    type="text"
+  />
+  <div
+    className="space-div"
+  />
+  <div
+    className="status-complete-time   "
+  >
+    
+  </div>
+  <div
+    className="list-item-trash-div"
+  >
+    <img
+      alt="trash"
+      className="list-item-trash-button"
+      onClick={[Function]}
+      src="delete-icon.svg"
+    />
+  </div>
+  <div
+    className="list-item-edit-div"
+  >
+    <img
+      alt="edit icon"
+      className="list-item-edit-button"
+      onClick={[Function]}
+      src="edit-icon.svg"
+    />
+  </div>
+</li>
+`;
+
+exports[`should render item component 1`] = `
+<li
+  className="list-item flex"
+>
+  <div
+    className="check-box"
+  >
+    <input
+      checked={false}
+      onChange={[Function]}
+      type="checkBox"
+    />
+  </div>
+  <input
+    className="list-item-text "
+    data-testid="item-1"
+    onChange={[Function]}
+    readOnly={true}
+    type="text"
+    value="Catch bulbasaur"
+  />
+  <div
+    className="pokemon-photo-div "
+  >
+     
+    <img
+      alt=""
+      className="pokemon-photo"
+      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+    />
+  </div>
+  <div
+    className="status-complete-time   "
+  >
+    
+  </div>
+  <div
+    className="list-item-trash-div"
+  >
+    <img
+      alt="trash"
+      className="list-item-trash-button"
+      onClick={[Function]}
+      src="delete-icon.svg"
+    />
+  </div>
+  <div
+    className="list-item-edit-div"
+  >
+    <img
+      alt="edit icon"
+      className="list-item-edit-button"
+      onClick={[Function]}
+      src="edit-icon.svg"
+    />
+  </div>
+</li>
+`;

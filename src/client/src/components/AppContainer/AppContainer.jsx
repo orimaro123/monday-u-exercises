@@ -1,32 +1,27 @@
 import React, { useEffect, useCallback } from "react";
 
-import ListControlsConnector from "./ListControlsConnector";
+import ListControlsConnector from "../ListControls/ListControlsConnector";
 
 import { Button, Toast } from "monday-ui-react-core";
 
-import Search from "./Search";
+import Search from "../Search";
 
-import ListConnector from "./ListConnector";
-import FilterConnector from "./FilterConnector";
+import ListConnector from "../List/ListConnector";
+import FilterConnector from "../Filter/FilterConnector";
 
 const AppContainer = ({
-  showLoaderAction,
-  hideLoaderAction,
-  showLoader,
-  showClearButtonAction,
-  hideClearButtonAction,
   showClearButton,
-  showToastAction,
   hideToastAction,
   showToast,
-  crateItemAction,
   getItemsAction,
   clearAllItemsAction,
   toastContent,
   toastOrientation,
 }) => {
   useEffect(() => {
-    getItemsAction();
+    try {
+      getItemsAction();
+    } catch (err) {}
   }, [getItemsAction]);
 
   const onCloseCallback = useCallback(() => {

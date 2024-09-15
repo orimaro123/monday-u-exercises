@@ -1,14 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
-import Item from "./Item";
-import ItemConnector from "./ItemConnector";
-import useFilterByQuery from "../hooks/useFilterByQuery"; 
+import ItemConnector from "../Item/ItemConnector";
+import useFilterByQuery from "../../hooks/useFilterByQuery";
 
 const List = ({ items }) => {
   const filter = useFilterByQuery();
-  
+
   return (
-    <div>
+    <div id={"list"}>
       {filter(items).map((item) => {
         return <ItemConnector key={item.itemId} item={item} />;
       })}

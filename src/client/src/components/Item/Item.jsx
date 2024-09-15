@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 
-import editIcon from "../images/edit-icon.svg";
-import saveIcon from "../images/save-icon.svg";
-import deleteIcon from "../images/delete-icon.svg";
+import editIcon from "../../images/edit-icon.svg";
+import saveIcon from "../../images/save-icon.svg";
+import deleteIcon from "../../images/delete-icon.svg";
 
 const Item = ({
   item,
-  items,
+
   deleteItemAction,
   editItemAction,
-  editItem,
+
   updateCheckBoxAction,
-  checkBoxCheckRedux,
 }) => {
-  const dispatch = useDispatch();
+ 
   const [newName, setNewName] = useState(item.itemName);
   const [editSaveButtonIcon, setEditSaveButtonText] = useState(editIcon);
 
@@ -88,16 +86,15 @@ const Item = ({
   return (
     <li className="list-item flex">
       <div className="check-box">
-        <input
+        <input 
           type="checkBox"
           checked={item.status}
           onChange={newStatusHandler}
-          onClick={() => updateCheckBoxAction(item.itemId, !item.status)}
         />
       </div>
-      <input
+      <input data-testid={`item-${item.id}`}
         className={`list-item-text ${decorateClass}`}
-        onChange={(e) => setNewName(e.target.value)} //setNewName(e.target.value)
+        onChange={(e) => setNewName(e.target.value)} 
         type="text"
         readOnly={readOnly}
         value={newName}

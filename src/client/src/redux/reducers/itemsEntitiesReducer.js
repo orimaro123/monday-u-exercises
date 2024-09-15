@@ -1,21 +1,15 @@
 import actionTypes from "../actions/constants";
-import { STATUS } from "../../hooks/useFilterByQuery";
 
 const initialState = {
-  itemsCount: 0,
   items: [],
   query: {
-    status: STATUS.ALL,
+    status: undefined,
     name: "",
   },
-  checkBoxCheck: false,
 };
 
 const itemsEntitiesReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.INCREMENT:
-      return { itemsCount: state.itemsCount + 1 };
-
     case actionTypes.ADD_ITEMS:
       return {
         ...state,
@@ -44,7 +38,6 @@ const itemsEntitiesReducer = (state = initialState, action) => {
         ),
       };
 
-      
     case actionTypes.UPDATE_CHECKBOX:
       return {
         ...state,
@@ -55,16 +48,15 @@ const itemsEntitiesReducer = (state = initialState, action) => {
         ),
       };
 
-      
-      case actionTypes.UPDATE_DONE_AT:
-        return {
-          ...state,
-          items: state.items.map((item) =>
-            item.itemId === action.itemId
-              ? { ...item, doneAt: action.payload }
-              : item
-          ),
-        };
+    case actionTypes.UPDATE_DONE_AT:
+      return {
+        ...state,
+        items: state.items.map((item) =>
+          item.itemId === action.itemId
+            ? { ...item, doneAt: action.payload }
+            : item
+        ),
+      };
 
     case actionTypes.UPDATE_QUERY_STATUS:
       return {
@@ -76,18 +68,6 @@ const itemsEntitiesReducer = (state = initialState, action) => {
       return {
         ...state,
         query: { ...state.query, name: action.payload },
-      };
-
-    case actionTypes.CHECK_CHECKBOX:
-      return {
-        ...state,
-        checkBoxCheck: true,
-      };
-
-    case actionTypes.UNCHECK_CHECKBOX:
-      return {
-        ...state,
-        checkBoxCheck: false,
       };
 
     default:
